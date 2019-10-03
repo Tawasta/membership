@@ -1,0 +1,7 @@
+<odoo>
+    <data>
+
+        <!-- Contract menu item -->
+        <menuitem name="Contract" id="menu_contract" sequence="0" parent="membership.menu_association" action="contract.action_customer_contract"/>
+    </data>
+</odoo>
