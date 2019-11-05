@@ -6,6 +6,7 @@
         <field name="model">membership.membership_line</field>
         <field name="arch" type="xml">
             <tree string="Membership Lines" create="false" delete="false" default_order='partner'>
+                <field name="partner"/>
                 <field name="date"/>
                 <field name="membership_id"/>
                 <field name="member_price"/>
