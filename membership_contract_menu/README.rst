@@ -2,9 +2,9 @@
    :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
    :alt: License: AGPL-3
 
-=======================
+========================
 Membership Contract Menu
-=======================
+========================
 
 * Create a menu item to members view
 
