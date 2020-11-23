@@ -1,7 +1,0 @@
-<odoo>
-    <data>
-
-        <!-- Billing menu item -->
-        <menuitem name="Billing" id="menu_billing" sequence="0" parent="membership.menu_association" action="account.action_invoice_tree1"/>
-    </data>
-</odoo>
