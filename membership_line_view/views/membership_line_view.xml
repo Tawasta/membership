@@ -11,6 +11,7 @@
                 <field name="member_price"/>
                 <field name="account_invoice_id"/>
                 <field name="state"/>
+                <field name="contract_state" />
                 <field name="company_id"/>
                 <field name="membership_company_id"/>
             </tree>
