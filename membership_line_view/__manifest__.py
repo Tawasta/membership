@@ -22,7 +22,7 @@
 {
     'name': 'Membership line view',
     'summary': 'Membership line view',
-    'version': '12.0.1.1.0',
+    'version': '12.0.1.0.1',
     'category': 'Sales',
     'website': 'https://tawasta.fi',
     'author': 'Oy Tawasta Technologies Ltd.',
