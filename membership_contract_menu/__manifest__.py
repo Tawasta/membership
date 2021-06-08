@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 ##############################################################################
 #
 #    Author: Oy Tawasta OS Technologies Ltd.
@@ -20,27 +19,17 @@
 ##############################################################################
 
 {
-    'name': 'Membership contract menu',
-    'summary': "Membership contract menu",
-    'version': '12.0.1.0.0',
-    'category': 'Futural EDU',
-    'website': 'http://www.tawasta.fi',
-    'author': 'Oy Tawasta Technologies Ltd.',
-    'license': 'AGPL-3',
-    'application': False,
-    'installable': True,
-    'external_dependencies': {
-        'python': [],
-        'bin': [],
-    },
-    'depends': [
-        'base',
-        'contract',
-        'membership',
-    ],
-    'data': [
-        'menu/contract_menu.xml',
-    ],
-    'demo': [
-    ],
+    "name": "Membership contract menu",
+    "summary": "Membership contract menu",
+    "version": "14.0.1.0.0",
+    "category": "Membership",
+    "website": "http://www.tawasta.fi",
+    "author": "Oy Tawasta Technologies Ltd.",
+    "license": "AGPL-3",
+    "application": False,
+    "installable": True,
+    "external_dependencies": {"python": [], "bin": []},
+    "depends": ["base", "contract", "membership"],
+    "data": ["menu/contract_menu.xml"],
+    "demo": [],
 }
