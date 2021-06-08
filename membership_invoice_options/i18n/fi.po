@@ -1,6 +1,6 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* membership_invoice_options
+#   * membership_invoice_options
 #
 msgid ""
 msgstr ""
@@ -34,4 +34,3 @@ msgstr "Jäsenyyslasku"
 #: model:ir.model.fields,field_description:membership_invoice_options.field_membership_invoice__payment_term_id
 msgid "Payment Terms"
 msgstr "Maksuehdot"
-

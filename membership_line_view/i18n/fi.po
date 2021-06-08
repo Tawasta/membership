@@ -1,6 +1,6 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* membership_line_view
+#   * membership_line_view
 #
 msgid ""
 msgstr ""
@@ -91,4 +91,3 @@ msgstr "Tulossa"
 #: selection:membership.membership_line,contract_state:0
 msgid "Upcoming Close"
 msgstr "Päättyminen tulossa"
-

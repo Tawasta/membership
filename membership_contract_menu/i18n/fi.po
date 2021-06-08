@@ -19,4 +19,3 @@ msgstr ""
 #: model:ir.ui.menu,name:membership_contract_menu.menu_contract
 msgid "Contract"
 msgstr "Sopimukset"
-
