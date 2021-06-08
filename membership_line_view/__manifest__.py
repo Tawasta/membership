@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 ##############################################################################
 #
 #    Author: Oy Tawasta OS Technologies Ltd.
@@ -20,25 +19,17 @@
 ##############################################################################
 
 {
-    'name': 'Membership line view',
-    'summary': 'Membership line view',
-    'version': '12.0.1.0.1',
-    'category': 'Sales',
-    'website': 'https://tawasta.fi',
-    'author': 'Oy Tawasta Technologies Ltd.',
-    'license': 'AGPL-3',
-    'application': False,
-    'installable': True,
-    'external_dependencies': {
-        'python': [],
-        'bin': [],
-    },
-    'depends': [
-        'membership',
-    ],
-    'data': [
-        'views/membership_line_view.xml',
-    ],
-    'demo': [
-    ],
+    "name": "Membership line view",
+    "summary": "Membership line view",
+    "version": "14.0.1.0.1",
+    "category": "Sales",
+    "website": "https://tawasta.fi",
+    "author": "Oy Tawasta Technologies Ltd.",
+    "license": "AGPL-3",
+    "application": False,
+    "installable": True,
+    "external_dependencies": {"python": [], "bin": []},
+    "depends": ["membership"],
+    "data": ["views/membership_line_view.xml"],
+    "demo": [],
 }

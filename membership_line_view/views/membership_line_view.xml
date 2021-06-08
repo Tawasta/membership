@@ -19,14 +19,6 @@
         </field>
     </record>
 
-    <record id="membership_line_action" model="ir.actions.act_window">
-        <field name="name">Membership lines</field>
-        <field name="res_model">membership.membership_line</field>
-        <field name="view_type">form</field>
-        <field name="view_mode">tree</field>
-        <field name="view_id" ref="membership_line_tree"/>
-    </record>
-
     <record id="membership_line_search" model="ir.ui.view">
         <field name="name">membership.line.search</field>
         <field name="model">membership.membership_line</field>
@@ -45,6 +37,14 @@
                 </group>
             </search>
         </field>
+    </record>
+
+    <record id="membership_line_action" model="ir.actions.act_window">
+        <field name="name">Membership lines</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">membership.membership_line</field>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="membership_line_view.membership_line_tree"/>
     </record>
 
     <menuitem id="menu_membership_line"

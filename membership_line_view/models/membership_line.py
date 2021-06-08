@@ -17,13 +17,11 @@
 #    along with this program. If not, see http://www.gnu.org/licenses/agpl.html
 #
 ##############################################################################
-
 # 1. Standard library imports:
-
 # 2. Known third party imports:
-
 # 3. Odoo imports (openerp):
-from odoo import fields, models
+from odoo import fields
+from odoo import models
 
 # 4. Imports from Odoo modules:
 
@@ -39,20 +37,20 @@ class MembershipLine(models.Model):
 
     # 2. Fields declaration
     membership_company_id = fields.Many2one(
-        comodel_name='res.company',
-        string='Membership company',
-        related='membership_id.company_id',
+        comodel_name="res.company",
+        string="Membership company",
+        related="membership_id.company_id",
         store=True,
     )
     contract_state = fields.Selection(
         string="Contract state",
         selection=[
-            ('upcoming', 'Upcoming'),
-            ('in-progress', 'In-progress'),
-            ('to-renew', 'To renew'),
-            ('upcoming-close', 'Upcoming Close'),
-            ('closed', 'Closed'),
-            ('canceled', 'Canceled'),
+            ("upcoming", "Upcoming"),
+            ("in-progress", "In-progress"),
+            ("to-renew", "To renew"),
+            ("upcoming-close", "Upcoming Close"),
+            ("closed", "Closed"),
+            ("canceled", "Canceled"),
         ],
         compute="_compute_contract_lines",
         store=True,
