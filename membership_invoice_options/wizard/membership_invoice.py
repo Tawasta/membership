@@ -1,4 +1,3 @@
-from odoo import api
 from odoo import fields
 from odoo import models
 
@@ -16,7 +15,6 @@ class MembershipInvoice(models.TransientModel):
         ],
     )
 
-    @api.multi
     def membership_invoice(self):
         res = super().membership_invoice()
 
