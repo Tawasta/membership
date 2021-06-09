@@ -28,6 +28,12 @@
     "license": "AGPL-3",
     "application": False,
     "installable": True,
-    "depends": ["base", "contract", "membership", "stock_account"],
+    "depends": [
+        "base",
+        "contract",
+        "membership",
+        "stock_account",
+        "contract_line_list_view",
+    ],
     "data": ["views/contract_menu.xml"],
 }
