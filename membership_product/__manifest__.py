@@ -18,8 +18,8 @@
 #
 ##############################################################################
 {
-    "name": "Sale Create Membership",
-    "summary": "Sale Create Membership",
+    "name": "Membership Product",
+    "summary": "Membership Product",
     "version": "14.0.1.0.0",
     "category": "Website",
     "website": "https://gitlab.com/tawasta/odoo/membership",
@@ -28,7 +28,7 @@
     "application": False,
     "installable": True,
     "external_dependencies": {"python": [], "bin": []},
-    "depends": ["membership", "sale"],
-    "data": [],
+    "depends": ["product", "membership"],
+    "data": ["views/product_template_views.xml"],
     "demo": [],
 }
