@@ -34,6 +34,7 @@ class SaleOrder(models.Model):
                         "contract_id": create_contract.id,
                         "product_id": line.product_id.id,
                         "name": line.product_id.name,
+                        "price_unit": line.price_unit,
                     }
                     create_contract_line = (
                         self.env["contract.line"].sudo().create(contract_line_vals)
