@@ -29,6 +29,6 @@
     "installable": True,
     "external_dependencies": {"python": [], "bin": []},
     "depends": ["membership", "sale"],
-    "data": [],
+    "data": ["views/product_pricelist_views.xml",],
     "demo": [],
 }
