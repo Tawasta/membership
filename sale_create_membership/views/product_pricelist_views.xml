@@ -6,15 +6,11 @@
     <field name="model">product.pricelist</field>
     <field name="inherit_id" ref="product.product_pricelist_view" />
     <field name="arch" type="xml">
-        <page name="pricelist_config" position="after">
-            <page string="Configuration" name="configuration">
-                <group>
-                    <group name="configuration">
-                        <field name="membership_pricelist" />
-                    </group>
-                </group>
-            </page>
-        </page>
+        <group name="pricelist_discounts" position="after">
+            <group name="settings" string="Settings">
+                <field name="membership_pricelist" />
+            </group>
+        </group>
     </field>
 </record>
 
