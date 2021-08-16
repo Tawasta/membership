@@ -39,3 +39,12 @@ class SaleOrder(models.Model):
                         self.env["contract.line"].sudo().create(contract_line_vals)
                     )
             self.sudo().write({"contract_id": create_contract.id})
+
+            membership_pricelist_id = (
+                self.env["product.pricelist"]
+                .sudo()
+                .search([("membership_pricelist", "=", True)])
+            )
+            self.partner_id.sudo().write(
+                {"property_product_pricelist": membership_pricelist_id.id}
+            )
