@@ -31,6 +31,7 @@ class SaleOrder(models.Model):
             contract_vals = {
                 "name": self.partner_id.name,
                 "partner_id": self.partner_id.id,
+                "partner_invoice_id": self.partner_invoice_id.id,
             }
             create_contract = self.env["contract.contract"].sudo().create(contract_vals)
             if create_contract:
