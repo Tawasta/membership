@@ -54,10 +54,7 @@ class WebsiteSale(WebsiteSale):
         )
         order = request.website.sale_get_order(force_create=True)
         use_membership_pricelist = False
-        if (
-            order.partner_id.id == request.website.user_id.sudo().partner_id.id
-            and order.pricelist_id.membership_pricelist
-        ):
+        if order.partner_id.id == request.website.user_id.sudo().partner_id.id and order.pricelist_id.membership_pricelist:
             products = []
             for line in order.order_line:
                 if line.product_id.membership:
