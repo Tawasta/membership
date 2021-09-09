@@ -13,14 +13,32 @@ class WebsiteSale(WebsiteSale):
             for line in order.order_line:
                 if line.product_id.membership:
                     use_membership_pricelist = True
+                    current_product = line.product_id
 
             if use_membership_pricelist:
                 membership_pricelist = (
                     request.env["product.pricelist"]
                     .sudo()
-                    .search([("membership_pricelist", "=", True)])
+                    .search(
+                        [
+                            ("membership_pricelist", "=", True),
+                            ("name", "ilike", "jäsen"),
+                        ]
+                    )
                 )
-                request.website.sale_get_order(force_pricelist=membership_pricelist.id)
+
+                if not order.pricelist_id.membership_pricelist:
+                    new_name = order.name + "_" + "pricelist"
+                    new_membership_pricelist = membership_pricelist.copy(
+                        {"name": new_name}
+                    )
+                    for item in new_membership_pricelist.item_ids:
+                        if item.product_tmpl_id == current_product.product_tmpl_id:
+                            item.unlink()
+
+                    request.website.sale_get_order(
+                        force_pricelist=new_membership_pricelist.id
+                    )
 
             return res
 
@@ -40,15 +58,44 @@ class WebsiteSale(WebsiteSale):
             order.partner_id.id == request.website.user_id.sudo().partner_id.id
             and order.pricelist_id.membership_pricelist
         ):
+            products = []
             for line in order.order_line:
                 if line.product_id.membership:
+                    products.append(line.product_id)
                     use_membership_pricelist = True
 
             if use_membership_pricelist is False:
+                if order.pricelist_id.name.startswith(str(order.name)):
+                    pricelist_archived = order.pricelist_id
                 request.website.sale_get_order(
                     force_pricelist=request.env["product.pricelist"]
                     .search([("name", "=", "Public Pricelist")])
                     .id
                 )
+                pricelist_archived.sudo().write({"active": False})
+            if use_membership_pricelist:
+                product = products[0]
+                membership_pricelist = (
+                    request.env["product.pricelist"]
+                    .sudo()
+                    .search(
+                        [
+                            ("membership_pricelist", "=", True),
+                            ("name", "ilike", "jäsen"),
+                        ]
+                    )
+                )
+                new_name = order.name + "_" + "pricelist"
+                new_membership_pricelist = membership_pricelist.copy({"name": new_name})
+                for item in new_membership_pricelist.item_ids:
+                    if item.product_tmpl_id == product.product_tmpl_id:
+                        item.unlink()
+                pricelist_archived = order.pricelist_id
+                request.website.sale_get_order(
+                    force_pricelist=new_membership_pricelist.id
+                )
+                pricelist_archived.sudo().write({"active": False})
+
+                return request.redirect("/shop/cart")
 
         return value
