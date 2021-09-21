@@ -6,7 +6,10 @@
 Sale Create Membership
 ======================
 
-*
+* When a sales order is confirmed, if there are membership products on the order lines a membership contract is automatically created.
+* The contract and invoice are automatically linked when the invoice is created from the sales order.
+* The membership price list is automatically added to the contract contact person.
+
 
 Configuration
 =============
