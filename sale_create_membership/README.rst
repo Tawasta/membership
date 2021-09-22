@@ -7,6 +7,8 @@ Sale Create Membership
 ======================
 
 * When a sales order is confirmed, if there are membership products on the order lines a membership contract is automatically created.
+* A membership type can be defined for a membership product, which tells to whom the agreement is created (company as well as person or just person).
+* In the case of a company, a contract is created first for the company and then for the contact person. Only free products of the membership product will be imported into the contact person contract
 * The contract and invoice are automatically linked when the invoice is created from the sales order.
 * The membership price list is automatically added to the contract contact person.
 
