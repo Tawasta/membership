@@ -20,7 +20,7 @@
 {
     "name": "Sale Create Membership",
     "summary": "Sale Create Membership",
-    "version": "14.0.1.0.0",
+    "version": "14.0.1.1.0",
     "category": "Website",
     "website": "https://gitlab.com/tawasta/odoo/membership",
     "author": "Tawasta",
@@ -29,6 +29,10 @@
     "installable": True,
     "external_dependencies": {"python": [], "bin": []},
     "depends": ["membership_product", "sale", "membership", "contract_invoice_address"],
-    "data": ["views/product_pricelist_views.xml", "views/product_template_view.xml"],
+    "data": [
+        "views/product_pricelist_views.xml",
+        "views/product_template_view.xml",
+        "views/sale_order.xml",
+    ],
     "demo": [],
 }

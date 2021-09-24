@@ -5,20 +5,17 @@ from odoo import models
 class SaleOrder(models.Model):
     _inherit = "sale.order"
 
-    contract_id = fields.Many2one(string="Contract", comodel_name="contract.contract")
+    contract_id = fields.Many2one(
+        string="Contract", comodel_name="contract.contract", readonly=1, copy=False
+    )
 
-    def _create_invoices(self, grouped=False, final=False):
-        invoice_ids = super()._create_invoices(grouped=grouped, final=final)
-        for invoice in invoice_ids:
-            contract_so = (
-                self.env["sale.order"]
-                .sudo()
-                .search([("invoice_ids", "in", invoice.ids)])
-            )
-            if contract_so:
-                invoice.sudo().write({"old_contract_id": contract_so.contract_id.id})
+    def _prepare_invoice(self):
+        invoice_vals = super()._prepare_invoice()
 
-        return invoice_ids
+        if self.contract_id:
+            invoice_vals["old_contract_id"] = self.contract_id.id
+
+        return invoice_vals
 
     def action_confirm(self):
         response = super(SaleOrder, self).action_confirm()
@@ -32,9 +29,19 @@ class SaleOrder(models.Model):
 
         if need_contract is True:
             if needs_double_contract:
-                membership_ids = self._create_memberships(company=True)
+                self._create_memberships(company=True)
             else:
-                membership_ids = self._create_memberships()
+                self._create_memberships()
+
+        return response
+
+    def action_cancel(self):
+        for record in self:
+            for line in record.order_line:
+                if line.contract_line_id:
+                    line.contract_line_id.cancel()
+
+        return super().action_cancel()
 
     def _create_memberships(self, company=False):
         membership_pricelist_id = (
@@ -46,19 +53,23 @@ class SaleOrder(models.Model):
             if company:
                 if not order.partner_id.parent_id:
                     order.partner_id.create_company()
-                company_contract_vals = {
-                    "name": order.partner_id.parent_id.name,
-                    "partner_id": order.partner_id.parent_id.id,
-                    "partner_invoice_id": order.partner_invoice_id.parent_id.id,
-                }
-                create_contract = (
-                    self.env["contract.contract"].sudo().create(company_contract_vals)
-                )
+
+                if order.contract_id:
+                    create_contract = order.contract_id
+                else:
+                    company_contract_vals = {
+                        "name": order.partner_id.parent_id.name,
+                        "partner_id": order.partner_id.parent_id.id,
+                        "partner_invoice_id": order.partner_invoice_id.parent_id.id,
+                    }
+                    create_contract = (
+                        self.env["contract.contract"]
+                        .sudo()
+                        .create(company_contract_vals)
+                    )
 
                 if create_contract:
-                    contract_line_ids = self._create_contract_lines(
-                        create_contract, order
-                    )
+                    self._create_contract_lines(create_contract, order)
 
                     contract_vals = {
                         "name": order.partner_id.name,
@@ -69,23 +80,24 @@ class SaleOrder(models.Model):
                         self.env["contract.contract"].sudo().create(contract_vals)
                     )
                     if create_contract:
-                        contract_line_ids = self._create_contract_lines(
+                        self._create_contract_lines(
                             create_contract, order, free_products_only=True
                         )
 
             else:
-                contract_vals = {
-                    "name": self.partner_id.name,
-                    "partner_id": self.partner_id.id,
-                    "partner_invoice_id": self.partner_invoice_id.id,
-                }
-                create_contract = (
-                    self.env["contract.contract"].sudo().create(contract_vals)
-                )
-                if create_contract:
-                    contract_line_ids = self._create_contract_lines(
-                        create_contract, order
+                if order.contract_id:
+                    create_contract = order.contract_id
+                else:
+                    contract_vals = {
+                        "name": self.partner_id.name,
+                        "partner_id": self.partner_id.id,
+                        "partner_invoice_id": self.partner_invoice_id.id,
+                    }
+                    create_contract = (
+                        self.env["contract.contract"].sudo().create(contract_vals)
                     )
+                if create_contract:
+                    self._create_contract_lines(create_contract, order)
 
             order.partner_id.sudo().write(
                 {"property_product_pricelist": membership_pricelist_id.id}
@@ -105,9 +117,10 @@ class SaleOrder(models.Model):
                             "name": free_product.name,
                             "price_unit": free_product.lst_price,
                         }
-                        create_contract_line = (
+                        contract_line_id = (
                             self.env["contract.line"].sudo().create(contract_line_vals)
                         )
+                        line.contract_line_id = contract_line_id.id
         else:
             for line in order.order_line:
                 if line.product_id.membership:
@@ -117,6 +130,7 @@ class SaleOrder(models.Model):
                         "name": line.product_id.name,
                         "price_unit": line.price_unit,
                     }
-                    create_contract_line = (
+                    contract_line_id = (
                         self.env["contract.line"].sudo().create(contract_line_vals)
                     )
+                    line.contract_line_id = contract_line_id.id
