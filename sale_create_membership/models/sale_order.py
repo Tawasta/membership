@@ -43,6 +43,12 @@ class SaleOrder(models.Model):
             .search([("membership_pricelist", "=", True)])
         )
         for order in self:
+            already_contract = (
+                self.env["contract.contract"]
+                .sudo()
+                .search([("partner_id.email", "=", order.partner_id.email)])
+            )
+
             if company:
                 if not order.partner_id.parent_id:
                     order.partner_id.create_company()
@@ -51,13 +57,13 @@ class SaleOrder(models.Model):
                     "partner_id": order.partner_id.parent_id.id,
                     "partner_invoice_id": order.partner_invoice_id.parent_id.id,
                 }
-                create_contract = (
+                create_company_contract = (
                     self.env["contract.contract"].sudo().create(company_contract_vals)
                 )
 
-                if create_contract:
+                if create_company_contract:
                     contract_line_ids = self._create_contract_lines(
-                        create_contract, order
+                        create_company_contract, order
                     )
 
                     contract_vals = {
@@ -73,24 +79,35 @@ class SaleOrder(models.Model):
                             create_contract, order, free_products_only=True
                         )
 
+                        current_contract_id = create_company_contract
+
             else:
-                contract_vals = {
-                    "name": self.partner_id.name,
-                    "partner_id": self.partner_id.id,
-                    "partner_invoice_id": self.partner_invoice_id.id,
-                }
-                create_contract = (
-                    self.env["contract.contract"].sudo().create(contract_vals)
-                )
-                if create_contract:
+                if already_contract:
                     contract_line_ids = self._create_contract_lines(
-                        create_contract, order
+                        already_contract, order
                     )
+
+                    current_contract_id = already_contract
+
+                else:
+                    contract_vals = {
+                        "name": self.partner_id.name,
+                        "partner_id": self.partner_id.id,
+                        "partner_invoice_id": self.partner_invoice_id.id,
+                    }
+                    create_contract = (
+                        self.env["contract.contract"].sudo().create(contract_vals)
+                    )
+                    if create_contract:
+                        contract_line_ids = self._create_contract_lines(
+                            create_contract, order
+                        )
+                        current_contract_id = create_contract
 
             order.partner_id.sudo().write(
                 {"property_product_pricelist": membership_pricelist_id.id}
             )
-            order.sudo().write({"contract_id": create_contract.id})
+            order.sudo().write({"contract_id": current_contract_id.id})
 
     def _create_contract_lines(
         self, contract=False, order=False, free_products_only=False
