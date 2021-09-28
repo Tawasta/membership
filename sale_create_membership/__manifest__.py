@@ -28,7 +28,13 @@
     "application": False,
     "installable": True,
     "external_dependencies": {"python": [], "bin": []},
-    "depends": ["membership_product", "sale", "membership", "contract_invoice_address"],
+    "depends": [
+        "membership_product",
+        "sale",
+        "membership",
+        "contract_invoice_address",
+        "product_variant_company",
+    ],
     "data": [
         "views/product_pricelist_views.xml",
         "views/product_template_view.xml",
