@@ -26,6 +26,9 @@ class WebsiteSale(WebsiteSale):
         order = request.website.sale_get_order(force_create=True)
         use_membership_pricelist = False
         if order.partner_id.id == request.website.user_id.sudo().partner_id.id:
+            pricelist = self._get_pricelist_context()
+
+            print(pricelist)
             for line in order.order_line:
                 if line.product_id.membership:
                     use_membership_pricelist = True
@@ -47,13 +50,13 @@ class WebsiteSale(WebsiteSale):
                     request.website.sale_get_order(
                         force_pricelist=membership_pricelist.id
                     )
-                    public_pricelist = order.partner_id.property_product_pricelist
+                    # public_pricelist = order.partner_id.property_product_pricelist
                     public_items = (
                         request.env["product.pricelist.item"]
                         .sudo()
                         .search(
                             [
-                                ("pricelist_id", "=", public_pricelist.id),
+                                ("pricelist_id", "=", pricelist.id),
                                 ("product_id", "=", current_line.product_id.id),
                             ]
                         )
