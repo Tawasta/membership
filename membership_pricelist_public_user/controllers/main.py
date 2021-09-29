@@ -26,15 +26,9 @@ class WebsiteSale(WebsiteSale):
         order = request.website.sale_get_order(force_create=True)
         use_membership_pricelist = False
         if order.partner_id.id == request.website.user_id.sudo().partner_id.id:
-            pricelist_context, pl = self._get_pricelist_context()
-            p = (
-                request.env["product.product"]
-                .with_context(pricelist_context, display_default_code=False)
-                .browse(product_id)
-            )
-            price = p._get_combination_info_variant()["price"]
+            pricelist_context, pricelist = self._get_pricelist_context()
 
-            print(pl)
+            print(pricelist)
             for line in order.order_line:
                 if line.product_id.membership:
                     use_membership_pricelist = True
@@ -57,34 +51,36 @@ class WebsiteSale(WebsiteSale):
                         force_pricelist=membership_pricelist.id
                     )
                     # public_pricelist = order.partner_id.property_product_pricelist
-                    # public_items = (
-                    #     request.env["product.pricelist.item"]
-                    #     .sudo()
-                    #     .search(
-                    #         [
-                    #             ("pricelist_id", "=", pricelist.id),
-                    #             ("product_id", "=", current_line.product_id.id),
-                    #         ]
-                    #     )
-                    # )
-                    # if public_items:
-                    #     find_date_item = False
-                    #     date = datetime.now()
-                    #     for item in public_items:
-                    #         if item.date_start and item.date_end:
-                    #             if item.date_start <= date <= item.date_end:
-                    #                 find_date_item = True
-                    #                 current_line.sudo().write(
-                    #                     {"price_unit": item.fixed_price}
-                    #                 )
-                    #     if find_date_item is False:
-                    #         for item in public_items:
-                    #             if not item.date_start and not item.date_end:
-                    #                 current_line.sudo().write(
-                    #                     {"price_unit": item.fixed_price}
-                    #                 )
-                    # else:
-                    current_line.sudo().write({"price_unit": price})
+                    public_items = (
+                        request.env["product.pricelist.item"]
+                        .sudo()
+                        .search(
+                            [
+                                ("pricelist_id", "=", pricelist.id),
+                                ("product_id", "=", current_line.product_id.id),
+                            ]
+                        )
+                    )
+                    if public_items:
+                        find_date_item = False
+                        date = datetime.now()
+                        for item in public_items:
+                            if item.date_start and item.date_end:
+                                if item.date_start <= date <= item.date_end:
+                                    find_date_item = True
+                                    current_line.sudo().write(
+                                        {"price_unit": item.fixed_price}
+                                    )
+                        if find_date_item is False:
+                            for item in public_items:
+                                if not item.date_start and not item.date_end:
+                                    current_line.sudo().write(
+                                        {"price_unit": item.fixed_price}
+                                    )
+                    else:
+                        current_line.sudo().write(
+                            {"price_unit": current_line.product_id.lst_price}
+                        )
 
             return res
 
