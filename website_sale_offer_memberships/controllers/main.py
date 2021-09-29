@@ -7,11 +7,12 @@ class WebsiteSale(WebsiteSale):
         render_values = super(WebsiteSale, self)._get_shop_payment_values(
             order, **kwargs
         )
-        print(render_values)
         is_membership = False
         for line in order.order_line:
             if line.product_id.membership:
                 is_membership = True
+        if order.partner_id.property_product_pricelist.membership_pricelist:
+            is_membership = True
 
         if is_membership is False:
             membership_categ_id = (
