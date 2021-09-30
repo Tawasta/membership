@@ -6,7 +6,7 @@
 Membership Product
 ==================
 
-*
+* Brings the membership product fields into the product.template view.
 
 Configuration
 =============

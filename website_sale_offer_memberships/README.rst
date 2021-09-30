@@ -6,6 +6,8 @@
 Website Sale - Offer memberships
 ================================
 
+* If the person who performing the e-commerce process does not have a membership pricelist in use, then they will be offered to buy memberships in the payment view.
+
 
 Configuration
 =============
