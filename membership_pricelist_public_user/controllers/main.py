@@ -12,7 +12,6 @@ class WebsiteSale(WebsiteSale):
             if order.pricelist_id.membership_pricelist:
 
                 if mode[0] == "new":
-                    print("=========")
                     checkout.update(
                         {"property_product_pricelist": order.pricelist_id.id}
                     )

@@ -6,6 +6,11 @@
 Membership pricelist public user
 ================================
 
+* The non-registered person will be given the opportunity to use the member price list.
+* When the first membership product is added to the cart, it is added according to the public price list and then the other products according to the member price list.
+* If there are no more membership products in the shopping cart then the membership price list will be disabled.
+* Cart summary view modified so that the price of the first membership product SO line is displayed correctly.
+
 
 Configuration
 =============
