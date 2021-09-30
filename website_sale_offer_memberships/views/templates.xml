@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="payment" inherit_id="website_sale.payment" name="Offer memberships" customize_show="True" active="True">
+        <xpath expr="//div[@id='payment_method']" position="before">
+            <t t-if="show_membership_info">
+                <div class="alert alert-success alert-dismissible fade show">
+                    <h4 class="alert-heading"><i class="fa fa-success"></i> Check this out!</h4>
+                    <p>Lorem ipsum...</p>
+                    <hr />
+                    <div class="row col-12">
+                        <p class="mb-0 mr-3">Go buy memberships </p>
+                        <a role="button" class="btn btn-secondary d-xl-inline-block" t-att-href="categ_href" target="_blank">
+                            <span>Shop</span>
+                        </a>
+                    </div>
+                </div>
+            </t>
+        </xpath>
+    </template>
+</odoo>
