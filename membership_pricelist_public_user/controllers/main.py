@@ -91,7 +91,9 @@ class WebsiteSale(WebsiteSale):
             if use_membership_pricelist:
                 order_line = order_line_list[0]
 
-                public_pricelist = order.partner_id.property_product_pricelist
+                public_pricelist = request.env["product.pricelist"].search(
+                    [("name", "=", "Public Pricelist")]
+                )
 
                 price_unit = public_pricelist.get_product_price(
                     order_line.product_id,

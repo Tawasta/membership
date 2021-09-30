@@ -29,5 +29,5 @@
     "application": False,
     "installable": True,
     "depends": ["website_sale", "sale_create_membership"],
-    "data": [],
+    "data": ["views/templates.xml"],
 }
