@@ -41,12 +41,7 @@ class WebsiteSale(WebsiteSale):
                 membership_pricelist = (
                     request.env["product.pricelist"]
                     .sudo()
-                    .search(
-                        [
-                            ("membership_pricelist", "=", True),
-                            ("name", "ilike", "jäsen"),
-                        ]
-                    )
+                    .search([("membership_pricelist", "=", True),])
                 )
 
                 if not order.pricelist_id.membership_pricelist:
@@ -82,17 +77,13 @@ class WebsiteSale(WebsiteSale):
 
             if use_membership_pricelist is False:
                 request.website.sale_get_order(
-                    force_pricelist=request.env["product.pricelist"]
-                    .search([("name", "=", "Public Pricelist")])
-                    .id
+                    force_pricelist=request.env.ref("product.list0").id
                 )
 
             if use_membership_pricelist:
                 order_line = order_line_list[0]
 
-                public_pricelist = request.env["product.pricelist"].search(
-                    [("name", "=", "Public Pricelist")]
-                )
+                public_pricelist = request.env.ref("product.list0")
 
                 price_unit = public_pricelist.get_product_price(
                     order_line.product_id,

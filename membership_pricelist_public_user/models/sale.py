@@ -24,9 +24,7 @@ class SaleOrderLine(models.Model):
         if use_membership_pricelist:
             order_line = order_line_list[0]
 
-            public_pricelist = self.env["product.pricelist"].search(
-                [("name", "=", "Public Pricelist")]
-            )
+            public_pricelist = self.env.ref("product.list0")
             add_qty = False
             price_unit = public_pricelist.get_product_price(
                 order_line.product_id,
