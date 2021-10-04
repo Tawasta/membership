@@ -34,6 +34,7 @@
         "membership",
         "contract_invoice_address",
         "product_variant_company",
+        "product_show_only_in_suggested_accessories",
     ],
     "data": [
         "views/product_pricelist_views.xml",
