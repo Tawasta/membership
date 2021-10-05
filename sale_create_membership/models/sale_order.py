@@ -121,23 +121,38 @@ class SaleOrder(models.Model):
                 if line.product_id.membership:
                     if line.product_id.free_products_ids:
                         variant_company_id = line.product_id.variant_company_id
-                    for free_product in line.product_id.free_products_ids:
-                        if free_product.variant_company_id == variant_company_id:
-                            contract_line_vals = {
-                                "contract_id": contract.id,
-                                "product_id": free_product.id,
-                                "name": free_product.name,
-                                "price_unit": free_product.lst_price,
-                            }
-                            contract_line_id = (
-                                self.env["contract.line"]
-                                .sudo()
-                                .create(contract_line_vals)
-                            )
-                            line.contract_line_id = contract_line_id.id
+                        for free_product in line.product_id.free_products_ids:
+                            if free_product.variant_company_id == variant_company_id:
+                                contract_line_vals = {
+                                    "contract_id": contract.id,
+                                    "product_id": free_product.id,
+                                    "name": free_product.name,
+                                    "price_unit": free_product.lst_price,
+                                }
+                                contract_line_id = (
+                                    self.env["contract.line"]
+                                    .sudo()
+                                    .create(contract_line_vals)
+                                )
+                                line.contract_line_id = contract_line_id.id
+                    if line.product_id.show_only_in_suggested_accessories:
+                        contract_line_vals = {
+                            "contract_id": contract.id,
+                            "product_id": line.product_id.id,
+                            "name": line.product_id.name,
+                            "price_unit": line.price_unit,
+                        }
+                        contract_line_id = (
+                            self.env["contract.line"].sudo().create(contract_line_vals)
+                        )
+                        line.contract_line_id = contract_line_id.id
+
         else:
             for line in order.order_line:
-                if line.product_id.membership:
+                if (
+                    line.product_id.membership
+                    and line.product_id.show_only_in_suggested_accessories is False
+                ):
                     contract_line_vals = {
                         "contract_id": contract.id,
                         "product_id": line.product_id.id,
