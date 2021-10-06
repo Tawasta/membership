@@ -4,8 +4,7 @@
         <xpath expr="//div[@id='payment_method']" position="before">
             <t t-if="show_membership_info">
                 <div class="alert alert-success alert-dismissible fade show">
-                    <h4 class="alert-heading"><i class="fa fa-success"></i> Check this out!</h4>
-                    <p>Lorem ipsum...</p>
+                    <h4 class="alert-heading"><i class="fa fa-success"></i> Courses and other products are cheaper for the membership.</h4>
                     <hr />
                     <div class="row col-12">
                         <p class="mb-0 mr-3">Go buy memberships </p>
