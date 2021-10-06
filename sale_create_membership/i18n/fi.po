@@ -1,0 +1,102 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#   * sale_create_membership
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-10-06 07:01+0000\n"
+"PO-Revision-Date: 2021-10-06 07:01+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: sale_create_membership
+#: model:ir.model.fields.selection,name:sale_create_membership.selection__product_template__membership_type__company
+msgid "Company"
+msgstr "Yritys"
+
+#. module: sale_create_membership
+#: model:ir.model.fields.selection,name:sale_create_membership.selection__product_template__membership_type__contact
+msgid "Contact"
+msgstr "Yhteyshenkilö"
+
+#. module: sale_create_membership
+#: model:ir.model.fields,field_description:sale_create_membership.field_sale_order__contract_id
+msgid "Contract"
+msgstr "Sopimus"
+
+#. module: sale_create_membership
+#: model:ir.model.fields,field_description:sale_create_membership.field_sale_order_line__contract_line_id
+msgid "Contract line"
+msgstr "Sopimusrivi"
+
+#. module: sale_create_membership
+#: model:ir.model.fields,field_description:sale_create_membership.field_product_pricelist__display_name
+#: model:ir.model.fields,field_description:sale_create_membership.field_product_template__display_name
+#: model:ir.model.fields,field_description:sale_create_membership.field_sale_order__display_name
+#: model:ir.model.fields,field_description:sale_create_membership.field_sale_order_line__display_name
+msgid "Display Name"
+msgstr "Näyttönimi"
+
+#. module: sale_create_membership
+#: model:ir.model.fields,field_description:sale_create_membership.field_product_product__free_products_ids
+#: model:ir.model.fields,field_description:sale_create_membership.field_product_template__free_products_ids
+msgid "Free products"
+msgstr "Ilmaiset tuotteet"
+
+#. module: sale_create_membership
+#: model:ir.model.fields,field_description:sale_create_membership.field_product_pricelist__id
+#: model:ir.model.fields,field_description:sale_create_membership.field_product_template__id
+#: model:ir.model.fields,field_description:sale_create_membership.field_sale_order__id
+#: model:ir.model.fields,field_description:sale_create_membership.field_sale_order_line__id
+msgid "ID"
+msgstr "Tunniste (ID)"
+
+#. module: sale_create_membership
+#: model:ir.model.fields,field_description:sale_create_membership.field_product_pricelist____last_update
+#: model:ir.model.fields,field_description:sale_create_membership.field_product_template____last_update
+#: model:ir.model.fields,field_description:sale_create_membership.field_sale_order____last_update
+#: model:ir.model.fields,field_description:sale_create_membership.field_sale_order_line____last_update
+msgid "Last Modified on"
+msgstr "Viimeksi muokattu"
+
+#. module: sale_create_membership
+#: model:ir.model.fields,field_description:sale_create_membership.field_product_product__membership_type
+#: model:ir.model.fields,field_description:sale_create_membership.field_product_template__membership_type
+msgid "Membership Type"
+msgstr "Jäsenyyden tyyppi"
+
+#. module: sale_create_membership
+#: model:ir.model.fields,field_description:sale_create_membership.field_product_pricelist__membership_pricelist
+msgid "Membership pricelist"
+msgstr "Jäsenyys hinnasto"
+
+#. module: sale_create_membership
+#: model:ir.model,name:sale_create_membership.model_product_pricelist
+msgid "Pricelist"
+msgstr "Hinnasto"
+
+#. module: sale_create_membership
+#: model:ir.model,name:sale_create_membership.model_product_template
+msgid "Product Template"
+msgstr "Tuotemalli"
+
+#. module: sale_create_membership
+#: model:ir.model,name:sale_create_membership.model_sale_order
+msgid "Sales Order"
+msgstr "Myyntitilaus"
+
+#. module: sale_create_membership
+#: model:ir.model,name:sale_create_membership.model_sale_order_line
+msgid "Sales Order Line"
+msgstr "Myyntitilausrivi"
+
+#. module: sale_create_membership
+#: model_terms:ir.ui.view,arch_db:sale_create_membership.product_pricelist_view
+msgid "Settings"
+msgstr "Asetukset"
