@@ -1,0 +1,13 @@
+from odoo import models
+
+
+class ContractTemplate(models.Model):
+    _inherit = "contract.template"
+
+    def _prepare_contract_value(self, contract_template=False):
+        if contract_template:
+            fields = contract_template._fields.keys()
+            vals = self._convert_to_write(contract_template.read(fields)[0])
+            vals.pop("id", None)
+
+        return vals
