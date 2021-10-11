@@ -11,6 +11,7 @@ Sale Create Membership
 * In the case of a company, a contract is created first for the company and then for the contact person. Only free products of the membership product will be imported into the contact person contract
 * The contract and invoice are automatically linked when the invoice is created from the sales order.
 * The membership price list is automatically added to the contract contact person.
+* If contract template has been created then all its values are taken for the new contract .
 
 
 Configuration
