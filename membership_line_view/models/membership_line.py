@@ -39,7 +39,7 @@ class MembershipLine(models.Model):
     membership_company_id = fields.Many2one(
         comodel_name="res.company",
         string="Membership company",
-        related="membership_id.company_id",
+        related="membership_id.variant_company_id",
         store=True,
     )
     contract_state = fields.Selection(
