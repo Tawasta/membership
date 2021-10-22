@@ -29,5 +29,5 @@
     "application": False,
     "installable": True,
     "depends": ["website_sale"],
-    "data": ["views/templates.xml"],
+    "data": ["views/res_config_settings_views.xml", "views/templates.xml"],
 }
