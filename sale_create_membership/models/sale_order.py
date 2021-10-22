@@ -157,8 +157,15 @@ class SaleOrder(models.Model):
                                     "contract_id": contract.id,
                                     "product_id": free_product.id,
                                     "name": free_product.name,
-                                    "price_unit": free_product.lst_price,
                                 }
+                                if free_product.product_variant_count > 1:
+                                    contract_line_vals.update(
+                                        {"price_unit": free_product.fix_price}
+                                    )
+                                else:
+                                    contract_line_vals.update(
+                                        {"price_unit": free_product.lst_price}
+                                    )
                                 contract_line_id = (
                                     self.env["contract.line"]
                                     .sudo()
@@ -170,8 +177,15 @@ class SaleOrder(models.Model):
                             "contract_id": contract.id,
                             "product_id": line.product_id.id,
                             "name": line.product_id.name,
-                            "price_unit": line.price_unit,
                         }
+                        if line.product_id.product_variant_count > 1:
+                            contract_line_vals.update(
+                                {"price_unit": line.product_id.fix_price}
+                            )
+                        else:
+                            contract_line_vals.update(
+                                {"price_unit": line.product_id.lst_price}
+                            )
                         contract_line_id = (
                             self.env["contract.line"].sudo().create(contract_line_vals)
                         )
@@ -187,8 +201,15 @@ class SaleOrder(models.Model):
                         "contract_id": contract.id,
                         "product_id": line.product_id.id,
                         "name": line.product_id.name,
-                        "price_unit": line.price_unit,
                     }
+                    if line.product_id.product_variant_count > 1:
+                        contract_line_vals.update(
+                            {"price_unit": line.product_id.fix_price}
+                        )
+                    else:
+                        contract_line_vals.update(
+                            {"price_unit": line.product_id.lst_price}
+                        )
                     contract_line_id = (
                         self.env["contract.line"].sudo().create(contract_line_vals)
                     )

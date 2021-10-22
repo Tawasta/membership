@@ -29,7 +29,7 @@
     "application": False,
     "installable": True,
     "external_dependencies": {"python": [], "bin": []},
-    "depends": ["membership"],
+    "depends": ["membership", "product_variant_company"],
     "data": ["views/membership_line_view.xml"],
     "demo": [],
 }
