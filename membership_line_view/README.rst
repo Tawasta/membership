@@ -5,8 +5,7 @@
 ====================
 Membership line view
 ====================
-
-Membership line view
+* Membership line view
 
 Configuration
 =============

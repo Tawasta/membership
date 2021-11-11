@@ -19,17 +19,15 @@
 ##############################################################################
 
 {
-    "name": "Membership line view",
-    "summary": "Membership line view",
-    "version": "14.0.1.0.1",
+    "name": "Membership Line View",
+    "summary": "Membership Line View",
+    "version": "14.0.1.0.2",
     "category": "Sales",
-    "website": "https://tawasta.fi",
-    "author": "Oy Tawasta Technologies Ltd.",
+    "website": "https://gitlab.com/tawasta/odoo/membership/",
+    "author": "Tawasta",
     "license": "AGPL-3",
     "application": False,
     "installable": True,
-    "external_dependencies": {"python": [], "bin": []},
     "depends": ["membership", "product_variant_company"],
     "data": ["views/membership_line_view.xml"],
-    "demo": [],
 }
