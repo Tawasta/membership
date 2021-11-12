@@ -50,6 +50,7 @@ class SaleOrder(models.Model):
             .search([("membership_pricelist", "=", True)])
         )
         for order in self:
+            find_contract_template = self.env["contract.template"].sudo().search([])
             if company:
                 if not order.partner_id.parent_id:
                     order.partner_id.create_company()
@@ -57,11 +58,21 @@ class SaleOrder(models.Model):
                 if order.contract_id:
                     create_contract = order.contract_id
                 else:
-                    company_contract_vals = {
-                        "name": order.partner_id.parent_id.name,
-                        "partner_id": order.partner_id.parent_id.id,
-                        "partner_invoice_id": order.partner_invoice_id.parent_id.id,
-                    }
+                    if find_contract_template:
+                        company_contract_vals = (
+                            self.env["contract.template"]
+                            .sudo()
+                            ._prepare_contract_value(find_contract_template)
+                        )
+                    else:
+                        company_contract_vals = {}
+                    company_contract_vals.update(
+                        {
+                            "name": order.partner_id.parent_id.name,
+                            "partner_id": order.partner_id.parent_id.id,
+                            "partner_invoice_id": order.partner_invoice_id.parent_id.id,
+                        }
+                    )
                     create_contract = (
                         self.env["contract.contract"]
                         .sudo()
@@ -70,12 +81,21 @@ class SaleOrder(models.Model):
 
                 if create_contract:
                     self._create_contract_lines(create_contract, order)
-
-                    contract_vals = {
-                        "name": order.partner_id.name,
-                        "partner_id": order.partner_id.id,
-                        "partner_invoice_id": order.partner_invoice_id.parent_id.id,
-                    }
+                    if find_contract_template:
+                        contract_vals = (
+                            self.env["contract.template"]
+                            .sudo()
+                            ._prepare_contract_value(find_contract_template)
+                        )
+                    else:
+                        contract_vals = {}
+                    contract_vals.update(
+                        {
+                            "name": order.partner_id.name,
+                            "partner_id": order.partner_id.id,
+                            "partner_invoice_id": order.partner_invoice_id.parent_id.id,
+                        }
+                    )
                     create_contract = (
                         self.env["contract.contract"].sudo().create(contract_vals)
                     )
@@ -97,11 +117,21 @@ class SaleOrder(models.Model):
                     if order.contract_id:
                         create_contract = order.contract_id
                     else:
-                        contract_vals = {
-                            "name": self.partner_id.name,
-                            "partner_id": self.partner_id.id,
-                            "partner_invoice_id": self.partner_invoice_id.id,
-                        }
+                        if find_contract_template:
+                            contract_vals = (
+                                self.env["contract.template"]
+                                .sudo()
+                                ._prepare_contract_value(find_contract_template)
+                            )
+                        else:
+                            contract_vals = {}
+                        contract_vals.update(
+                            {
+                                "name": self.partner_id.name,
+                                "partner_id": self.partner_id.id,
+                                "partner_invoice_id": self.partner_invoice_id.id,
+                            }
+                        )
                         create_contract = (
                             self.env["contract.contract"].sudo().create(contract_vals)
                         )
@@ -127,8 +157,15 @@ class SaleOrder(models.Model):
                                     "contract_id": contract.id,
                                     "product_id": free_product.id,
                                     "name": free_product.name,
-                                    "price_unit": free_product.lst_price,
                                 }
+                                if free_product.product_variant_count > 1:
+                                    contract_line_vals.update(
+                                        {"price_unit": free_product.fix_price}
+                                    )
+                                else:
+                                    contract_line_vals.update(
+                                        {"price_unit": free_product.lst_price}
+                                    )
                                 contract_line_id = (
                                     self.env["contract.line"]
                                     .sudo()
@@ -140,8 +177,15 @@ class SaleOrder(models.Model):
                             "contract_id": contract.id,
                             "product_id": line.product_id.id,
                             "name": line.product_id.name,
-                            "price_unit": line.price_unit,
                         }
+                        if line.product_id.product_variant_count > 1:
+                            contract_line_vals.update(
+                                {"price_unit": line.product_id.fix_price}
+                            )
+                        else:
+                            contract_line_vals.update(
+                                {"price_unit": line.product_id.lst_price}
+                            )
                         contract_line_id = (
                             self.env["contract.line"].sudo().create(contract_line_vals)
                         )
@@ -157,8 +201,15 @@ class SaleOrder(models.Model):
                         "contract_id": contract.id,
                         "product_id": line.product_id.id,
                         "name": line.product_id.name,
-                        "price_unit": line.price_unit,
                     }
+                    if line.product_id.product_variant_count > 1:
+                        contract_line_vals.update(
+                            {"price_unit": line.product_id.fix_price}
+                        )
+                    else:
+                        contract_line_vals.update(
+                            {"price_unit": line.product_id.lst_price}
+                        )
                     contract_line_id = (
                         self.env["contract.line"].sudo().create(contract_line_vals)
                     )

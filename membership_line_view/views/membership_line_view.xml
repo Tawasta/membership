@@ -1,24 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
-
     <record id="membership_line_tree" model="ir.ui.view">
         <field name="name">membership.line.tree</field>
         <field name="model">membership.membership_line</field>
         <field name="arch" type="xml">
-            <tree string="Membership Lines" create="false" delete="false" default_order='partner'>
-                <field name="partner"/>
-                <field name="date"/>
-                <field name="membership_id"/>
-                <field name="member_price"/>
-                <field name="account_invoice_id"/>
-                <field name="state"/>
-                <field name="contract_state" />
-                <field name="company_id"/>
-                <field name="membership_company_id"/>
+            <tree string="Membership Lines" create="false" delete="false" default_order="partner">
+                <field name="partner" optional="show"/>
+                <field name="date" optional="show"/>
+                <field name="membership_id" optional="show"/>
+                <field name="member_price" optional="show"/>
+                <field name="account_invoice_id" optional="show"/>
+                <field name="state" optional="show"/>
+                <field name="contract_state" optional="show"/>
+                <field name="company_id" optional="show"/>
+                <field name="membership_company_id" optional="show"/>
             </tree>
         </field>
     </record>
-
     <record id="membership_line_search" model="ir.ui.view">
         <field name="name">membership.line.search</field>
         <field name="model">membership.membership_line</field>
@@ -27,9 +25,7 @@
                 <field string="Membership" name="membership_id"/>
                 <field string="Company" name="company_id"/>
                 <field string="Membership company" name="membership_company_id"/>
-
                 <separator/>
-
                 <group expand="0" string="Group By...">
                     <filter name="membership_id" string="Membership" domain="[]" context="{'group_by':'membership_id'}"/>
                     <filter name="company_id" string="Company" domain="[]" context="{'group_by':'company_id'}"/>
@@ -38,7 +34,6 @@
             </search>
         </field>
     </record>
-
     <record id="membership_line_action" model="ir.actions.act_window">
         <field name="name">Membership lines</field>
         <field name="type">ir.actions.act_window</field>
@@ -46,10 +41,5 @@
         <field name="view_mode">tree</field>
         <field name="view_id" ref="membership_line_view.membership_line_tree"/>
     </record>
-
-    <menuitem id="menu_membership_line"
-    action="membership_line_action"
-    parent="membership.menu_association"
-    sequence="20" />
-
+    <menuitem id="menu_membership_line" action="membership_line_action" parent="membership.menu_association" sequence="20"/>
 </odoo>
