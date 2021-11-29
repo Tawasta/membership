@@ -1,5 +1,7 @@
 from odoo import fields
 from odoo import models
+from odoo import _
+from odoo.exceptions import UserError
 
 
 class SaleOrder(models.Model):
@@ -138,6 +140,8 @@ class SaleOrder(models.Model):
                             )
                         if create_contract:
                             self._create_contract_lines(create_contract, order)
+                else:
+                    raise UserError(_('The sale order customer does not have an email address specified, so the membership agreement cannot be created.'))
 
             order.partner_id.sudo().write(
                 {"property_product_pricelist": membership_pricelist_id.id}
