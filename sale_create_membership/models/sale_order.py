@@ -73,6 +73,7 @@ class SaleOrder(models.Model):
                             "name": order.partner_id.parent_id.name,
                             "partner_id": order.partner_id.parent_id.id,
                             "partner_invoice_id": order.partner_invoice_id.parent_id.id,
+                            "note": order.note,
                         }
                     )
                     create_contract = (
@@ -96,6 +97,7 @@ class SaleOrder(models.Model):
                             "name": order.partner_id.name,
                             "partner_id": order.partner_id.id,
                             "partner_invoice_id": order.partner_invoice_id.parent_id.id,
+                            "note": order.note,
                         }
                     )
                     create_contract = (
@@ -133,6 +135,7 @@ class SaleOrder(models.Model):
                                     "name": self.partner_id.name,
                                     "partner_id": self.partner_id.id,
                                     "partner_invoice_id": self.partner_invoice_id.id,
+                                    "note": order.note,
                                 }
                             )
                             create_contract = (
@@ -147,6 +150,14 @@ class SaleOrder(models.Model):
                 {"property_product_pricelist": membership_pricelist_id.id}
             )
             order.sudo().write({"contract_id": create_contract.id})
+
+            find_attachments = self.env["ir.attachment"].sudo().search([
+                ('res_model', '=', 'sale.order'),
+                ('res_id', '=', order.id)
+            ])
+            for att in find_attachments:
+                new_attachment = att.copy()
+                new_attachment.sudo().write({"res_model": 'contract.contract', 'res_id': create_contract.id})
 
     def _create_contract_lines(
         self, contract=False, order=False, free_products_only=False
