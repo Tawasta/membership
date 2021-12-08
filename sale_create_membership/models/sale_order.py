@@ -110,30 +110,40 @@ class SaleOrder(models.Model):
 
             else:
                 if order.partner_id.email:
-                    if order.contract_id:
-                        create_contract = order.contract_id
+                    already_contract = (
+                        self.env["contract.contract"]
+                        .sudo()
+                        .search([("partner_id.email", "=", order.partner_id.email)])
+                    )
+                    if already_contract and len(already_contract) == 1:
+                        self._create_contract_lines(already_contract, order)
+                        create_contract = already_contract
                     else:
-                        if find_contract_template:
-                            contract_vals = (
-                                self.env["contract.template"]
-                                .sudo()
-                                ._prepare_contract_value(find_contract_template)
-                            )
+                        if order.contract_id:
+                            create_contract = order.contract_id
                         else:
-                            contract_vals = {}
-                        contract_vals.update(
-                            {
-                                "name": self.partner_id.name,
-                                "partner_id": self.partner_id.id,
-                                "partner_invoice_id": self.partner_invoice_id.id,
-                                "note": order.note,
-                            }
-                        )
-                        create_contract = (
-                            self.env["contract.contract"].sudo().create(contract_vals)
-                        )
+                            if find_contract_template:
+                                contract_vals = (
+                                    self.env["contract.template"]
+                                    .sudo()
+                                    ._prepare_contract_value(find_contract_template)
+                                )
+                            else:
+                                contract_vals = {}
+                            contract_vals.update(
+                                {
+                                    "name": self.partner_id.name,
+                                    "partner_id": self.partner_id.id,
+                                    "partner_invoice_id": self.partner_invoice_id.id,
+                                    "note": order.note,
+                                }
+                            )
+                            create_contract = (
+                                self.env["contract.contract"].sudo().create(contract_vals)
+                            )
                     if create_contract:
                         self._create_contract_lines(create_contract, order)
+
                 else:
                     raise UserError(_('The sale order customer does not have an email address specified, so the membership agreement cannot be created.'))
 
