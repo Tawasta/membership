@@ -143,6 +143,7 @@ class SaleOrder(models.Model):
                             )
                         if create_contract:
                             self._create_contract_lines(create_contract, order)
+
                 else:
                     raise UserError(_('The sale order customer does not have an email address specified, so the membership agreement cannot be created.'))
 
