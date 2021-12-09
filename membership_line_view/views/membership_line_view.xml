@@ -7,6 +7,9 @@
             <tree string="Membership Lines" create="false" delete="false" default_order="partner">
                 <field name="partner" optional="show"/>
                 <field name="date" optional="show"/>
+                <field name="date_from" optional="show"/>
+                <field name="date_to" optional="show"/>
+                <field name="date_cancel" optional="hide"/>
                 <field name="membership_id" optional="show"/>
                 <field name="member_price" optional="hide"/>
                 <field name="account_invoice_id" optional="show"/>
