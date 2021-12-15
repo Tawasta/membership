@@ -73,7 +73,9 @@ class SaleOrder(models.Model):
                             "name": order.partner_id.parent_id.name,
                             "partner_id": order.partner_id.parent_id.id,
                             "partner_invoice_id": order.partner_invoice_id.parent_id.id,
+                            "invoice_partner_id": order.partner_id.parent_id.id,
                             "note": order.note,
+                            "line_recurrence": True,
                         }
                     )
                     create_contract = (
@@ -97,7 +99,9 @@ class SaleOrder(models.Model):
                             "name": order.partner_id.name,
                             "partner_id": order.partner_id.id,
                             "partner_invoice_id": order.partner_invoice_id.parent_id.id,
+                            "invoice_partner_id": order.partner_id.id,
                             "note": order.note,
+                            "line_recurrence": True,
                         }
                     )
                     create_contract = (
@@ -135,7 +139,9 @@ class SaleOrder(models.Model):
                                     "name": self.partner_id.name,
                                     "partner_id": self.partner_id.id,
                                     "partner_invoice_id": self.partner_invoice_id.id,
+                                    "invoice_partner_id": self.partner_id.id,
                                     "note": order.note,
+                                    "line_recurrence": True,
                                 }
                             )
                             create_contract = (
