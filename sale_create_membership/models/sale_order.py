@@ -231,7 +231,6 @@ class SaleOrder(models.Model):
                     if already_contract:
                         item_price = self.env["product.pricelist.item"].sudo().search([
                             ('product_id', '=', line.product_id.id),
-                            ('pricelist_id', '=', contract.pricelist_id.id),
                             ('additional_membership_price', '=', True),
                         ])
                         contract_line_vals.update(
