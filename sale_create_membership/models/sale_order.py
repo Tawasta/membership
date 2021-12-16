@@ -180,6 +180,7 @@ class SaleOrder(models.Model):
                                     "contract_id": contract.id,
                                     "product_id": free_product.id,
                                     "name": free_product.name,
+                                    "recurring_rule_type": 'yearly',
                                 }
                                 if free_product.product_variant_count > 1:
                                     contract_line_vals.update(
@@ -200,6 +201,7 @@ class SaleOrder(models.Model):
                             "contract_id": contract.id,
                             "product_id": line.product_id.id,
                             "name": line.product_id.name,
+                            "recurring_rule_type": 'yearly',
                         }
                         if line.product_id.product_variant_count > 1:
                             contract_line_vals.update(
@@ -224,6 +226,7 @@ class SaleOrder(models.Model):
                         "contract_id": contract.id,
                         "product_id": line.product_id.id,
                         "name": line.product_id.name,
+                        "recurring_rule_type": 'yearly',
                     }
                     if already_contract:
                         item_price = self.env["product.pricelist.item"].sudo().search([
