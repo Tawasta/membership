@@ -26,10 +26,14 @@
         <field name="arch" type="xml">
             <form string="Membership Lines" create="false" delete="false">
                 <sheet>
-                    <group>
-                        <field name="partner" optional="show"/>
-                        <field name="date" optional="show"/>
-                    </group>
+                    <notebook>
+                        <page string="Membership line">
+                            <group>
+                                <field name="partner" optional="show"/>
+                                <field name="date" optional="show"/>
+                            </group>
+                        </page>
+                    </notebook>
                 </sheet>
             </form>
         </field>
