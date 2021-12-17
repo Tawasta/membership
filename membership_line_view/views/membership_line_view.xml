@@ -29,14 +29,6 @@
                     <group>
                         <field name="partner" optional="show"/>
                         <field name="date" optional="show"/>
-                        <field name="date_from" optional="show"/>
-                        <field name="date_to" optional="show"/>
-                        <field name="membership_id" optional="show"/>
-                        <field name="account_invoice_id" optional="show"/>
-                        <field name="state" optional="show"/>
-                        <field name="contract_state" optional="show"/>
-                        <field name="company_id" optional="show"/>
-                        <field name="membership_company_id" optional="show"/>
                     </group>
                 </sheet>
             </form>
