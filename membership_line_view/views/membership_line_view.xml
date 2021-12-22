@@ -20,6 +20,24 @@
             </tree>
         </field>
     </record>
+    <record id="membership_line_form" model="ir.ui.view">
+        <field name="name">membership.line.form</field>
+        <field name="model">membership.membership_line</field>
+        <field name="arch" type="xml">
+            <form string="Membership Lines" create="false" delete="false">
+                <sheet>
+                    <notebook>
+                        <page string="Membership line">
+                            <group>
+                                <field name="partner" optional="show"/>
+                                <field name="date" optional="show"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
     <record id="membership_line_search" model="ir.ui.view">
         <field name="name">membership.line.search</field>
         <field name="model">membership.membership_line</field>
@@ -41,7 +59,7 @@
         <field name="name">Membership lines</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">membership.membership_line</field>
-        <field name="view_mode">tree</field>
+        <field name="view_mode">tree,form</field>
         <field name="view_id" ref="membership_line_view.membership_line_tree"/>
     </record>
     <menuitem id="menu_membership_line" action="membership_line_action" parent="membership.menu_association" sequence="20"/>
