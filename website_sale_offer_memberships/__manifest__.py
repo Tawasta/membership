@@ -19,15 +19,19 @@
 ##############################################################################
 
 {
-    "name": "Website sale offer memberships",
+    "name": "Website Sale Offer Memberships",
     "summary": "Website sale offer memberships",
-    "version": "14.0.1.0.0",
+    "version": "14.0.1.0.1",
     "category": "Website",
-    "website": "https://github.com/Tawasta/membership",
+    "website": "https://gitlab.com/tawasta/odoo/membership",
     "author": "Tawasta",
     "license": "AGPL-3",
     "application": False,
     "installable": True,
     "depends": ["website_sale"],
-    "data": ["views/res_config_settings_views.xml", "views/templates.xml"],
+    "data": [
+        "views/res_config_settings_views.xml",
+        "views/templates.xml",
+        "views/product_views.xml",
+    ],
 }
