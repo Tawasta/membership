@@ -1,5 +1,6 @@
-from odoo.addons.website_sale.controllers.main import WebsiteSale
 from odoo.http import request
+
+from odoo.addons.website_sale.controllers.main import WebsiteSale
 
 
 class WebsiteSale(WebsiteSale):
@@ -18,9 +19,12 @@ class WebsiteSale(WebsiteSale):
             membership_categ_id = (
                 request.env["product.public.category"]
                 .sudo()
-                .search([("parent_id", "=", False), ("name", "ilike", "jäsenyys")])
+                .search([("is_membership_offer", "=", True)])
             )
-            categ_href = "/shop/category/%s" % membership_categ_id.id
+            if membership_categ_id:
+                categ_href = "/shop/category/%s" % membership_categ_id[0].id
+            else:
+                categ_href = "/shop"
             render_values.update(
                 {"show_membership_info": True, "categ_href": categ_href}
             )

@@ -7,7 +7,7 @@ Website Sale - Offer memberships
 ================================
 
 * If the person who performing the e-commerce process does not have a membership pricelist in use, then they will be offered to buy memberships in the payment view.
-
+* Define offered shop category in product.public.category by toggling "Membership offer". Only one can be selected.
 
 Configuration
 =============
@@ -17,10 +17,6 @@ Usage
 =====
 \-
 
-Known issues / Roadmap
-======================
-\-
-
 Credits
 =======
 
@@ -28,6 +24,7 @@ Contributors
 ------------
 
 * Valtteri Lattu <valtteri.lattu@tawasta.fi>
+* Miika Nissi <miika.nissi@tawasta.fi>
 
 Maintainer
 ----------
