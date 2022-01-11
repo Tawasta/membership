@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="membership_line_tree_ref" model="ir.ui.view">
+        <field name="name">membership.line.tree.ref</field>
+        <field name="model">membership.membership_line</field>
+        <field name="inherit_id" ref="membership_line_view.membership_line_tree"/>
+        <field name="arch" type="xml">
+            <field name="partner" position="after">
+                <field name="ref" optional="show"/>
+            </field>
+        </field>
+    </record>
+    <record id="membership_line_search_ref" model="ir.ui.view">
+        <field name="name">membership.line.search.ref</field>
+        <field name="model">membership.membership_line</field>
+        <field name="inherit_id" ref="membership_line_view.membership_line_search"/>
+        <field name="arch" type="xml">
+            <field name="membership_id" position="after">
+                <field string="Membership Number" name="ref"/>
+            </field>
+        </field>
+    </record>
+</odoo>
