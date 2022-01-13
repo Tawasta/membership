@@ -2,6 +2,7 @@ from odoo import fields
 from odoo import models
 from odoo import _
 from odoo.exceptions import UserError
+from datetime import datetime
 
 
 class SaleOrder(models.Model):
@@ -217,6 +218,7 @@ class SaleOrder(models.Model):
                         line.contract_line_id = contract_line_id.id
 
         else:
+            ending_day_of_current_year = datetime.now().date().replace(month=12, day=31)
             for line in order.order_line:
                 if (
                     line.product_id.membership
@@ -227,6 +229,7 @@ class SaleOrder(models.Model):
                         "product_id": line.product_id.id,
                         "name": line.product_id.name,
                         "recurring_rule_type": 'yearly',
+                        "recurring_next_date": ending_day_of_current_year,
                     }
                     if already_contract:
                         item_price = self.env["product.pricelist.item"].sudo().search([

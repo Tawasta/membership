@@ -56,6 +56,8 @@ class MembershipLine(models.Model):
         store=True,
     )
 
+    email = fields.Char(string="Partner email", related="partner.email", store=True,)
+
     # 3. Default methods
 
     # 4. Compute and search fields, in the same order that fields declaration

@@ -6,6 +6,7 @@
         <field name="arch" type="xml">
             <tree string="Membership Lines" create="false" delete="false" default_order="partner">
                 <field name="partner" optional="show"/>
+                <field name="email" optional="hide" />
                 <field name="date" optional="show"/>
                 <field name="date_from" optional="show"/>
                 <field name="date_to" optional="show"/>
@@ -30,6 +31,7 @@
                         <page string="Membership line">
                             <group>
                                 <field name="partner" optional="show"/>
+                                <field name="email" optional="hide" />
                                 <field name="date" optional="show"/>
                             </group>
                         </page>
