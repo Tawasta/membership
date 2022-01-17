@@ -21,7 +21,7 @@
 {
     "name": "Membership variant company for partners",
     "summary": "Add a list of membership variant companies for partner",
-    "version": "14.0.1.0.0",
+    "version": "14.0.1.1.0",
     "category": "Sales",
     "website": "https://gitlab.com/tawasta/odoo/membership/",
     "author": "Tawasta",
@@ -29,5 +29,5 @@
     "application": False,
     "installable": True,
     "depends": ["membership_line_view", "product_variant_company"],
-    "data": ["views/partner.xml"],
+    "data": ["data/ir_cron.xml", "views/partner.xml"],
 }

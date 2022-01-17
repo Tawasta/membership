@@ -17,12 +17,12 @@ class MembershipLine(models.Model):
 
     @api.depends("member_lines", "member_lines.state")
     def _compute_member_line_variant_company_ids(self):
-        print("HERE WE GO")
-        print(self)
         for record in self:
             variant_company_ids = record.member_lines.filtered(
                 lambda line: line.state in ["waiting", "invoiced", "free", "paid"]
             ).mapped("membership_company_id")
-            print(variant_company_ids)
 
             record.member_line_variant_company_ids = variant_company_ids.ids
+
+    def cron_compute_member_line_variant_company_ids(self):
+        self.search([])._compute_member_line_variant_company_ids()
