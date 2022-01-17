@@ -25,4 +25,6 @@ class MembershipLine(models.Model):
             record.member_line_variant_company_ids = variant_company_ids.ids
 
     def cron_compute_member_line_variant_company_ids(self):
-        self.search([])._compute_member_line_variant_company_ids()
+        partners = self.search([])
+        for record in partners:
+            record.with_delay()._compute_member_line_variant_company_ids()
