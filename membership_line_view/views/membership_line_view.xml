@@ -6,15 +6,38 @@
         <field name="arch" type="xml">
             <tree string="Membership Lines" create="false" delete="false" default_order="partner">
                 <field name="partner" optional="show"/>
+                <field name="email" optional="hide" />
                 <field name="date" optional="show"/>
+                <field name="date_from" optional="show"/>
+                <field name="date_to" optional="show"/>
+                <field name="date_cancel" optional="hide"/>
                 <field name="membership_id" optional="show"/>
-                <field name="member_price" optional="show"/>
+                <field name="member_price" optional="hide"/>
                 <field name="account_invoice_id" optional="show"/>
                 <field name="state" optional="show"/>
                 <field name="contract_state" optional="show"/>
                 <field name="company_id" optional="show"/>
                 <field name="membership_company_id" optional="show"/>
             </tree>
+        </field>
+    </record>
+    <record id="membership_line_form" model="ir.ui.view">
+        <field name="name">membership.line.form</field>
+        <field name="model">membership.membership_line</field>
+        <field name="arch" type="xml">
+            <form string="Membership Lines" create="false" delete="false">
+                <sheet>
+                    <notebook>
+                        <page string="Membership line">
+                            <group>
+                                <field name="partner" optional="show"/>
+                                <field name="email" optional="hide" />
+                                <field name="date" optional="show"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
         </field>
     </record>
     <record id="membership_line_search" model="ir.ui.view">
@@ -38,7 +61,7 @@
         <field name="name">Membership lines</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">membership.membership_line</field>
-        <field name="view_mode">tree</field>
+        <field name="view_mode">tree,form</field>
         <field name="view_id" ref="membership_line_view.membership_line_tree"/>
     </record>
     <menuitem id="menu_membership_line" action="membership_line_action" parent="membership.menu_association" sequence="20"/>

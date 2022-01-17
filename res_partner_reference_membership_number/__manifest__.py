@@ -1,7 +1,7 @@
 ##############################################################################
 #
-#    Author: Tawasta
-#    Copyright 2020 Oy Tawasta OS Technologies Ltd. (https://tawasta.fi)
+#    Author: Oy Tawasta OS Technologies Ltd.
+#    Copyright 2022- Oy Tawasta OS Technologies Ltd. (https://tawasta.fi)
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -19,19 +19,15 @@
 ##############################################################################
 
 {
-    "name": "Website Sale Offer Memberships",
-    "summary": "Website sale offer memberships",
-    "version": "14.0.1.0.1",
-    "category": "Website",
-    "website": "https://gitlab.com/tawasta/odoo/membership",
+    "name": "Res Partner Reference Membership Number",
+    "summary": "Partner field ref as membership number",
+    "version": "14.0.1.0.0",
+    "category": "CRM",
+    "website": "https://gitlab.com/tawasta/odoo/partner/",
     "author": "Tawasta",
     "license": "AGPL-3",
     "application": False,
     "installable": True,
-    "depends": ["website_sale"],
-    "data": [
-        "views/res_config_settings_views.xml",
-        "views/templates.xml",
-        "views/product_views.xml",
-    ],
+    "depends": ["base"],
+    "data": ["views/res_partner.xml"],
 }

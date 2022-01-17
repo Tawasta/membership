@@ -1,7 +1,7 @@
 ##############################################################################
 #
-#    Author: Tawasta
-#    Copyright 2020 Oy Tawasta OS Technologies Ltd. (https://tawasta.fi)
+#    Author: Oy Tawasta OS Technologies Ltd.
+#    Copyright 2020- Oy Tawasta OS Technologies Ltd. (https://tawasta.fi)
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -19,19 +19,16 @@
 ##############################################################################
 
 {
-    "name": "Website Sale Offer Memberships",
-    "summary": "Website sale offer memberships",
-    "version": "14.0.1.0.1",
-    "category": "Website",
-    "website": "https://gitlab.com/tawasta/odoo/membership",
+    "name": "Mass Mailing List membership line",
+    "summary": "Create mass mailing list from membership.membership_line view.",
+    "category": "Membership",
+    "version": "14.0.1.0.0",
+    "website": "",
     "author": "Tawasta",
     "license": "AGPL-3",
     "application": False,
     "installable": True,
-    "depends": ["website_sale"],
-    "data": [
-        "views/res_config_settings_views.xml",
-        "views/templates.xml",
-        "views/product_views.xml",
-    ],
+    "depends": ["mass_mailing", "mass_mailing_partner", "membership_line_view"],
+    "data": ["security/ir.model.access.csv","wizard/membership_line_mail_list_wizard.xml"],
+    "qweb": [],
 }

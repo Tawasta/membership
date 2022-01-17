@@ -2,12 +2,11 @@
    :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
    :alt: License: AGPL-3
 
-================================
-Website Sale - Offer memberships
-================================
+=================================
+Mass Mailing List membership line
+=================================
 
-* If the person who performing the e-commerce process does not have a membership pricelist in use, then they will be offered to buy memberships in the payment view.
-* Define offered shop category in product.public.category by toggling "Membership offer". Only one can be selected.
+Create mass mailing list from membership.membership_line view.
 
 Configuration
 =============
@@ -17,6 +16,10 @@ Usage
 =====
 \-
 
+Known issues / Roadmap
+======================
+\-
+
 Credits
 =======
 
@@ -24,7 +27,6 @@ Contributors
 ------------
 
 * Valtteri Lattu <valtteri.lattu@tawasta.fi>
-* Miika Nissi <miika.nissi@tawasta.fi>
 
 Maintainer
 ----------

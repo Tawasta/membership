@@ -38,6 +38,7 @@
         "product_variant_sale_price",
     ],
     "data": [
+        "views/contract.xml",
         "views/product_pricelist_views.xml",
         "views/product_template_view.xml",
         "views/sale_order.xml",

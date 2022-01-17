@@ -17,11 +17,13 @@
 #    along with this program. If not, see http://www.gnu.org/licenses/agpl.html
 #
 ##############################################################################
+
 # 1. Standard library imports:
+
 # 2. Known third party imports:
+
 # 3. Odoo imports (openerp):
-from odoo import fields
-from odoo import models
+from odoo import api, fields, models
 
 # 4. Imports from Odoo modules:
 
@@ -30,46 +32,31 @@ from odoo import models
 # 6. Unknown third party imports:
 
 
-class MembershipLine(models.Model):
-
+class ProductPublicCategory(models.Model):
     # 1. Private attributes
-    _inherit = "membership.membership_line"
+    _inherit = "product.public.category"
 
     # 2. Fields declaration
-    membership_company_id = fields.Many2one(
-        comodel_name="res.company",
-        string="Membership company",
-        related="membership_id.variant_company_id",
-        store=True,
+    is_membership_offer = fields.Boolean(
+        "Membership offer",
+        default=False,
+        help="Offer this category as membership in shopping cart. "
+        "Only one category can be selected.",
     )
-    contract_state = fields.Selection(
-        string="Contract state",
-        selection=[
-            ("upcoming", "Upcoming"),
-            ("in-progress", "In-progress"),
-            ("to-renew", "To renew"),
-            ("upcoming-close", "Upcoming Close"),
-            ("closed", "Closed"),
-            ("canceled", "Canceled"),
-        ],
-        compute="_compute_contract_lines",
-        store=True,
-    )
-
-    email = fields.Char(string="Partner email", related="partner.email", store=True,)
 
     # 3. Default methods
 
     # 4. Compute and search fields, in the same order that fields declaration
-    def _compute_contract_lines(self):
-        for rec in self:
-            for invoice in rec.account_invoice_id:
-                for invoice_line in invoice.invoice_line_ids:
-                    if invoice_line.product_id == rec.membership_id:
-                        if invoice_line.contract_line_id.state:
-                            rec.contract_state = invoice_line.contract_line_id.state
 
     # 5. Constraints and onchanges
+    @api.constrains("is_membership_offer")
+    def _is_membership_offer_ensure_one(self):
+        if self.is_membership_offer:
+            product_public_categories = self.env["product.public.category"].search(
+                [("id", "!=", self.id)]
+            )
+            for product_public_category in product_public_categories:
+                product_public_category.is_membership_offer = False
 
     # 6. CRUD methods
 

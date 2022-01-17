@@ -1,5 +1,8 @@
 from odoo import fields
 from odoo import models
+from odoo import _
+from odoo.exceptions import UserError
+from datetime import datetime
 
 
 class SaleOrder(models.Model):
@@ -71,6 +74,9 @@ class SaleOrder(models.Model):
                             "name": order.partner_id.parent_id.name,
                             "partner_id": order.partner_id.parent_id.id,
                             "partner_invoice_id": order.partner_invoice_id.parent_id.id,
+                            "invoice_partner_id": order.partner_id.parent_id.id,
+                            "note": order.note,
+                            "line_recurrence": True,
                         }
                     )
                     create_contract = (
@@ -94,6 +100,9 @@ class SaleOrder(models.Model):
                             "name": order.partner_id.name,
                             "partner_id": order.partner_id.id,
                             "partner_invoice_id": order.partner_invoice_id.parent_id.id,
+                            "invoice_partner_id": order.partner_id.id,
+                            "note": order.note,
+                            "line_recurrence": True,
                         }
                     )
                     create_contract = (
@@ -112,7 +121,7 @@ class SaleOrder(models.Model):
                         .search([("partner_id.email", "=", order.partner_id.email)])
                     )
                     if already_contract and len(already_contract) == 1:
-                        self._create_contract_lines(already_contract, order)
+                        self._create_contract_lines(already_contract, order, free_products_only=False, already_contract=True)
                         create_contract = already_contract
                     else:
                         if order.contract_id:
@@ -131,6 +140,9 @@ class SaleOrder(models.Model):
                                     "name": self.partner_id.name,
                                     "partner_id": self.partner_id.id,
                                     "partner_invoice_id": self.partner_invoice_id.id,
+                                    "invoice_partner_id": self.partner_id.id,
+                                    "note": order.note,
+                                    "line_recurrence": True,
                                 }
                             )
                             create_contract = (
@@ -139,13 +151,24 @@ class SaleOrder(models.Model):
                         if create_contract:
                             self._create_contract_lines(create_contract, order)
 
+                else:
+                    raise UserError(_('The sale order customer does not have an email address specified, so the membership agreement cannot be created.'))
+
             order.partner_id.sudo().write(
                 {"property_product_pricelist": membership_pricelist_id.id}
             )
             order.sudo().write({"contract_id": create_contract.id})
 
+            find_attachments = self.env["ir.attachment"].sudo().search([
+                ('res_model', '=', 'sale.order'),
+                ('res_id', '=', order.id)
+            ])
+            for att in find_attachments:
+                new_attachment = att.copy()
+                new_attachment.sudo().write({"res_model": 'contract.contract', 'res_id': create_contract.id})
+
     def _create_contract_lines(
-        self, contract=False, order=False, free_products_only=False
+        self, contract=False, order=False, free_products_only=False, already_contract=False
     ):
         if free_products_only:
             for line in order.order_line:
@@ -158,6 +181,7 @@ class SaleOrder(models.Model):
                                     "contract_id": contract.id,
                                     "product_id": free_product.id,
                                     "name": free_product.name,
+                                    "recurring_rule_type": 'yearly',
                                 }
                                 if free_product.product_variant_count > 1:
                                     contract_line_vals.update(
@@ -178,6 +202,7 @@ class SaleOrder(models.Model):
                             "contract_id": contract.id,
                             "product_id": line.product_id.id,
                             "name": line.product_id.name,
+                            "recurring_rule_type": 'yearly',
                         }
                         if line.product_id.product_variant_count > 1:
                             contract_line_vals.update(
@@ -193,24 +218,35 @@ class SaleOrder(models.Model):
                         line.contract_line_id = contract_line_id.id
 
         else:
+            ending_day_of_current_year = datetime.now().date().replace(month=12, day=31)
             for line in order.order_line:
                 if (
                     line.product_id.membership
-                    and line.product_id.show_only_in_suggested_accessories is False
                 ):
                     contract_line_vals = {
                         "contract_id": contract.id,
                         "product_id": line.product_id.id,
                         "name": line.product_id.name,
+                        "recurring_rule_type": 'yearly',
+                        "recurring_next_date": ending_day_of_current_year,
                     }
-                    if line.product_id.product_variant_count > 1:
+                    if already_contract:
+                        item_price = self.env["product.pricelist.item"].sudo().search([
+                            ('product_id', '=', line.product_id.id),
+                            ('additional_membership_price', '=', True),
+                        ])
                         contract_line_vals.update(
-                            {"price_unit": line.product_id.fix_price}
+                            {'price_unit': item_price.fixed_price}
                         )
                     else:
-                        contract_line_vals.update(
-                            {"price_unit": line.product_id.lst_price}
-                        )
+                        if line.product_id.product_variant_count > 1:
+                            contract_line_vals.update(
+                                {"price_unit": line.product_id.fix_price}
+                            )
+                        else:
+                            contract_line_vals.update(
+                                {"price_unit": line.product_id.lst_price}
+                            )
                     contract_line_id = (
                         self.env["contract.line"].sudo().create(contract_line_vals)
                     )
