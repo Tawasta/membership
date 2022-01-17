@@ -222,7 +222,6 @@ class SaleOrder(models.Model):
             for line in order.order_line:
                 if (
                     line.product_id.membership
-                    and line.product_id.show_only_in_suggested_accessories is False
                 ):
                     contract_line_vals = {
                         "contract_id": contract.id,
