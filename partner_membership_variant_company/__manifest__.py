@@ -1,7 +1,7 @@
 ##############################################################################
 #
 #    Author: Oy Tawasta OS Technologies Ltd.
-#    Copyright 2021- Oy Tawasta OS Technologies Ltd. (https://tawasta.fi)
+#    Copyright 2022 Oy Tawasta OS Technologies Ltd. (https://tawasta.fi)
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -19,15 +19,15 @@
 ##############################################################################
 
 {
-    "name": "Membership Line View",
-    "summary": "Membership Line View",
-    "version": "14.0.1.0.4",
+    "name": "Membership variant company for partners",
+    "summary": "Add a list of membership variant companies for partner",
+    "version": "14.0.1.2.0",
     "category": "Sales",
     "website": "https://gitlab.com/tawasta/odoo/membership/",
     "author": "Tawasta",
     "license": "AGPL-3",
     "application": False,
     "installable": True,
-    "depends": ["membership", "product_variant_company"],
-    "data": ["views/membership_line_view.xml"],
+    "depends": ["membership_line_view", "product_variant_company", "queue_job"],
+    "data": ["data/ir_cron.xml", "views/partner.xml"],
 }

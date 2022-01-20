@@ -6,7 +6,7 @@
         <field name="arch" type="xml">
             <tree string="Membership Lines" create="false" delete="false" default_order="partner">
                 <field name="partner" optional="show"/>
-                <field name="email" optional="hide" />
+                <field name="email" optional="hide"/>
                 <field name="date" optional="show"/>
                 <field name="date_from" optional="show"/>
                 <field name="date_to" optional="show"/>
@@ -32,7 +32,7 @@
                         <page string="Membership line">
                             <group>
                                 <field name="partner" optional="show"/>
-                                <field name="email" optional="hide" />
+                                <field name="email" optional="hide"/>
                                 <field name="date" optional="show"/>
                             </group>
                         </page>
@@ -46,6 +46,7 @@
         <field name="model">membership.membership_line</field>
         <field name="arch" type="xml">
             <search string="Membership line">
+                <field string="Partner" name="partner"/>
                 <field string="Membership" name="membership_id"/>
                 <field string="Company" name="company_id"/>
                 <field string="Membership company" name="membership_company_id"/>
