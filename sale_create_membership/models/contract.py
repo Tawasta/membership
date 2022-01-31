@@ -9,7 +9,7 @@ class ContractContract(models.Model):
     @api.model
     def _set_start_contract_modification(self):
         contract = super()._set_start_contract_modification()
-        subtype_id = self.env['mail.message.subtype'].sudo().search([('name', '=', 'Discussions')])
+        subtype_id = self.env.ref("mail.mt_comment")
         if subtype_id and self.message_follower_ids:
             for follower in self.message_follower_ids:
                 if follower.partner_id == self.partner_id:
