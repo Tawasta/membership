@@ -53,6 +53,7 @@ class SaleOrder(models.Model):
             .search([("membership_pricelist", "=", True)])
         )
         for order in self:
+            company_contract = False
             find_contract_template = self.env["contract.template"].sudo().search([])
             if company:
                 if not order.partner_id.parent_id:
@@ -84,6 +85,7 @@ class SaleOrder(models.Model):
                         .sudo()
                         .create(company_contract_vals)
                     )
+                    company_contract = create_contract
 
                 if create_contract:
                     self._create_contract_lines(create_contract, order)
@@ -157,7 +159,10 @@ class SaleOrder(models.Model):
             order.partner_id.sudo().write(
                 {"property_product_pricelist": membership_pricelist_id.id}
             )
-            order.sudo().write({"contract_id": create_contract.id})
+            if company_contract:
+                order.sudo().write({"contract_id": company_contract.id})
+            else:
+                order.sudo().write({"contract_id": create_contract.id})
 
             find_attachments = self.env["ir.attachment"].sudo().search([
                 ('res_model', '=', 'sale.order'),
