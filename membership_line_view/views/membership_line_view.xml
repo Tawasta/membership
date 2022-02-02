@@ -18,7 +18,7 @@
                 <field name="contract_state" optional="show"/>
                 <field name="company_id" optional="show"/>
                 <field name="membership_company_id" optional="show"/>
-                <field name="invoice_partner_id" optional="show" />
+                <field name="invoice_partner_id" optional="show"/>
             </tree>
         </field>
     </record>
@@ -50,7 +50,7 @@
                 <field string="Membership" name="membership_id"/>
                 <field string="Company" name="company_id"/>
                 <field string="Membership company" name="membership_company_id"/>
-                <filter string="Valid Memberships" name="valid_memberships" domain="['|','|','|','&amp;',('state','=','waiting'),('date_to','&gt;',context_today().strftime('%Y-%m-%d')),'&amp;',('state','=','invoiced'),('date_to','&gt;',context_today().strftime('%Y-%m-%d')),'&amp;',('state','=','free'),('date_to','&gt;',context_today().strftime('%Y-%m-%d')),'&amp;',('state','=','paid'),('date_to','&lt;',context_today().strftime('%Y-%m-%d'))]" help="Membership is valid if it is not expired and the state is in waiting, invoiced, free or paid."/>
+                <filter string="Valid Memberships" name="valid_memberships" domain="['|','|','|','&amp;',('state','=','waiting'),('date_to','&gt;',context_today().strftime('%Y-%m-%d')),'&amp;',('state','=','invoiced'),('date_to','&gt;',context_today().strftime('%Y-%m-%d')),'&amp;',('state','=','free'),('date_to','&gt;',context_today().strftime('%Y-%m-%d')),'&amp;',('state','=','paid'),('date_to','&gt;',context_today().strftime('%Y-%m-%d'))]" help="Membership is valid if it is not expired and the state is in waiting, invoiced, free or paid."/>
                 <separator/>
                 <group expand="0" string="Group By...">
                     <filter name="membership_id" string="Membership" domain="[]" context="{'group_by':'membership_id'}"/>
