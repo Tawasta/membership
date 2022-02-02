@@ -50,12 +50,13 @@
                 <field string="Membership" name="membership_id"/>
                 <field string="Company" name="company_id"/>
                 <field string="Membership company" name="membership_company_id"/>
-                <filter string="Valid Memberships" name="valid_memberships" domain="['|','|','|','&amp;',('state','=','waiting'),('date_to','&gt;',context_today().strftime('%Y-%m-%d')),'&amp;',('state','=','invoiced'),('date_to','&gt;',context_today().strftime('%Y-%m-%d')),'&amp;',('state','=','free'),('date_to','&gt;',context_today().strftime('%Y-%m-%d')),'&amp;',('state','=','paid'),('date_to','&gt;',context_today().strftime('%Y-%m-%d'))]" context="{'group_by': 'date_from:year'}" help="Membership is valid if it is not expired and the state is in waiting, invoiced, free or paid."/>
+                <filter string="Valid Memberships" name="valid_memberships" domain="['|','|','|','&amp;',('state','=','waiting'),('date_to','&gt;',context_today().strftime('%Y-%m-%d')),'&amp;',('state','=','invoiced'),('date_to','&gt;',context_today().strftime('%Y-%m-%d')),'&amp;',('state','=','free'),('date_to','&gt;',context_today().strftime('%Y-%m-%d')),'&amp;',('state','=','paid'),('date_to','&gt;',context_today().strftime('%Y-%m-%d'))]" help="Membership is valid if it is not expired and the state is in waiting, invoiced, free or paid."/>
                 <separator/>
                 <group expand="0" string="Group By...">
                     <filter name="membership_id" string="Membership" domain="[]" context="{'group_by':'membership_id'}"/>
                     <filter name="company_id" string="Company" domain="[]" context="{'group_by':'company_id'}"/>
                     <filter name="membership_company_id" string="Membership company" domain="[]" context="{'group_by':'membership_company_id'}"/>
+                    <filter name="date_from_year" string="Date From" context="{'group_by': 'date_from:year'}"/>
                 </group>
             </search>
         </field>
@@ -66,7 +67,7 @@
         <field name="res_model">membership.membership_line</field>
         <field name="view_mode">tree,form</field>
         <field name="view_id" ref="membership_line_view.membership_line_tree"/>
-        <field name="context">{"search_default_valid_memberships":1}</field>
+        <field name="context">{"search_default_valid_memberships":1, "search_default_date_from_year":1}</field>
     </record>
     <menuitem id="menu_membership_line" action="membership_line_action" parent="membership.menu_association" sequence="20"/>
 </odoo>
