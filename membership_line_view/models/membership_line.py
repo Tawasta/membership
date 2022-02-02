@@ -58,6 +58,8 @@ class MembershipLine(models.Model):
 
     email = fields.Char(string="Partner email", related="partner.email", store=True,)
 
+    invoice_partner_id = fields.Many2one(string="Invoice partner", comodel_name="res.partner", related="account_invoice_id.partner_id", store=True)
+
     # 3. Default methods
 
     # 4. Compute and search fields, in the same order that fields declaration
