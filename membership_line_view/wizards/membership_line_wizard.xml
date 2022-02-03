@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<odoo>
+    <record model="ir.ui.view" id="membership_line_wizard_update_form">
+        <field name="name">Update memberhip line status</field>
+        <field name="model">membership.line.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="membership_line_id" invisible="True" />
+                    <field name="override_state" required="True" />
+                </group>
+                <footer>
+                    <button
+                        name="action_override_state"
+                        string="Update"
+                        class="btn-primary"
+                        type="object"
+                    />
+                    <button string="Cancel" class="btn-default" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 ##############################################################################
 #
 #    Author: Oy Tawasta OS Technologies Ltd.
@@ -22,10 +21,10 @@
 {
     'name': 'Membership line view',
     'summary': 'Membership line view',
-    'version': '12.0.1.0.1',
+    'version': '12.0.1.2.0',
     'category': 'Sales',
-    'website': 'https://tawasta.fi',
-    'author': 'Oy Tawasta Technologies Ltd.',
+    'website': 'https://gitlab.com/tawasta/odoo/membership/',
+    'author': 'Tawasta',
     'license': 'AGPL-3',
     'application': False,
     'installable': True,
@@ -38,6 +37,7 @@
     ],
     'data': [
         'views/membership_line_view.xml',
+        'wizards/membership_line_wizard.xml',
     ],
     'demo': [
     ],

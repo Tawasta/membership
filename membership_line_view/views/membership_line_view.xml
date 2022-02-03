@@ -15,6 +15,21 @@
                 <field name="contract_state" />
                 <field name="company_id"/>
                 <field name="membership_company_id"/>
+
+                <button
+                    name="action_override_state"
+                    string="Edit state"
+                    type="object"
+                    icon="fa-edit text-primary"
+                />
+
+                <button
+                    name="action_compute_state"
+                    string="Update state"
+                    type="object"
+                    icon="fa-refresh text-primary"
+                />
+
             </tree>
         </field>
     </record>

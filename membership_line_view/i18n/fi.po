@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 12.0\n"
+"Project-Id-Version: Odoo Server 12.0-20210809\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-19 09:26+0000\n"
-"PO-Revision-Date: 2021-04-19 09:26+0000\n"
+"POT-Creation-Date: 2022-02-03 12:39+0000\n"
+"PO-Revision-Date: 2022-02-03 12:39+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,9 +16,20 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: membership_line_view
+#: model_terms:ir.ui.view,arch_db:membership_line_view.membership_line_wizard_update_form
+msgid "Cancel"
+msgstr "Peruuta"
+
+#. module: membership_line_view
 #: selection:membership.membership_line,contract_state:0
 msgid "Canceled"
 msgstr "Peruttu"
+
+#. module: membership_line_view
+#: selection:membership.line.wizard,override_state:0
+#: selection:membership.membership_line,override_state:0
+msgid "Cancelled Member"
+msgstr "Peruttu jäsen"
 
 #. module: membership_line_view
 #: selection:membership.membership_line,contract_state:0
@@ -36,14 +47,66 @@ msgid "Contract state"
 msgstr "Sopimuksen tila"
 
 #. module: membership_line_view
+#: model:ir.model.fields,field_description:membership_line_view.field_membership_line_wizard__create_uid
+msgid "Created by"
+msgstr "Luonut"
+
+#. module: membership_line_view
+#: model:ir.model.fields,field_description:membership_line_view.field_membership_line_wizard__create_date
+msgid "Created on"
+msgstr "Luotu"
+
+#. module: membership_line_view
+#: model:ir.model.fields,field_description:membership_line_view.field_membership_line_wizard__display_name
+msgid "Display Name"
+msgstr "Näyttönimi"
+
+#. module: membership_line_view
+#: model_terms:ir.ui.view,arch_db:membership_line_view.membership_line_tree
+msgid "Edit state"
+msgstr "Muuta tilaa"
+
+#. module: membership_line_view
+#: selection:membership.line.wizard,override_state:0
+#: selection:membership.membership_line,override_state:0
+msgid "Free Member"
+msgstr "Vapaajäsen"
+
+#. module: membership_line_view
 #: model_terms:ir.ui.view,arch_db:membership_line_view.membership_line_search
 msgid "Group By..."
-msgstr "Ryhmittele..."
+msgstr "Ryhmittele.."
+
+#. module: membership_line_view
+#: model:ir.model.fields,field_description:membership_line_view.field_membership_line_wizard__id
+msgid "ID"
+msgstr "Tunniste (ID)"
 
 #. module: membership_line_view
 #: selection:membership.membership_line,contract_state:0
 msgid "In-progress"
 msgstr "Käynnissä"
+
+#. module: membership_line_view
+#: selection:membership.line.wizard,override_state:0
+#: selection:membership.membership_line,override_state:0
+msgid "Invoiced Member"
+msgstr "Laskutettu jäsen"
+
+#. module: membership_line_view
+#: model:ir.model.fields,field_description:membership_line_view.field_membership_line_wizard____last_update
+msgid "Last Modified on"
+msgstr "Viimeksi muokattu"
+
+#. module: membership_line_view
+#: model:ir.model.fields,field_description:membership_line_view.field_membership_line_wizard__write_uid
+msgid "Last Updated by"
+msgstr "Viimeksi päivittänyt"
+
+#. module: membership_line_view
+#: model:ir.model.fields,field_description:membership_line_view.field_membership_line_wizard__write_date
+msgid "Last Updated on"
+msgstr "Viimeksi päivitetty"
 
 #. module: membership_line_view
 #: model_terms:ir.ui.view,arch_db:membership_line_view.membership_line_search
@@ -54,6 +117,11 @@ msgstr "Jäsenyys"
 #: model:ir.model,name:membership_line_view.model_membership_membership_line
 msgid "Membership Line"
 msgstr "Jäsenyysrivi"
+
+#. module: membership_line_view
+#: model:ir.model,name:membership_line_view.model_membership_line_wizard
+msgid "Membership Line Wizard"
+msgstr "Ohjattu jäsenrivin muokkaus"
 
 #. module: membership_line_view
 #: model_terms:ir.ui.view,arch_db:membership_line_view.membership_line_tree
@@ -67,6 +135,7 @@ msgid "Membership company"
 msgstr "Jäsenyyden yritys"
 
 #. module: membership_line_view
+#: model:ir.model.fields,field_description:membership_line_view.field_membership_line_wizard__membership_line_id
 #: model_terms:ir.ui.view,arch_db:membership_line_view.membership_line_search
 msgid "Membership line"
 msgstr "Jäsenyysrivi"
@@ -78,9 +147,42 @@ msgid "Membership lines"
 msgstr "Jäsenyysrivit"
 
 #. module: membership_line_view
+#: model:ir.model.fields,field_description:membership_line_view.field_membership_line_wizard__override_state
+msgid "New membership status"
+msgstr "Uusi jäsenyyden tila"
+
+#. module: membership_line_view
+#: selection:membership.line.wizard,override_state:0
+#: selection:membership.membership_line,override_state:0
+msgid "Non Member"
+msgstr "Ei jäsen"
+
+#. module: membership_line_view
+#: selection:membership.line.wizard,override_state:0
+#: selection:membership.membership_line,override_state:0
+msgid "Old Member"
+msgstr "Entinen jäsen"
+
+#. module: membership_line_view
+#: model:ir.model.fields,field_description:membership_line_view.field_membership_membership_line__override_state
+msgid "Overridden status"
+msgstr "Ylikirjoitettu tila"
+
+#. module: membership_line_view
+#: selection:membership.line.wizard,override_state:0
+#: selection:membership.membership_line,override_state:0
+msgid "Paid Member"
+msgstr "Maksanut jäsen"
+
+#. module: membership_line_view
+#: model:ir.model.fields,help:membership_line_view.field_membership_membership_line__override_state
+msgid "Setting this will override the automated state from invoice"
+msgstr "Tämän asettaminen ylikirjoittaa automaattisesti laskulta tuodun tilan"
+
+#. module: membership_line_view
 #: selection:membership.membership_line,contract_state:0
 msgid "To renew"
-msgstr "Uusittavaksi"
+msgstr "Tullaan uusimaan"
 
 #. module: membership_line_view
 #: selection:membership.membership_line,contract_state:0
@@ -90,5 +192,21 @@ msgstr "Tulossa"
 #. module: membership_line_view
 #: selection:membership.membership_line,contract_state:0
 msgid "Upcoming Close"
-msgstr "Päättyminen tulossa"
+msgstr "Tullaan päättämään"
+
+#. module: membership_line_view
+#: model_terms:ir.ui.view,arch_db:membership_line_view.membership_line_wizard_update_form
+msgid "Update"
+msgstr "Päivitä"
+
+#. module: membership_line_view
+#: model_terms:ir.ui.view,arch_db:membership_line_view.membership_line_tree
+msgid "Update state"
+msgstr "Päivitä tila"
+
+#. module: membership_line_view
+#: selection:membership.line.wizard,override_state:0
+#: selection:membership.membership_line,override_state:0
+msgid "Waiting Member"
+msgstr "Odottava jäsen"
 
