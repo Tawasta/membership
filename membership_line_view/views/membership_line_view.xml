@@ -61,11 +61,22 @@
             </search>
         </field>
     </record>
+    <record id="membership_line_pivot" model="ir.ui.view">
+        <field name="name">membership.line.pivot</field>
+        <field name="model">membership.membership_line</field>
+        <field name="arch" type="xml">
+           <pivot string="Membership line" disable_linking="1">
+                <field name="membership_company_id" type="row"/>
+<!--                 <field name="partner" type="col"/>
+                <field name="membership_id" type="measure"/> -->
+            </pivot>
+        </field>
+    </record>
     <record id="membership_line_action" model="ir.actions.act_window">
         <field name="name">Membership lines</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">membership.membership_line</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">tree,form,pivot</field>
         <field name="view_id" ref="membership_line_view.membership_line_tree"/>
         <field name="context">{"search_default_valid_memberships":1, "search_default_date_from_year":1}</field>
     </record>
