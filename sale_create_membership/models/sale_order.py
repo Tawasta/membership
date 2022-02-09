@@ -236,13 +236,26 @@ class SaleOrder(models.Model):
                         "recurring_next_date": ending_day_of_current_year,
                     }
                     if already_contract:
-                        item_price = self.env["product.pricelist.item"].sudo().search([
-                            ('product_id', '=', line.product_id.id),
-                            ('additional_membership_price', '=', True),
-                        ])
-                        contract_line_vals.update(
-                            {'price_unit': item_price.fixed_price}
-                        )
+                        # all_ended = False
+                        ended_lines = []
+                        for contract_line in contract.contract_line_fixed_ids:
+                            if contract_line.state in ('closed', 'canceled'):
+                                ended_lines.append(contract_line)
+
+                        if len(ended_lines) == len(contract.contract_line_fixed_ids):
+                            contract_line_vals.update(
+                                {'price_unit': line.product_id.fix_price}
+                            )
+
+                        else:
+
+                            item_price = self.env["product.pricelist.item"].sudo().search([
+                                ('product_id', '=', line.product_id.id),
+                                ('additional_membership_price', '=', True),
+                            ])
+                            contract_line_vals.update(
+                                {'price_unit': item_price.fixed_price}
+                            )
                     else:
                         if line.product_id.product_variant_count > 1:
                             contract_line_vals.update(
