@@ -239,7 +239,7 @@ class SaleOrder(models.Model):
                         # all_ended = False
                         ended_lines = []
                         for contract_line in contract.contract_line_fixed_ids:
-                            if contract_line.state in ('closed', 'canceled'):
+                            if contract_line.state in ('closed', 'canceled', 'upcoming-close'):
                                 ended_lines.append(contract_line)
 
                         if len(ended_lines) == len(contract.contract_line_fixed_ids):
