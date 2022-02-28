@@ -15,7 +15,7 @@ class SaleOrderLine(models.Model):
         contract = self.order_id.contract_id
         if contract:
             contract_line = contract.contract_line_fixed_ids.filtered(
-                lambda r: r.product_id == self.product_id
+                lambda r: r.state not in ('closed', 'canceled', 'upcoming-close') and r.product_id == self.product_id
             )
             if contract_line:
                 res["contract_line_id"] = contract_line.id
