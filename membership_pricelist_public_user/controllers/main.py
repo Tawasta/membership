@@ -24,7 +24,7 @@ class WebsiteSale(WebsiteSale):
         res = super(WebsiteSale, self).cart_update(product_id, add_qty, set_qty)
         order = request.website.sale_get_order(force_create=True)
         use_membership_pricelist = False
-        if request.env.user.partner_id.id == request.env.ref('base.public_user').partner_id.id
+        if request.env.user.partner_id.id == request.env.ref('base.public_user').partner_id.id:
 
             for line in order.order_line:
                 if line.product_id.membership:
