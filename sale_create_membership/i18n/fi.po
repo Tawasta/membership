@@ -1,19 +1,24 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#   * sale_create_membership
+# 	* sale_create_membership
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 14.0\n"
+"Project-Id-Version: Odoo Server 14.0-20211220\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-06 07:01+0000\n"
-"PO-Revision-Date: 2021-10-06 07:01+0000\n"
+"POT-Creation-Date: 2022-03-11 09:42+0000\n"
+"PO-Revision-Date: 2022-03-11 09:42+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
+
+#. module: sale_create_membership
+#: model:ir.model.fields,field_description:sale_create_membership.field_product_pricelist_item__additional_membership_price
+msgid "Additional membership price"
+msgstr "Lisäjäsenyyden hinta"
 
 #. module: sale_create_membership
 #: model:ir.model.fields.selection,name:sale_create_membership.selection__product_template__membership_type__company
@@ -26,9 +31,23 @@ msgid "Contact"
 msgstr "Yhteyshenkilö"
 
 #. module: sale_create_membership
+#: model:ir.model,name:sale_create_membership.model_contract_contract
 #: model:ir.model.fields,field_description:sale_create_membership.field_sale_order__contract_id
 msgid "Contract"
 msgstr "Sopimus"
+
+#. module: sale_create_membership
+#: code:addons/sale_create_membership/models/sale_order_line.py:0
+#, python-format
+msgid ""
+"Contract '{}' has multiple lines for '{}'. Please close redundant contract "
+"lines."
+msgstr "Sopimuksella '{}' on useita rivejä tuotteelle '{}'. Sulje päällekkäiset sopimusrivit."
+
+#. module: sale_create_membership
+#: model:ir.model,name:sale_create_membership.model_contract_template
+msgid "Contract Template"
+msgstr "Sopimusmalli"
 
 #. module: sale_create_membership
 #: model:ir.model.fields,field_description:sale_create_membership.field_sale_order_line__contract_line_id
@@ -36,7 +55,10 @@ msgid "Contract line"
 msgstr "Sopimusrivi"
 
 #. module: sale_create_membership
+#: model:ir.model.fields,field_description:sale_create_membership.field_contract_contract__display_name
+#: model:ir.model.fields,field_description:sale_create_membership.field_contract_template__display_name
 #: model:ir.model.fields,field_description:sale_create_membership.field_product_pricelist__display_name
+#: model:ir.model.fields,field_description:sale_create_membership.field_product_pricelist_item__display_name
 #: model:ir.model.fields,field_description:sale_create_membership.field_product_template__display_name
 #: model:ir.model.fields,field_description:sale_create_membership.field_sale_order__display_name
 #: model:ir.model.fields,field_description:sale_create_membership.field_sale_order_line__display_name
@@ -44,13 +66,17 @@ msgid "Display Name"
 msgstr "Näyttönimi"
 
 #. module: sale_create_membership
+#: model:ir.model.fields,field_description:sale_create_membership.field_netvisor_product__free_products_ids
 #: model:ir.model.fields,field_description:sale_create_membership.field_product_product__free_products_ids
 #: model:ir.model.fields,field_description:sale_create_membership.field_product_template__free_products_ids
 msgid "Free products"
 msgstr "Ilmaiset tuotteet"
 
 #. module: sale_create_membership
+#: model:ir.model.fields,field_description:sale_create_membership.field_contract_contract__id
+#: model:ir.model.fields,field_description:sale_create_membership.field_contract_template__id
 #: model:ir.model.fields,field_description:sale_create_membership.field_product_pricelist__id
+#: model:ir.model.fields,field_description:sale_create_membership.field_product_pricelist_item__id
 #: model:ir.model.fields,field_description:sale_create_membership.field_product_template__id
 #: model:ir.model.fields,field_description:sale_create_membership.field_sale_order__id
 #: model:ir.model.fields,field_description:sale_create_membership.field_sale_order_line__id
@@ -58,7 +84,10 @@ msgid "ID"
 msgstr "Tunniste (ID)"
 
 #. module: sale_create_membership
+#: model:ir.model.fields,field_description:sale_create_membership.field_contract_contract____last_update
+#: model:ir.model.fields,field_description:sale_create_membership.field_contract_template____last_update
 #: model:ir.model.fields,field_description:sale_create_membership.field_product_pricelist____last_update
+#: model:ir.model.fields,field_description:sale_create_membership.field_product_pricelist_item____last_update
 #: model:ir.model.fields,field_description:sale_create_membership.field_product_template____last_update
 #: model:ir.model.fields,field_description:sale_create_membership.field_sale_order____last_update
 #: model:ir.model.fields,field_description:sale_create_membership.field_sale_order_line____last_update
@@ -66,6 +95,7 @@ msgid "Last Modified on"
 msgstr "Viimeksi muokattu"
 
 #. module: sale_create_membership
+#: model:ir.model.fields,field_description:sale_create_membership.field_netvisor_product__membership_type
 #: model:ir.model.fields,field_description:sale_create_membership.field_product_product__membership_type
 #: model:ir.model.fields,field_description:sale_create_membership.field_product_template__membership_type
 msgid "Membership Type"
@@ -80,6 +110,11 @@ msgstr "Jäsenyys hinnasto"
 #: model:ir.model,name:sale_create_membership.model_product_pricelist
 msgid "Pricelist"
 msgstr "Hinnasto"
+
+#. module: sale_create_membership
+#: model:ir.model,name:sale_create_membership.model_product_pricelist_item
+msgid "Pricelist Rule"
+msgstr "Hinnastosääntö"
 
 #. module: sale_create_membership
 #: model:ir.model,name:sale_create_membership.model_product_template
@@ -100,3 +135,18 @@ msgstr "Myyntitilausrivi"
 #: model_terms:ir.ui.view,arch_db:sale_create_membership.product_pricelist_view
 msgid "Settings"
 msgstr "Asetukset"
+
+#. module: sale_create_membership
+#: model:ir.model.fields,field_description:sale_create_membership.field_contract_contract__note
+msgid "Terms and conditions"
+msgstr "Käyttöehdot"
+
+#. module: sale_create_membership
+#: code:addons/sale_create_membership/models/sale_order.py:0
+#, python-format
+msgid ""
+"The sale order customer does not have an email address specified, so the "
+"membership agreement cannot be created."
+msgstr ""
+"Myynntitilauksen asiakkaalla ei ole sähköpostiosoitetta, joten "
+"jäsensopimusta ei voida luoda."
