@@ -21,7 +21,7 @@
 {
     "name": "Membership Line View",
     "summary": "Membership Line View",
-    "version": "14.0.1.0.4",
+    "version": "14.0.1.0.5",
     "category": "Sales",
     "website": "https://gitlab.com/tawasta/odoo/membership/",
     "author": "Tawasta",

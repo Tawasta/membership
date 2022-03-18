@@ -20,8 +20,7 @@
 # 1. Standard library imports:
 # 2. Known third party imports:
 # 3. Odoo imports (openerp):
-from odoo import fields
-from odoo import models
+from odoo import fields, models
 
 # 4. Imports from Odoo modules:
 
@@ -56,9 +55,20 @@ class MembershipLine(models.Model):
         store=True,
     )
 
-    email = fields.Char(string="Partner email", related="partner.email", store=True,)
+    email = fields.Char(string="Partner email", related="partner.email", store=True)
 
-    invoice_partner_id = fields.Many2one(string="Invoice partner", comodel_name="res.partner", related="account_invoice_id.partner_id", store=True)
+    invoice_partner_id = fields.Many2one(
+        string="Invoice partner",
+        comodel_name="res.partner",
+        related="account_invoice_id.partner_id",
+        store=True,
+    )
+    membership_product_template_id = fields.Many2one(
+        "product.template",
+        string="Product Template",
+        related="membership_id.product_tmpl_id",
+        store=True,
+    )
 
     # 3. Default methods
 
