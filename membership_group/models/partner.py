@@ -8,9 +8,9 @@ class ResPartner(models.Model):
 
     @api.onchange("membership_state")
     def _add_to_group(self):
-        current_record = str(self.id).split("_")[1]
+        current_record = self._origin.id
         user = self.env["res.users"].sudo().search([
-            ('partner_id', '=', int(current_record))
+            ('partner_id', '=', current_record)
         ])
         group = self.env["res.groups"].sudo().search([
             ('membership_group', '=', True)
