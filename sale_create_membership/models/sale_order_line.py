@@ -31,6 +31,4 @@ class SaleOrderLine(models.Model):
 
             if contract_line:
                 res["contract_line_id"] = contract_line.id
-            for line in contract_line:
-                line._update_recurring_next_date()
         return res
