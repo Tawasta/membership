@@ -3,6 +3,7 @@ from odoo import models
 from odoo import _
 from odoo.exceptions import UserError
 from datetime import datetime
+from dateutil.relativedelta import relativedelta
 
 
 class SaleOrder(models.Model):
@@ -176,6 +177,8 @@ class SaleOrder(models.Model):
         self, contract=False, order=False, free_products_only=False, already_contract=False
     ):
         if free_products_only:
+            currentTimeDate = datetime.now().date() + relativedelta(years=1)
+            first_day_of_next_year = currentTimeDate.replace(month=1, day=1)
             for line in order.order_line:
                 if line.product_id.membership:
                     if line.product_id.free_products_ids:
@@ -188,6 +191,7 @@ class SaleOrder(models.Model):
                                         "product_id": free_p.id,
                                         "name": free_p.name,
                                         "recurring_rule_type": 'yearly',
+                                        "recurring_next_date": first_day_of_next_year,
                                     }
                                     if free_p.product_variant_count > 1:
                                         contract_line_vals.update(
@@ -210,6 +214,7 @@ class SaleOrder(models.Model):
                             "product_id": line.product_id.id,
                             "name": line.product_id.name,
                             "recurring_rule_type": 'yearly',
+                            "recurring_next_date": first_day_of_next_year,
                         }
                         if line.product_id.product_variant_count > 1:
                             contract_line_vals.update(
@@ -225,7 +230,10 @@ class SaleOrder(models.Model):
                         line.contract_line_id = contract_line_id.id
 
         else:
-            ending_day_of_current_year = datetime.now().date().replace(month=12, day=31)
+            # ending_day_of_current_year = datetime.now().date().replace(month=12, day=31)
+            # first_day_of_next_year = datetime.now().date().replace(year= +1, month=1, day=1)
+            currentTimeDate = datetime.now().date() + relativedelta(years=1)
+            first_day_of_next_year = currentTimeDate.replace(month=1, day=1)
             is_company_contract = False
             for li in order.order_line:
                 if li.product_id.membership_type == "company":
@@ -239,7 +247,7 @@ class SaleOrder(models.Model):
                             "product_id": line.product_id.id,
                             "name": line.product_id.name,
                             "recurring_rule_type": 'yearly',
-                            "recurring_next_date": ending_day_of_current_year,
+                            "recurring_next_date": first_day_of_next_year,
                         }
                         if already_contract:
                             # all_ended = False
@@ -286,7 +294,7 @@ class SaleOrder(models.Model):
                             "product_id": line.product_id.id,
                             "name": line.product_id.name,
                             "recurring_rule_type": 'yearly',
-                            "recurring_next_date": ending_day_of_current_year,
+                            "recurring_next_date": first_day_of_next_year,
                         }
                         if already_contract:
                             # all_ended = False
