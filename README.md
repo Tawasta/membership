@@ -3,7 +3,7 @@
 
 Event
 =====
-Odoo Event Management Addons.
+Membership Management Addons
 
 [//]: # (addons)
 
