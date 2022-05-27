@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 ##############################################################################
 #
 #    Author: Oy Tawasta OS Technologies Ltd.
@@ -20,27 +19,26 @@
 ##############################################################################
 
 {
-    'name': 'Membership billing menu',
-    'summary': "Membership billing menu",
-    'version': '14.0.1.0.0',
-    'category': 'Futural EDU',
-    'website': 'http://www.tawasta.fi',
-    'author': 'Oy Tawasta Technologies Ltd.',
-    'license': 'AGPL-3',
-    'application': False,
-    'installable': True,
-    'external_dependencies': {
-        'python': [],
-        'bin': [],
+    "name": "Membership billing menu",
+    "summary": "Membership billing menu",
+    "version": "14.0.1.0.0",
+    "category": "Futural EDU",
+    "website": "https://gitlab.com/tawasta/odoo/membership",
+    "author": "Tawasta",
+    "license": "AGPL-3",
+    "application": False,
+    "installable": True,
+    "external_dependencies": {
+        "python": [],
+        "bin": [],
     },
-    'depends': [
-        'base',
-        'account',
-        'membership',
+    "depends": [
+        "base",
+        "account",
+        "membership",
     ],
-    'data': [
-        'menu/billing_menu.xml',
+    "data": [
+        "menu/billing_menu.xml",
     ],
-    'demo': [
-    ],
+    "demo": [],
 }

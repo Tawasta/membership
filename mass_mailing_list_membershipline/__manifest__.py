@@ -23,12 +23,15 @@
     "summary": "Create mass mailing list from membership.membership_line view.",
     "category": "Membership",
     "version": "14.0.1.0.0",
-    "website": "",
+    "website": "https://gitlab.com/tawasta/odoo/membership",
     "author": "Tawasta",
     "license": "AGPL-3",
     "application": False,
     "installable": True,
     "depends": ["mass_mailing", "mass_mailing_partner", "membership_line_view"],
-    "data": ["security/ir.model.access.csv","wizard/membership_line_mail_list_wizard.xml"],
+    "data": [
+        "security/ir.model.access.csv",
+        "wizard/membership_line_mail_list_wizard.xml",
+    ],
     "qweb": [],
 }

@@ -19,19 +19,19 @@
 ##############################################################################
 
 {
-    'name': 'Membership line View hide Tags',
-    'summary': 'Membership line View hide Tags',
-    'version': '14.0.1.0.0',
-    'category': 'Sales',
-    'website': 'https://tawasta.fi',
-    'author': 'Oy Tawasta Technologies Ltd.',
-    'license': 'AGPL-3',
-    'application': False,
-    'installable': True,
-    'depends': [
-        'membership',
+    "name": "Membership line View hide Tags",
+    "summary": "Membership line View hide Tags",
+    "version": "14.0.1.0.0",
+    "category": "Sales",
+    "website": "https://gitlab.com/tawasta/odoo/membership",
+    "author": "Tawasta",
+    "license": "AGPL-3",
+    "application": False,
+    "installable": True,
+    "depends": [
+        "membership",
     ],
-    'data': [
-        'views/membership_line_view.xml',
+    "data": [
+        "views/membership_line_view.xml",
     ],
 }

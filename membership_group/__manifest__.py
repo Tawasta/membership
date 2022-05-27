@@ -29,8 +29,6 @@
     "installable": True,
     "external_dependencies": {"python": [], "bin": []},
     "depends": ["membership"],
-    "data": [
-        "views/groups_view.xml"
-    ],
+    "data": ["views/groups_view.xml"],
     "demo": [],
 }

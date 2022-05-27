@@ -19,23 +19,23 @@
 ##############################################################################
 
 {
-    'name': 'Membership No Free Default',
-    'summary': 'Membership is not free as default when creating new members',
-    'version': '14.0.1.0.0',
-    'category': 'Membership',
-    'website': 'http://www.tawasta.fi',
-    'author': 'Oy Tawasta Technologies Ltd.',
-    'license': 'AGPL-3',
-    'application': False,
-    'installable': True,
-    'external_dependencies': {
-        'python': [],
-        'bin': [],
+    "name": "Membership No Free Default",
+    "summary": "Membership is not free as default when creating new members",
+    "version": "14.0.1.0.0",
+    "category": "Membership",
+    "website": "https://gitlab.com/tawasta/odoo/membership",
+    "author": "Tawasta",
+    "license": "AGPL-3",
+    "application": False,
+    "installable": True,
+    "external_dependencies": {
+        "python": [],
+        "bin": [],
     },
-    'depends': [
-        'membership',
+    "depends": [
+        "membership",
     ],
-    'data': [
-        'data/membership_menu.xml',
+    "data": [
+        "data/membership_menu.xml",
     ],
 }
