@@ -1,15 +1,37 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
-    <template id="cart_summary" inherit_id="website_sale.cart_summary" name="Cart summary" customize_show="True" active="True">
+    <template
+        id="cart_summary"
+        inherit_id="website_sale.cart_summary"
+        name="Cart summary"
+        customize_show="True"
+        active="True"
+    >
         <xpath expr="//td[@class='text-center td-price']" position="replace">
             <td class="text-center td-price">
                 <t t-if="website_sale_order.currency_id != line.price_unit">
-                    <span style="white-space: nowrap;" groups="account.group_show_line_subtotals_tax_excluded"> <t t-esc="'%.2f' % line.price_unit"/> €</span>
-                    <span style="white-space: nowrap;" groups="account.group_show_line_subtotals_tax_included"><t t-esc="'%.2f' % line.price_unit"/> €</span>
+                    <span
+                        style="white-space: nowrap;"
+                        groups="account.group_show_line_subtotals_tax_excluded"
+                    > <t t-esc="'%.2f' % line.price_unit" /> €</span>
+                    <span
+                        style="white-space: nowrap;"
+                        groups="account.group_show_line_subtotals_tax_included"
+                    ><t t-esc="'%.2f' % line.price_unit" /> €</span>
                 </t>
                 <t t-else="">
-                    <span t-field="line.price_reduce_taxexcl" style="white-space: nowrap;" t-options="{'widget': 'monetary', 'display_currency': website_sale_order.currency_id}" groups="account.group_show_line_subtotals_tax_excluded" />
-                    <span t-field="line.price_reduce_taxinc" style="white-space: nowrap;" t-options="{'widget': 'monetary', 'display_currency': website_sale_order.currency_id}" groups="account.group_show_line_subtotals_tax_included" />
+                    <span
+                        t-field="line.price_reduce_taxexcl"
+                        style="white-space: nowrap;"
+                        t-options="{'widget': 'monetary', 'display_currency': website_sale_order.currency_id}"
+                        groups="account.group_show_line_subtotals_tax_excluded"
+                    />
+                    <span
+                        t-field="line.price_reduce_taxinc"
+                        style="white-space: nowrap;"
+                        t-options="{'widget': 'monetary', 'display_currency': website_sale_order.currency_id}"
+                        groups="account.group_show_line_subtotals_tax_included"
+                    />
                 </t>
             </td>
         </xpath>

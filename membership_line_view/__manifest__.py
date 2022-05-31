@@ -23,7 +23,7 @@
     "summary": "Membership Line View",
     "version": "14.0.1.0.5",
     "category": "Sales",
-    "website": "https://gitlab.com/tawasta/odoo/membership/",
+    "website": "https://gitlab.com/tawasta/odoo/membership",
     "author": "Tawasta",
     "license": "AGPL-3",
     "application": False,

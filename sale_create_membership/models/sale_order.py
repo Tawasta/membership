@@ -1,8 +1,9 @@
-from odoo import fields
-from odoo import models
-from odoo import _
-from odoo.exceptions import UserError
 from datetime import datetime
+
+from dateutil.relativedelta import relativedelta
+
+from odoo import _, fields, models
+from odoo.exceptions import UserError
 
 
 class SaleOrder(models.Model):
@@ -123,7 +124,12 @@ class SaleOrder(models.Model):
                         .search([("partner_id.email", "=", order.partner_id.email)])
                     )
                     if already_contract and len(already_contract) == 1:
-                        self._create_contract_lines(already_contract, order, free_products_only=False, already_contract=True)
+                        self._create_contract_lines(
+                            already_contract,
+                            order,
+                            free_products_only=False,
+                            already_contract=True,
+                        )
                         create_contract = already_contract
                     else:
                         if order.contract_id:
@@ -148,13 +154,20 @@ class SaleOrder(models.Model):
                                 }
                             )
                             create_contract = (
-                                self.env["contract.contract"].sudo().create(contract_vals)
+                                self.env["contract.contract"]
+                                .sudo()
+                                .create(contract_vals)
                             )
                         if create_contract:
                             self._create_contract_lines(create_contract, order)
 
                 else:
-                    raise UserError(_('The sale order customer does not have an email address specified, so the membership agreement cannot be created.'))
+                    raise UserError(
+                        _(
+                            "The sale order customer does not have an email address specified, "
+                            "so the membership agreement cannot be created."
+                        )
+                    )
 
             order.partner_id.sudo().write(
                 {"property_product_pricelist": membership_pricelist_id.id}
@@ -164,50 +177,66 @@ class SaleOrder(models.Model):
             else:
                 order.sudo().write({"contract_id": create_contract.id})
 
-            find_attachments = self.env["ir.attachment"].sudo().search([
-                ('res_model', '=', 'sale.order'),
-                ('res_id', '=', order.id)
-            ])
+            find_attachments = (
+                self.env["ir.attachment"]
+                .sudo()
+                .search([("res_model", "=", "sale.order"), ("res_id", "=", order.id)])
+            )
             for att in find_attachments:
                 new_attachment = att.copy()
-                new_attachment.sudo().write({"res_model": 'contract.contract', 'res_id': create_contract.id})
+                new_attachment.sudo().write(
+                    {"res_model": "contract.contract", "res_id": create_contract.id}
+                )
 
     def _create_contract_lines(
-        self, contract=False, order=False, free_products_only=False, already_contract=False
+        self,
+        contract=False,
+        order=False,
+        free_products_only=False,
+        already_contract=False,
     ):
         if free_products_only:
+            currentTimeDate = datetime.now().date() + relativedelta(years=1)
+            first_day_of_next_year = currentTimeDate.replace(month=1, day=1)
             for line in order.order_line:
                 if line.product_id.membership:
                     if line.product_id.free_products_ids:
                         variant_company_id = line.product_id.variant_company_id
-                        for free_product in line.product_id.free_products_ids:
-                            if free_product.variant_company_id == variant_company_id:
-                                contract_line_vals = {
-                                    "contract_id": contract.id,
-                                    "product_id": free_product.id,
-                                    "name": free_product.name,
-                                    "recurring_rule_type": 'yearly',
-                                }
-                                if free_product.product_variant_count > 1:
-                                    contract_line_vals.update(
-                                        {"price_unit": free_product.fix_price}
+                        for free_p in line.product_id.free_products_ids:
+                            for free_l in order.order_line:
+                                if (
+                                    free_p == free_l.product_id
+                                    and free_p.variant_company_id == variant_company_id
+                                ):
+                                    contract_line_vals = {
+                                        "contract_id": contract.id,
+                                        "product_id": free_p.id,
+                                        "name": free_p.name,
+                                        "recurring_rule_type": "yearly",
+                                        "recurring_next_date": first_day_of_next_year,
+                                    }
+                                    if free_p.product_variant_count > 1:
+                                        contract_line_vals.update(
+                                            {"price_unit": free_p.fix_price}
+                                        )
+                                    else:
+                                        contract_line_vals.update(
+                                            {"price_unit": free_p.lst_price}
+                                        )
+                                    contract_line_id = (
+                                        self.env["contract.line"]
+                                        .sudo()
+                                        .create(contract_line_vals)
                                     )
-                                else:
-                                    contract_line_vals.update(
-                                        {"price_unit": free_product.lst_price}
-                                    )
-                                contract_line_id = (
-                                    self.env["contract.line"]
-                                    .sudo()
-                                    .create(contract_line_vals)
-                                )
-                                line.contract_line_id = contract_line_id.id
+                                    line.contract_line_id = contract_line_id.id
+
                     if line.product_id.show_only_in_suggested_accessories:
                         contract_line_vals = {
                             "contract_id": contract.id,
                             "product_id": line.product_id.id,
                             "name": line.product_id.name,
-                            "recurring_rule_type": 'yearly',
+                            "recurring_rule_type": "yearly",
+                            "recurring_next_date": first_day_of_next_year,
                         }
                         if line.product_id.product_variant_count > 1:
                             contract_line_vals.update(
@@ -223,49 +252,128 @@ class SaleOrder(models.Model):
                         line.contract_line_id = contract_line_id.id
 
         else:
-            ending_day_of_current_year = datetime.now().date().replace(month=12, day=31)
-            for line in order.order_line:
-                if (
-                    line.product_id.membership
-                ):
-                    contract_line_vals = {
-                        "contract_id": contract.id,
-                        "product_id": line.product_id.id,
-                        "name": line.product_id.name,
-                        "recurring_rule_type": 'yearly',
-                        "recurring_next_date": ending_day_of_current_year,
-                    }
-                    if already_contract:
-                        # all_ended = False
-                        ended_lines = []
-                        for contract_line in contract.contract_line_fixed_ids:
-                            if contract_line.state in ('closed', 'canceled', 'upcoming-close'):
-                                ended_lines.append(contract_line)
+            # ending_day_of_current_year = datetime.now().date().replace(month=12, day=31)
+            # first_day_of_next_year = datetime.now().date().replace(year= +1, month=1, day=1)
+            currentTimeDate = datetime.now().date() + relativedelta(years=1)
+            first_day_of_next_year = currentTimeDate.replace(month=1, day=1)
+            is_company_contract = False
+            for li in order.order_line:
+                if li.product_id.membership_type == "company":
+                    is_company_contract = True
 
-                        if len(ended_lines) == len(contract.contract_line_fixed_ids):
-                            contract_line_vals.update(
-                                {'price_unit': line.product_id.fix_price}
-                            )
+            if is_company_contract:
+                for line in order.order_line:
+                    if (
+                        line.product_id.membership
+                        and line.product_id.membership_type == "company"
+                    ):
+                        contract_line_vals = {
+                            "contract_id": contract.id,
+                            "product_id": line.product_id.id,
+                            "name": line.product_id.name,
+                            "recurring_rule_type": "yearly",
+                            "recurring_next_date": first_day_of_next_year,
+                        }
+                        if already_contract:
+                            # all_ended = False
+                            ended_lines = []
+                            for contract_line in contract.contract_line_fixed_ids:
+                                if contract_line.state in (
+                                    "closed",
+                                    "canceled",
+                                    "upcoming-close",
+                                ):
+                                    ended_lines.append(contract_line)
 
+                            if len(ended_lines) == len(
+                                contract.contract_line_fixed_ids
+                            ):
+                                contract_line_vals.update(
+                                    {"price_unit": line.product_id.fix_price}
+                                )
+
+                            else:
+
+                                item_price = (
+                                    self.env["product.pricelist.item"]
+                                    .sudo()
+                                    .search(
+                                        [
+                                            ("product_id", "=", line.product_id.id),
+                                            ("additional_membership_price", "=", True),
+                                        ]
+                                    )
+                                )
+                                contract_line_vals.update(
+                                    {"price_unit": item_price.fixed_price}
+                                )
                         else:
+                            if line.product_id.product_variant_count > 1:
+                                contract_line_vals.update(
+                                    {"price_unit": line.product_id.fix_price}
+                                )
+                            else:
+                                contract_line_vals.update(
+                                    {"price_unit": line.product_id.lst_price}
+                                )
+                        contract_line_id = (
+                            self.env["contract.line"].sudo().create(contract_line_vals)
+                        )
+                        line.contract_line_id = contract_line_id.id
+            else:
 
-                            item_price = self.env["product.pricelist.item"].sudo().search([
-                                ('product_id', '=', line.product_id.id),
-                                ('additional_membership_price', '=', True),
-                            ])
-                            contract_line_vals.update(
-                                {'price_unit': item_price.fixed_price}
-                            )
-                    else:
-                        if line.product_id.product_variant_count > 1:
-                            contract_line_vals.update(
-                                {"price_unit": line.product_id.fix_price}
-                            )
+                for line in order.order_line:
+                    if line.product_id.membership:
+                        contract_line_vals = {
+                            "contract_id": contract.id,
+                            "product_id": line.product_id.id,
+                            "name": line.product_id.name,
+                            "recurring_rule_type": "yearly",
+                            "recurring_next_date": first_day_of_next_year,
+                        }
+                        if already_contract:
+                            # all_ended = False
+                            ended_lines = []
+                            for contract_line in contract.contract_line_fixed_ids:
+                                if contract_line.state in (
+                                    "closed",
+                                    "canceled",
+                                    "upcoming-close",
+                                ):
+                                    ended_lines.append(contract_line)
+
+                            if len(ended_lines) == len(
+                                contract.contract_line_fixed_ids
+                            ):
+                                contract_line_vals.update(
+                                    {"price_unit": line.product_id.fix_price}
+                                )
+
+                            else:
+
+                                item_price = (
+                                    self.env["product.pricelist.item"]
+                                    .sudo()
+                                    .search(
+                                        [
+                                            ("product_id", "=", line.product_id.id),
+                                            ("additional_membership_price", "=", True),
+                                        ]
+                                    )
+                                )
+                                contract_line_vals.update(
+                                    {"price_unit": item_price.fixed_price}
+                                )
                         else:
-                            contract_line_vals.update(
-                                {"price_unit": line.product_id.lst_price}
-                            )
-                    contract_line_id = (
-                        self.env["contract.line"].sudo().create(contract_line_vals)
-                    )
-                    line.contract_line_id = contract_line_id.id
+                            if line.product_id.product_variant_count > 1:
+                                contract_line_vals.update(
+                                    {"price_unit": line.product_id.fix_price}
+                                )
+                            else:
+                                contract_line_vals.update(
+                                    {"price_unit": line.product_id.lst_price}
+                                )
+                        contract_line_id = (
+                            self.env["contract.line"].sudo().create(contract_line_vals)
+                        )
+                        line.contract_line_id = contract_line_id.id

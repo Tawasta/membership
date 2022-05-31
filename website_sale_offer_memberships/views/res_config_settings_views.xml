@@ -1,14 +1,22 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <record id="res_config_settings_view_form" model="ir.ui.view">
-        <field name="name">res.config.settings.view.form.inherit.offer.memberships</field>
+        <field
+            name="name"
+        >res.config.settings.view.form.inherit.offer.memberships</field>
         <field name="model">res.config.settings</field>
-        <field name="inherit_id" ref="website.res_config_settings_view_form"/>
+        <field name="inherit_id" ref="website.res_config_settings_view_form" />
         <field name="arch" type="xml">
             <div id="webmaster_settings" position="after">
                 <h2>Website sale: offer memberships</h2>
-                <div class="row mt16 o_settings_container" id="website_sale_offer_memberships">
-                    <div class="col-12 col-lg-6 o_setting_box" id="website_sale_offer_membership_setting">
+                <div
+                    class="row mt16 o_settings_container"
+                    id="website_sale_offer_memberships"
+                >
+                    <div
+                        class="col-12 col-lg-6 o_setting_box"
+                        id="website_sale_offer_membership_setting"
+                    >
                         <div class="o_setting_right_pane">
                             <div class="text-muted">
                                 Offer membership text
@@ -16,7 +24,7 @@
                         </div>
                         <div class="content-group">
                             <div class="mt8">
-                                <field name="website_sale_offer_membership_text"/>
+                                <field name="website_sale_offer_membership_text" />
                             </div>
                         </div>
                     </div>

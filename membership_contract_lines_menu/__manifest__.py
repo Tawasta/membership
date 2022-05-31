@@ -24,7 +24,7 @@
     "version": "14.0.1.0.0",
     "category": "Futural EDU",
     "website": "https://gitlab.com/tawasta/odoo/membership",
-    "author": "Oy Tawasta Technologies Ltd.",
+    "author": "Tawasta",
     "license": "AGPL-3",
     "application": False,
     "installable": True,

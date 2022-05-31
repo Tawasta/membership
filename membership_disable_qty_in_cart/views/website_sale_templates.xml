@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template
+        id="cart_lines_disable_qty_membership"
+        inherit_id="website_sale_disable_qty_in_cart.cart_lines_disable_qty"
+    >
+        <xpath expr="//t[@t-set='disable_cart_change']" position="attributes">
+            <attribute
+                name="t-value"
+                separator=" or "
+                add="line.product_id.membership"
+            />
+        </xpath>
+    </template>
+</odoo>

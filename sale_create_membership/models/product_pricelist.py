@@ -1,5 +1,4 @@
-from odoo import fields
-from odoo import models
+from odoo import fields, models
 
 
 class ProductPricelist(models.Model):
@@ -11,4 +10,6 @@ class ProductPricelist(models.Model):
 class ProductPricelistItem(models.Model):
     _inherit = "product.pricelist.item"
 
-    additional_membership_price = fields.Boolean(string="Additional membership price", default=False)
+    additional_membership_price = fields.Boolean(
+        string="Additional membership price", default=False
+    )
