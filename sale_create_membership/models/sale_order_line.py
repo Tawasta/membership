@@ -1,6 +1,4 @@
-from odoo import fields
-from odoo import models
-from odoo import _
+from odoo import _, fields, models
 from odoo.exceptions import ValidationError
 
 
@@ -23,7 +21,8 @@ class SaleOrderLine(models.Model):
             if len(contract_line) > 1:
                 raise ValidationError(
                     _(
-                        "Contract '{}' has multiple lines for '{}'. Please close redundant contract lines.".format(
+                        "Contract '{}' has multiple lines for '{}'. "
+                        "Please close redundant contract lines.".format(
                             contract.display_name, self.product_id.display_name
                         )
                     )

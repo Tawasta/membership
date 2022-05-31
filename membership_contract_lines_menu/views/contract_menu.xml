@@ -1,6 +1,12 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
     <data>
-        <menuitem name="Contract Lines" id="menu_contract_lines" sequence="0" parent="membership.menu_association" action="contract_line_list_view.action_contract_lines"/>
+        <menuitem
+            name="Contract Lines"
+            id="menu_contract_lines"
+            sequence="0"
+            parent="membership.menu_association"
+            action="contract_line_list_view.action_contract_lines"
+        />
     </data>
 </odoo>

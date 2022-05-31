@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
 
 <record model="ir.ui.view" id="product_template_only_form_view">
@@ -10,7 +10,11 @@
             <field name="membership" />
         </field>
         <page name="general_information" position="after">
-            <page string="Membership Product" name="membership_product" attrs="{'invisible': [('membership','=',False)]}">
+            <page
+                    string="Membership Product"
+                    name="membership_product"
+                    attrs="{'invisible': [('membership','=',False)]}"
+                >
                 <group name="membership_product">
                     <group name="info" string="Info">
                         <field name="membership_date_from" />

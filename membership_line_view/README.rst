@@ -20,7 +20,7 @@ Known issues / Roadmap
 \-
 
 Credits
-======
+=======
 
 Contributors
 ------------

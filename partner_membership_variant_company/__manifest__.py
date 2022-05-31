@@ -23,7 +23,7 @@
     "summary": "Add a list of membership variant companies for partner",
     "version": "14.0.1.2.0",
     "category": "Sales",
-    "website": "https://gitlab.com/tawasta/odoo/membership/",
+    "website": "https://gitlab.com/tawasta/odoo/membership",
     "author": "Tawasta",
     "license": "AGPL-3",
     "application": False,

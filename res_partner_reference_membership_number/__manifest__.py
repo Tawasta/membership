@@ -23,7 +23,7 @@
     "summary": "Partner field ref as membership number",
     "version": "14.0.1.0.0",
     "category": "CRM",
-    "website": "https://gitlab.com/tawasta/odoo/partner/",
+    "website": "https://gitlab.com/tawasta/odoo/membership",
     "author": "Tawasta",
     "license": "AGPL-3",
     "application": False,

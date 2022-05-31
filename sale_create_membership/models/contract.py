@@ -1,10 +1,10 @@
-from odoo import models, fields, api
+from odoo import api, fields, models
 
 
 class ContractContract(models.Model):
     _inherit = "contract.contract"
 
-    note = fields.Html('Terms and conditions')
+    note = fields.Html("Terms and conditions")
 
     @api.model
     def _set_start_contract_modification(self):
@@ -13,7 +13,5 @@ class ContractContract(models.Model):
         if subtype_id and self.message_follower_ids:
             for follower in self.message_follower_ids:
                 if follower.partner_id == self.partner_id:
-                    follower.sudo().write({
-                        'subtype_ids': [[6, 0, [subtype_id[0].id]]]
-                    })
+                    follower.sudo().write({"subtype_ids": [[6, 0, [subtype_id[0].id]]]})
         return contract

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
 
     <record model="ir.ui.view" id="membership_membership_line_mail_list_wizard_form">
@@ -7,11 +7,15 @@
         <field name="arch" type="xml">
             <form string="Create contact mailing list">
                 <group>
-                    <field name="mail_list_id"/>
+                    <field name="mail_list_id" />
                 </group>
                 <footer>
-                    <button string="Add contacts to mailing list" name="add_to_mail_list_line"
-                        type="object" class="oe_highlight"/>
+                    <button
+                        string="Add contacts to mailing list"
+                        name="add_to_mail_list_line"
+                        type="object"
+                        class="oe_highlight"
+                    />
                     <button string="Cancel" class="oe_link" special="cancel" />
                 </footer>
             </form>
@@ -24,6 +28,9 @@
         <field name="binding_view_types">list,form</field>
         <field name="view_mode">form</field>
         <field name="target">new</field>
-        <field name="binding_model_id" ref="membership.model_membership_membership_line"/>
+        <field
+            name="binding_model_id"
+            ref="membership.model_membership_membership_line"
+        />
     </record>
 </odoo>

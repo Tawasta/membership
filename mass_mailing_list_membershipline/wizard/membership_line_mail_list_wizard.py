@@ -1,14 +1,11 @@
-from odoo import _, api, fields, models
-from odoo.exceptions import UserError
+from odoo import fields, models
 
 
 class MembershipLineMailListWizard(models.TransientModel):
     _name = "membership.membership_line.mail.list.wizard"
     _description = "Create contact mailing list"
 
-    mail_list_id = fields.Many2one(
-        comodel_name="mailing.list", string="Mailing List"
-    )
+    mail_list_id = fields.Many2one(comodel_name="mailing.list", string="Mailing List")
     membership_line_ids = fields.Many2many(
         comodel_name="membership.membership_line",
         relation="mail_list_wizard_line",
@@ -19,7 +16,7 @@ class MembershipLineMailListWizard(models.TransientModel):
         contact_obj = self.env["mailing.contact"]
         membershiplines = self.membership_line_ids
         # current_students = students.mapped('student_id')
-        partners = membershiplines.mapped('partner')
+        partners = membershiplines.mapped("partner")
         user_data = []
         mail_list_contacts = self.mail_list_id.contact_ids.mapped("partner_id")
 
