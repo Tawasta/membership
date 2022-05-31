@@ -29,4 +29,6 @@ class ResPartner(models.Model):
                 group.sudo().write({"users": [(3, user.id)]})
 
                 public_pricelist = self.env.ref("product.list0")
-                user.partner_id.sudo().write({"property_product_pricelist": public_pricelist.id})
+                user.partner_id.sudo().write(
+                    {"property_product_pricelist": public_pricelist.id}
+                )

@@ -188,6 +188,7 @@ class SaleOrder(models.Model):
                     {"res_model": "contract.contract", "res_id": create_contract.id}
                 )
 
+    # flake8: noqa: C901
     def _create_contract_lines(
         self,
         contract=False,
