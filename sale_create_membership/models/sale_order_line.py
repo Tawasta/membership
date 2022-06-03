@@ -30,4 +30,5 @@ class SaleOrderLine(models.Model):
 
             if contract_line:
                 res["contract_line_id"] = contract_line.id
+                res["partner_id"] = contract_line.partner_id.id
         return res
