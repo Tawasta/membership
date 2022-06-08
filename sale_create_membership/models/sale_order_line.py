@@ -30,5 +30,5 @@ class SaleOrderLine(models.Model):
 
             if contract_line:
                 res["contract_line_id"] = contract_line.id
-                res["name"] = self.name + ' - ' + contract_line.partner_id.name
+                res["name"] = self.name + " - " + contract_line.partner_id.name
         return res
