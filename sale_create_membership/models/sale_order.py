@@ -79,6 +79,7 @@ class SaleOrder(models.Model):
                             "invoice_partner_id": order.partner_id.parent_id.id,
                             "note": order.note,
                             "line_recurrence": True,
+                            "date_start": fields.Date.today(),
                         }
                     )
                     create_contract = (
