@@ -51,8 +51,9 @@ class SaleOrder(models.Model):
         membership_pricelist_id = (
             self.env["product.pricelist"]
             .sudo()
-            .search([("membership_pricelist", "=", True)])
+            .search([("membership_pricelist", "=", True)], limit=1)
         )
+        # TODO: Handle the situation where multiple pricelists are found
         for order in self:
             company_contract = False
             find_contract_template = self.env["contract.template"].sudo().search([])
