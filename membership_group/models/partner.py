@@ -49,6 +49,10 @@ class ResPartner(models.Model):
                         user.partner_id.sudo().write(
                             {"property_product_pricelist": membership_pricelist.id}
                         )
+                        if user.partner_id.parent_id:
+                            user.partner_id.parent_id.sudo().write(
+                                {"property_product_pricelist": membership_pricelist.id}
+                            )
                     else:
                         group.sudo().write({"users": [(3, user.id)]})
 
@@ -56,4 +60,8 @@ class ResPartner(models.Model):
                         user.partner_id.sudo().write(
                             {"property_product_pricelist": public_pricelist.id}
                         )
+                        if user.partner_id.parent_id:
+                            user.partner_id.parent_id.sudo().write(
+                                {"property_product_pricelist": public_pricelist.id}
+                            )
         return res
