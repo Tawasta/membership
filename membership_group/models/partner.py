@@ -49,7 +49,9 @@ class ResPartner(models.Model):
                         user.partner_id.sudo().write(
                             {"property_product_pricelist": membership_pricelist.id}
                         )
+                        print("====LISATTU PARTERILLE======")
                         if user.partner_id.parent_id:
+                            print("===YRITYS====")
                             user.partner_id.parent_id.sudo().write(
                                 {"property_product_pricelist": membership_pricelist.id}
                             )
