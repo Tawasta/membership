@@ -4,7 +4,6 @@ from odoo import api, models
 class ResPartner(models.Model):
     _inherit = "res.partner"
 
-
     @api.depends(
         "member_lines.account_invoice_line",
         "member_lines.account_invoice_line.move_id.state",
@@ -20,9 +19,15 @@ class ResPartner(models.Model):
         for partner in self:
             if partner.membership_state:
                 user = (
-                    self.env["res.users"].sudo().search([("partner_id", "=", partner.id)])
+                    self.env["res.users"]
+                    .sudo()
+                    .search([("partner_id", "=", partner.id)])
                 )
-                group = self.env["res.groups"].sudo().search([("membership_group", "=", True)])
+                group = (
+                    self.env["res.groups"]
+                    .sudo()
+                    .search([("membership_group", "=", True)])
+                )
                 if user and group:
                     if partner.membership_state in ("paid", "invoiced", "free"):
                         already_in_group = (
@@ -49,9 +54,7 @@ class ResPartner(models.Model):
                         user.partner_id.sudo().write(
                             {"property_product_pricelist": membership_pricelist.id}
                         )
-                        print("====LISATTU PARTERILLE======")
                         if user.partner_id.parent_id:
-                            print("===YRITYS====")
                             user.partner_id.parent_id.sudo().write(
                                 {"property_product_pricelist": membership_pricelist.id}
                             )
