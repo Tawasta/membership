@@ -24,7 +24,7 @@ class ResPartner(models.Model):
                 )
                 group = self.env["res.groups"].sudo().search([("membership_group", "=", True)])
                 if user and group:
-                    if partner.membership_state in ("paid", "invoiced", "free"):
+                    if partner.membership_state == 'paid' or partner.membership_state == 'invoiced' or partner.membership_state == 'free':
                         already_in_group = (
                             self.env["res.groups"]
                             .sudo()
