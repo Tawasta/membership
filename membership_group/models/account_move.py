@@ -17,6 +17,6 @@ class AccountMove(models.Model):
                     is_membership = True
 
             if is_membership:
-                self.partner_id._compute_membership_state()
+                self.customer_contact_id._compute_membership_state()
 
         return res
