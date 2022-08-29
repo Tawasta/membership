@@ -1,4 +1,7 @@
 from odoo import api, models
+import logging
+
+_logger = logging.getLogger(__name__)
 
 
 class ResPartner(models.Model):
@@ -18,6 +21,7 @@ class ResPartner(models.Model):
         res = super()._compute_membership_state()
         for partner in self:
             if partner.membership_state:
+                _logger.info("Membership state: %d" % partner.membership_state)
                 user = (
                     self.env["res.users"]
                     .sudo()
@@ -30,6 +34,9 @@ class ResPartner(models.Model):
                 )
                 if user and group:
                     if partner.membership_state == 'paid' or partner.membership_state == 'invoiced' or partner.membership_state == 'free':
+                        _logger.info("==== IF USER AND GROUP ======")
+                        _logger.info("Partner: %d" % partner)
+                        _logger.info("Membership state: %d" % partner.membership_state)
                         already_in_group = (
                             self.env["res.groups"]
                             .sudo()
@@ -54,10 +61,12 @@ class ResPartner(models.Model):
                         user.partner_id.sudo().write(
                             {"property_product_pricelist": membership_pricelist.id}
                         )
+                        _logger.info("Have comepany?: %d" % user.partner_id.parent_id)
                         if user.partner_id.parent_id:
                             user.partner_id.parent_id.sudo().write(
                                 {"property_product_pricelist": membership_pricelist.id}
                             )
+                            _logger.info("COMPANY YES and pricelist?: %d" % user.partner_id.parent_id.property_product_pricelist)
                     else:
                         group.sudo().write({"users": [(3, user.id)]})
 
