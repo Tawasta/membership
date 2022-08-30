@@ -21,9 +21,6 @@ class ResPartner(models.Model):
         res = super()._compute_membership_state()
         for partner in self:
             if partner.membership_state:
-                _logger.info(
-                    _("Membership state {}").format(partner.membership_state)
-                )
                 user = (
                     self.env["res.users"]
                     .sudo()
@@ -34,15 +31,10 @@ class ResPartner(models.Model):
                     .sudo()
                     .search([("membership_group", "=", True)])
                 )
-                if user and group:
-                    if partner.membership_state == 'paid' or partner.membership_state == 'invoiced' or partner.membership_state == 'free':
-                        _logger.info("==== IF USER AND GROUP ======")
-                        _logger.info(
-                            _("Partner {}").format(partner.id)
-                        )
-                        _logger.info(
-                            _("Membership state {}").format(partner.membership_state)
-                        )
+
+                if partner.membership_state == 'paid' or partner.membership_state == 'invoiced' or partner.membership_state == 'free':
+
+                    if user and group:
                         already_in_group = (
                             self.env["res.groups"]
                             .sudo()
@@ -55,43 +47,33 @@ class ResPartner(models.Model):
                         )
                         if not already_in_group:
                             group.sudo().write({"users": [(4, user.id)]})
-                        membership_pricelist = (
-                            self.env["product.pricelist"]
-                            .sudo()
-                            .search(
-                                [
-                                    ("membership_pricelist", "=", True),
-                                ]
-                            )
+                    membership_pricelist = (
+                        self.env["product.pricelist"]
+                        .sudo()
+                        .search(
+                            [
+                                ("membership_pricelist", "=", True),
+                            ]
                         )
-                        user.partner_id.sudo().write(
+                    )
+                    partner.sudo().write(
+                        {"property_product_pricelist": membership_pricelist.id}
+                    )
+
+                    if partner.parent_id:
+                        partner.parent_id.sudo().write(
                             {"property_product_pricelist": membership_pricelist.id}
                         )
-                        _logger.info(
-                            _("Have comepany? {}").format(user.partner_id.parent_id.id)
-                        )
-                        if user.partner_id.parent_id:
-                            user.partner_id.parent_id.sudo().write(
-                                {"property_product_pricelist": membership_pricelist.id}
-                            )
-                            _logger.info(
-                                _("COMPANY YES and pricelist? {}").format(user.partner_id.parent_id.property_product_pricelist.id)
-                            )
-                    else:
+                else:
+                    if group and user:
                         group.sudo().write({"users": [(3, user.id)]})
 
-                        public_pricelist = self.env.ref("product.list0")
-                        user.partner_id.sudo().write(
+                    public_pricelist = self.env.ref("product.list0")
+                    partner.sudo().write(
+                        {"property_product_pricelist": public_pricelist.id}
+                    )
+                    if partner.parent_id:
+                        partner.parent_id.sudo().write(
                             {"property_product_pricelist": public_pricelist.id}
                         )
-                        if user.partner_id.parent_id:
-                            user.partner_id.parent_id.sudo().write(
-                                {"property_product_pricelist": public_pricelist.id}
-                            )
         return res
-
-    # @api.depends('user_ids')
-    # def _compute_partner_membership_status(self):
-    #     print(self)
-    #     for partner in self:
-    #         print(partner)
