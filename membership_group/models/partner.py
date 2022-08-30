@@ -89,3 +89,9 @@ class ResPartner(models.Model):
                                 {"property_product_pricelist": public_pricelist.id}
                             )
         return res
+
+    # @api.depends('user_ids')
+    # def _compute_partner_membership_status(self):
+    #     print(self)
+    #     for partner in self:
+    #         print(partner)
