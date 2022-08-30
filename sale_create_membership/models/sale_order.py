@@ -325,6 +325,8 @@ class SaleOrder(models.Model):
                         line.contract_line_id = contract_line_id.id
             else:
 
+                line_counter = 0
+
                 for line in order.order_line:
                     if line.product_id.membership:
                         contract_line_vals = {
@@ -368,14 +370,33 @@ class SaleOrder(models.Model):
                                     {"price_unit": item_price.fixed_price}
                                 )
                         else:
-                            if line.product_id.product_variant_count > 1:
-                                contract_line_vals.update(
-                                    {"price_unit": line.product_id.fix_price}
-                                )
+                            if line_counter == 0:
+                                if line.product_id.product_variant_count > 1:
+                                    contract_line_vals.update(
+                                        {"price_unit": line.product_id.fix_price}
+                                    )
+                                else:
+                                    contract_line_vals.update(
+                                        {"price_unit": line.product_id.lst_price}
+                                    )
+
                             else:
-                                contract_line_vals.update(
-                                    {"price_unit": line.product_id.lst_price}
-                                )
+
+                                if line.product_id.type != 'service':
+                                    if line.product_id.product_variant_count > 1:
+                                        contract_line_vals.update(
+                                            {"price_unit": line.product_id.fix_price}
+                                        )
+                                    else:
+                                        contract_line_vals.update(
+                                            {"price_unit": line.product_id.lst_price}
+                                        )
+                                else:
+                                    contract_line_vals.update(
+                                        {"price_unit": line.price_unit}
+                                    )
+                            line_counter += 1
+
                         contract_line_id = (
                             self.env["contract.line"].sudo().create(contract_line_vals)
                         )
