@@ -232,6 +232,33 @@ class SaleOrder(models.Model):
                                         .create(contract_line_vals)
                                     )
                                     line.contract_line_id = contract_line_id.id
+                        variant_product_same_company = self.env["product.product"].sudo().search([
+                            ('id', 'in', line.product_id.free_products_ids.ids),
+                            ('variant_company_id', '=', variant_company_id.id)
+                        ])
+                        if variant_product_same_company:
+                            contract_line_vals = {
+                                "contract_id": contract.id,
+                                "product_id": variant_product_same_company.id,
+                                "name": variant_product_same_company.name,
+                                "recurring_rule_type": "yearly",
+                                "recurring_next_date": first_day_of_next_year,
+                            }
+                            if variant_product_same_company.product_variant_count > 1:
+                                contract_line_vals.update(
+                                    {"price_unit": variant_product_same_company.fix_price}
+                                )
+                            else:
+                                contract_line_vals.update(
+                                    {"price_unit": variant_product_same_company.lst_price}
+                                )
+                            contract_line_id = (
+                                self.env["contract.line"]
+                                .sudo()
+                                .create(contract_line_vals)
+                            )
+                            line.contract_line_id = contract_line_id.id
+
 
                     if line.product_id.show_only_in_suggested_accessories:
                         contract_line_vals = {
