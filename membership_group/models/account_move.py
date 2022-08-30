@@ -5,19 +5,11 @@ class AccountMove(models.Model):
 
     _inherit = "account.move"
 
-    # def _get_invoice_in_payment_state(self):
-    #     res = super()._get_invoice_in_payment_state()
-
-    #     if res == "paid":
-    #         print(self)
-    
-
-    #     return res
     def write(self, vals):
         print("==ACCOUNT MOVE WRITE====")
         print(vals)
         res = super().write(vals)
-        if vals.get("payment_state") and vals.get("payment_state") == 'paid':
+        if vals.get("state") and vals.get("state") == 'posted':
             is_membership = False
 
             for line in self.invoice_line_ids:
