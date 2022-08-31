@@ -114,9 +114,15 @@ class SaleOrder(models.Model):
                         self.env["contract.contract"].sudo().create(contract_vals)
                     )
                     if create_contract:
+                        print("=====CREATE CONTRACT========")
                         self._create_contract_lines(
                             create_contract, order, free_products_only=True
                         )
+                        print("==========================")
+                        # date_ref = fields.Date.context_today(self)
+                        print("====LUODAAN SOPIMUS======")
+                        create_contract.recurring_create_invoice()
+
 
             else:
                 if order.partner_id.email:
