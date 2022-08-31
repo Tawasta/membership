@@ -122,6 +122,11 @@ class SaleOrder(models.Model):
                         # date_ref = fields.Date.context_today(self)
                         print("====LUODAAN SOPIMUS======")
                         create_contract.recurring_create_invoice()
+                        
+                        related_contract = self.env["contract.contract"].sudo().search([
+                            ('partner_id', '=', order.partner_id.parent_id.id)
+                        ])
+                        related_contract.sudo().write({"related_contract_id": create_contract.id})
 
 
             else:
