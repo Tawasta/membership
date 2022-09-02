@@ -114,20 +114,21 @@ class SaleOrder(models.Model):
                         self.env["contract.contract"].sudo().create(contract_vals)
                     )
                     if create_contract:
-                        print("=====CREATE CONTRACT========")
                         self._create_contract_lines(
                             create_contract, order, free_products_only=True
                         )
-                        print("==========================")
-                        # date_ref = fields.Date.context_today(self)
-                        print("====LUODAAN SOPIMUS======")
                         create_contract.recurring_create_invoice()
-                        
-                        related_contract = self.env["contract.contract"].sudo().search([
-                            ('partner_id', '=', order.partner_id.parent_id.id)
-                        ])
-                        related_contract.sudo().write({"related_contract_id": create_contract.id})
 
+                        related_contract = (
+                            self.env["contract.contract"]
+                            .sudo()
+                            .search(
+                                [("partner_id", "=", order.partner_id.parent_id.id)]
+                            )
+                        )
+                        related_contract.sudo().write(
+                            {"related_contract_id": create_contract.id}
+                        )
 
             else:
                 if order.partner_id.email:
@@ -243,10 +244,16 @@ class SaleOrder(models.Model):
                                         .create(contract_line_vals)
                                     )
                                     line.contract_line_id = contract_line_id.id
-                        variant_product_same_company = self.env["product.product"].sudo().search([
-                            ('id', 'in', line.product_id.free_products_ids.ids),
-                            ('variant_company_id', '=', variant_company_id.id)
-                        ])
+                        variant_product_same_company = (
+                            self.env["product.product"]
+                            .sudo()
+                            .search(
+                                [
+                                    ("id", "in", line.product_id.free_products_ids.ids),
+                                    ("variant_company_id", "=", variant_company_id.id),
+                                ]
+                            )
+                        )
                         if variant_product_same_company:
                             contract_line_vals = {
                                 "contract_id": contract.id,
@@ -257,11 +264,15 @@ class SaleOrder(models.Model):
                             }
                             if variant_product_same_company.product_variant_count > 1:
                                 contract_line_vals.update(
-                                    {"price_unit": variant_product_same_company.fix_price}
+                                    {
+                                        "price_unit": variant_product_same_company.fix_price
+                                    }
                                 )
                             else:
                                 contract_line_vals.update(
-                                    {"price_unit": variant_product_same_company.lst_price}
+                                    {
+                                        "price_unit": variant_product_same_company.lst_price
+                                    }
                                 )
                             contract_line_id = (
                                 self.env["contract.line"]
@@ -269,7 +280,6 @@ class SaleOrder(models.Model):
                                 .create(contract_line_vals)
                             )
                             line.contract_line_id = contract_line_id.id
-
 
                     if line.product_id.show_only_in_suggested_accessories:
                         contract_line_vals = {
@@ -420,7 +430,7 @@ class SaleOrder(models.Model):
 
                             else:
 
-                                if line.product_id.type != 'service':
+                                if line.product_id.type != "service":
                                     if line.product_id.product_variant_count > 1:
                                         contract_line_vals.update(
                                             {"price_unit": line.product_id.fix_price}

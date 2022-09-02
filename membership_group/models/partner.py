@@ -1,5 +1,6 @@
-from odoo import api, models, _
 import logging
+
+from odoo import api, models
 
 _logger = logging.getLogger(__name__)
 
@@ -32,7 +33,11 @@ class ResPartner(models.Model):
                     .search([("membership_group", "=", True)])
                 )
 
-                if partner.membership_state == 'paid' or partner.membership_state == 'invoiced' or partner.membership_state == 'free':
+                if (
+                    partner.membership_state == "paid"
+                    or partner.membership_state == "invoiced"
+                    or partner.membership_state == "free"
+                ):
 
                     if user and group:
                         already_in_group = (
