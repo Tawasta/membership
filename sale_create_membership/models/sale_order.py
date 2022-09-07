@@ -117,6 +117,18 @@ class SaleOrder(models.Model):
                         self._create_contract_lines(
                             create_contract, order, free_products_only=True
                         )
+                        create_contract.recurring_create_invoice()
+
+                        related_contract = (
+                            self.env["contract.contract"]
+                            .sudo()
+                            .search(
+                                [("partner_id", "=", order.partner_id.parent_id.id)]
+                            )
+                        )
+                        related_contract.sudo().write(
+                            {"related_contract_id": create_contract.id}
+                        )
 
             else:
                 if order.partner_id.email:
@@ -232,6 +244,42 @@ class SaleOrder(models.Model):
                                         .create(contract_line_vals)
                                     )
                                     line.contract_line_id = contract_line_id.id
+                        variant_product_same_company = (
+                            self.env["product.product"]
+                            .sudo()
+                            .search(
+                                [
+                                    ("id", "in", line.product_id.free_products_ids.ids),
+                                    ("variant_company_id", "=", variant_company_id.id),
+                                ]
+                            )
+                        )
+                        if variant_product_same_company:
+                            contract_line_vals = {
+                                "contract_id": contract.id,
+                                "product_id": variant_product_same_company.id,
+                                "name": variant_product_same_company.name,
+                                "recurring_rule_type": "yearly",
+                                "recurring_next_date": first_day_of_next_year,
+                            }
+                            if variant_product_same_company.product_variant_count > 1:
+                                contract_line_vals.update(
+                                    {
+                                        "price_unit": variant_product_same_company.fix_price
+                                    }
+                                )
+                            else:
+                                contract_line_vals.update(
+                                    {
+                                        "price_unit": variant_product_same_company.lst_price
+                                    }
+                                )
+                            contract_line_id = (
+                                self.env["contract.line"]
+                                .sudo()
+                                .create(contract_line_vals)
+                            )
+                            line.contract_line_id = contract_line_id.id
 
                     if line.product_id.show_only_in_suggested_accessories:
                         contract_line_vals = {
@@ -325,6 +373,8 @@ class SaleOrder(models.Model):
                         line.contract_line_id = contract_line_id.id
             else:
 
+                line_counter = 0
+
                 for line in order.order_line:
                     if line.product_id.membership:
                         contract_line_vals = {
@@ -368,14 +418,33 @@ class SaleOrder(models.Model):
                                     {"price_unit": item_price.fixed_price}
                                 )
                         else:
-                            if line.product_id.product_variant_count > 1:
-                                contract_line_vals.update(
-                                    {"price_unit": line.product_id.fix_price}
-                                )
+                            if line_counter == 0:
+                                if line.product_id.product_variant_count > 1:
+                                    contract_line_vals.update(
+                                        {"price_unit": line.product_id.fix_price}
+                                    )
+                                else:
+                                    contract_line_vals.update(
+                                        {"price_unit": line.product_id.lst_price}
+                                    )
+
                             else:
-                                contract_line_vals.update(
-                                    {"price_unit": line.product_id.lst_price}
-                                )
+
+                                if line.product_id.type != "service":
+                                    if line.product_id.product_variant_count > 1:
+                                        contract_line_vals.update(
+                                            {"price_unit": line.product_id.fix_price}
+                                        )
+                                    else:
+                                        contract_line_vals.update(
+                                            {"price_unit": line.product_id.lst_price}
+                                        )
+                                else:
+                                    contract_line_vals.update(
+                                        {"price_unit": line.price_unit}
+                                    )
+                            line_counter += 1
+
                         contract_line_id = (
                             self.env["contract.line"].sudo().create(contract_line_vals)
                         )
