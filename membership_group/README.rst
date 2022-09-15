@@ -2,11 +2,12 @@
    :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
    :alt: License: AGPL-3
 
-================
-Membership group
-================
+===================================
+Membership group for active members
+===================================
 
-Membership group
+Add active members to a membership group.
+Also add members to a members pricelist.
 
 Configuration
 =============

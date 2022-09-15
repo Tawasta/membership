@@ -18,8 +18,8 @@
 #
 ##############################################################################
 {
-    "name": "Membership group",
-    "summary": "Membership group",
+    "name": "Membership group for active members",
+    "summary": "Add active members to a membership group",
     "version": "14.0.1.0.0",
     "category": "Website",
     "website": "https://gitlab.com/tawasta/odoo/membership",
