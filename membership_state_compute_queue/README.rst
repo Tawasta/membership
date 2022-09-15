@@ -2,12 +2,10 @@
    :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
    :alt: License: AGPL-3
 
-===================================
-Membership group for active members
-===================================
-
-Add active members to a membership group.
-Also add members to a members pricelist.
+====================
+Membership line view
+====================
+* Membership Line View
 
 Configuration
 =============
@@ -27,12 +25,14 @@ Credits
 Contributors
 ------------
 
+* Jarmo Kortetjärvi <jarmo.kortetjarvi@tawasta.fi>
+* Miika Nissi <miika.nissi@tawasta.fi>
 * Valtteri Lattu <valtteri.lattu@tawasta.fi>
 
 Maintainer
 ----------
 
-.. image:: https://tawasta.fi/templates/tawastrap/images/logo.png
+.. image:: http://tawasta.fi/templates/tawastrap/images/logo.png
    :alt: Oy Tawasta OS Technologies Ltd.
    :target: http://tawasta.fi/
 

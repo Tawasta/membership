@@ -17,7 +17,7 @@ addon | version | maintainers | summary
 [membership_contract_menu](membership_contract_menu/) | 14.0.1.0.0 |  | Membership contract menu
 [membership_disable_qty_in_cart](membership_disable_qty_in_cart/) | 14.0.1.0.0 |  | Disable changing membership product quantity in cart
 [membership_disable_qty_in_product](membership_disable_qty_in_product/) | 14.0.1.0.0 |  | Disable changing membership product quantity in product page
-[membership_group](membership_group/) | 14.0.1.0.0 |  | Membership group
+[membership_group](membership_group/) | 14.0.1.0.0 |  | Add active members to a membership group
 [membership_invoice_options](membership_invoice_options/) | 14.0.1.0.0 |  | Add more options for creating a membership invoice
 [membership_line_partner_ref](membership_line_partner_ref/) | 14.0.1.0.0 |  | Membership Line Partner Ref
 [membership_line_view](membership_line_view/) | 14.0.1.0.5 |  | Membership Line View
@@ -25,6 +25,7 @@ addon | version | maintainers | summary
 [membership_no_free_default](membership_no_free_default/) | 14.0.1.0.0 |  | Membership is not free as default when creating new members
 [membership_pricelist_public_user](membership_pricelist_public_user/) | 14.0.1.0.0 |  | Membership pricelist public user
 [membership_product](membership_product/) | 14.0.1.0.0 |  | Membership Product
+[membership_state_compute_queue](membership_state_compute_queue/) | 14.0.1.0.0 |  | Make queue jobs for all membership state calculations
 [membership_website_header_boxed_button](membership_website_header_boxed_button/) | 14.0.1.0.0 |  | Website Membership Header Boxed Button
 [partner_membership_variant_company](partner_membership_variant_company/) | 14.0.1.2.0 |  | Add a list of membership variant companies for partner
 [res_partner_reference_membership_number](res_partner_reference_membership_number/) | 14.0.1.0.0 |  | Partner field ref as membership number
