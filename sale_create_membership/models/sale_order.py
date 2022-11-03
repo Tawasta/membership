@@ -350,7 +350,7 @@ class SaleOrder(models.Model):
                                     .sudo()
                                     .search(
                                         [
-                                            ("product_id", "=", line.product_id.id),
+                                            ("product_id", "=", line.product_id.product_tmpl_id.id),
                                             ("additional_membership_price", "=", True),
                                         ]
                                     )
@@ -409,7 +409,7 @@ class SaleOrder(models.Model):
                                     .sudo()
                                     .search(
                                         [
-                                            ("product_id", "=", line.product_id.id),
+                                            ("product_id", "=", line.product_id.product_tmpl_id.id),
                                             ("additional_membership_price", "=", True),
                                         ]
                                     )
