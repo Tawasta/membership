@@ -350,7 +350,7 @@ class SaleOrder(models.Model):
                                     .sudo()
                                     .search(
                                         [
-                                            ("product_id", "=", line.product_id.product_tmpl_id.id),
+                                            ("product_tmpl_id", "=", line.product_id.product_tmpl_id.id),
                                             ("additional_membership_price", "=", True),
                                         ]
                                     )
@@ -385,7 +385,6 @@ class SaleOrder(models.Model):
                             "recurring_next_date": first_day_of_next_year,
                         }
                         if already_contract:
-                            logging.info("====ON JO SOPIMUS=====")
                             # all_ended = False
                             ended_lines = []
                             for contract_line in contract.contract_line_fixed_ids:
@@ -399,25 +398,21 @@ class SaleOrder(models.Model):
                             if len(ended_lines) == len(
                                 contract.contract_line_fixed_ids
                             ):
-                                logging.info("====VAIHTOEHTO1=======")
                                 contract_line_vals.update(
                                     {"price_unit": line.product_id.fix_price}
                                 )
 
                             else:
-                                logging.info("=====VAIHTOEHTO2======")
                                 item_price = (
                                     self.env["product.pricelist.item"]
                                     .sudo()
                                     .search(
                                         [
-                                            ("product_id", "=", line.product_id.product_tmpl_id.id),
+                                            ("product_tmpl_id", "=", line.product_id.product_tmpl_id.id),
                                             ("additional_membership_price", "=", True),
                                         ]
                                     )
                                 )
-                                logging.info(item_price)
-                                logging.info(item_price.fixed_price)
                                 contract_line_vals.update(
                                     {"price_unit": item_price.fixed_price}
                                 )
