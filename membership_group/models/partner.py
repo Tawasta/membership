@@ -71,6 +71,7 @@ class ResPartner(models.Model):
                         )
                     channels = self.env["slide.channel"].sudo().search([
                         ('visibility', '=', 'members'),
+                        ('add_memberships', '=', True),
                     ])
                     if channels:
                         for c in channels:
@@ -87,4 +88,11 @@ class ResPartner(models.Model):
                         partner.parent_id.sudo().write(
                             {"property_product_pricelist": public_pricelist.id}
                         )
+                    channel_partners = self.env["slide.channel.partner"].sudo().search([
+                        ('partner_id', '=', partner.id),
+                        ('channel_id.add_memberships', '=', True),
+                    ])
+                    for cp in channel_partners:
+                        if cp.channel_id.visibility == 'members':
+                            cp.unlink()
         return res

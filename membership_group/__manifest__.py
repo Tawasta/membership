@@ -28,7 +28,7 @@
     "application": False,
     "installable": True,
     "external_dependencies": {"python": [], "bin": []},
-    "depends": ["membership"],
-    "data": ["views/groups_view.xml"],
+    "depends": ["membership", "website_slides"],
+    "data": ["views/groups_view.xml", "views/slide_channel.xml"],
     "demo": [],
 }
