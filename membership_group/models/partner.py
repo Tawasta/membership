@@ -69,6 +69,12 @@ class ResPartner(models.Model):
                         partner.parent_id.sudo().write(
                             {"property_product_pricelist": membership_pricelist.id}
                         )
+                    channels = self.env["slide.channel"].sudo().search([
+                        ('visibility', '=', 'members'),
+                    ])
+                    if channels:
+                        for c in channels:
+                            c._action_add_members(partner)
                 else:
                     if group and user:
                         group.sudo().write({"users": [(3, user.id)]})
