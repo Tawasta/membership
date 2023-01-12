@@ -1,10 +1,13 @@
+import logging
 from datetime import datetime
 
 from dateutil.relativedelta import relativedelta
-import logging
+
 from odoo import _, fields, models
 from odoo.exceptions import UserError
+
 _logger = logging.getLogger(__name__)
+
 
 class SaleOrder(models.Model):
     _inherit = "sale.order"
@@ -350,7 +353,11 @@ class SaleOrder(models.Model):
                                     .sudo()
                                     .search(
                                         [
-                                            ("product_tmpl_id", "=", line.product_id.product_tmpl_id.id),
+                                            (
+                                                "product_tmpl_id",
+                                                "=",
+                                                line.product_id.product_tmpl_id.id,
+                                            ),
                                             ("additional_membership_price", "=", True),
                                         ]
                                     )
@@ -408,7 +415,11 @@ class SaleOrder(models.Model):
                                     .sudo()
                                     .search(
                                         [
-                                            ("product_tmpl_id", "=", line.product_id.product_tmpl_id.id),
+                                            (
+                                                "product_tmpl_id",
+                                                "=",
+                                                line.product_id.product_tmpl_id.id,
+                                            ),
                                             ("additional_membership_price", "=", True),
                                         ]
                                     )
