@@ -1,4 +1,4 @@
-from odoo import models
+from odoo import models, _
 
 
 class ResPartner(models.Model):
@@ -10,4 +10,5 @@ class ResPartner(models.Model):
         partners = self.search([("membership_state", "in", ["invoiced", "paid"])])
         for partner in partners:
             # mark the field to be recomputed, and recompute it
-            partner.with_delay()._compute_membership_state()
+            msg = _("Compute membership state for {}".format(partner.name))
+            partner.with_delay(description=msg)._compute_membership_state()
