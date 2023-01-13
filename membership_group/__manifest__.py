@@ -20,7 +20,7 @@
 {
     "name": "Membership group for active members",
     "summary": "Add active members to a membership group",
-    "version": "14.0.1.0.0",
+    "version": "14.0.1.1.0",
     "category": "Website",
     "website": "https://gitlab.com/tawasta/odoo/membership",
     "author": "Tawasta",
@@ -28,7 +28,7 @@
     "application": False,
     "installable": True,
     "external_dependencies": {"python": [], "bin": []},
-    "depends": ["membership"],
-    "data": ["views/groups_view.xml"],
+    "depends": ["membership", "queue_job", "sale_create_membership", "website_slides"],
+    "data": ["data/ir_cron.xml", "views/groups_view.xml", "views/slide_channel.xml"],
     "demo": [],
 }

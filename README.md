@@ -17,7 +17,7 @@ addon | version | maintainers | summary
 [membership_contract_menu](membership_contract_menu/) | 14.0.1.0.0 |  | Membership contract menu
 [membership_disable_qty_in_cart](membership_disable_qty_in_cart/) | 14.0.1.0.0 |  | Disable changing membership product quantity in cart
 [membership_disable_qty_in_product](membership_disable_qty_in_product/) | 14.0.1.0.0 |  | Disable changing membership product quantity in product page
-[membership_group](membership_group/) | 14.0.1.0.0 |  | Add active members to a membership group
+[membership_group](membership_group/) | 14.0.1.1.0 |  | Add active members to a membership group
 [membership_invoice_options](membership_invoice_options/) | 14.0.1.0.0 |  | Add more options for creating a membership invoice
 [membership_line_partner_ref](membership_line_partner_ref/) | 14.0.1.0.0 |  | Membership Line Partner Ref
 [membership_line_view](membership_line_view/) | 14.0.1.0.5 |  | Membership Line View

@@ -21,10 +21,10 @@ class ResGroups(models.Model):
     @api.onchange("membership_group")
     def _onchange_membership_group(self):
         if self.membership_group:
-            allready_selected = (
+            already_selected = (
                 self.env["res.groups"].sudo().search([("membership_group", "=", True)])
             )
-            if allready_selected:
+            if already_selected:
                 raise ValidationError(
                     _(
                         "You cannot define that group as a membership "
