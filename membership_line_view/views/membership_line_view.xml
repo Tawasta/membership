@@ -16,6 +16,7 @@
                 <field name="date_from" optional="show" />
                 <field name="date_to" optional="show" />
                 <field name="date_cancel" optional="hide" />
+                <field name="contract_date_start" optional="show"/>
                 <field name="membership_id" optional="show" />
                 <field name="membership_product_template_id" optional="show" />
                 <field name="member_price" optional="hide" />
