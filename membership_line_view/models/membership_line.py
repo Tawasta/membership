@@ -57,6 +57,8 @@ class MembershipLine(models.Model):
 
     email = fields.Char(string="Partner email", related="partner.email", store=True)
 
+    contract_date_start = fields.Date(related="contract_line_id.date_start")
+
     invoice_partner_id = fields.Many2one(
         string="Invoice partner",
         comodel_name="res.partner",
