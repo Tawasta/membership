@@ -76,6 +76,12 @@
                         context="{'group_by':'membership_id'}"
                     />
                     <filter
+                        name="contract_date_start"
+                        string="Contract start date"
+                        domain="[]"
+                        context="{'group_by':'contract_date_start'}"
+                    />
+                    <filter
                         name="membership_product_template_id"
                         string="Product Template"
                         domain="[]"
