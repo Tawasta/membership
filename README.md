@@ -27,7 +27,7 @@ addon | version | maintainers | summary
 [membership_product](membership_product/) | 14.0.1.0.0 |  | Membership Product
 [membership_state_compute_queue](membership_state_compute_queue/) | 14.0.1.0.0 |  | Make queue jobs for all membership state calculations
 [membership_website_header_boxed_button](membership_website_header_boxed_button/) | 14.0.1.0.0 |  | Website Membership Header Boxed Button
-[partner_membership_variant_company](partner_membership_variant_company/) | 14.0.1.2.0 |  | Add a list of membership variant companies for partner
+[partner_membership_variant_company](partner_membership_variant_company/) | 14.0.1.3.0 |  | Add a list of membership variant companies for partner
 [res_partner_reference_membership_number](res_partner_reference_membership_number/) | 14.0.1.0.0 |  | Partner field ref as membership number
 [sale_create_membership](sale_create_membership/) | 14.0.1.1.3 |  | Sale Create Membership
 [website_sale_offer_memberships](website_sale_offer_memberships/) | 14.0.1.0.1 |  | Website sale offer memberships

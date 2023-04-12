@@ -6,7 +6,11 @@
             <field name="inherit_id" ref="membership.view_partner_form" />
             <field name="arch" type="xml">
 
-            <field name="member_lines" position="before">
+            <field name="free_member" position="after">
+                <field
+                    name="member_line_active_variant_company_ids"
+                    widget="many2many_tags"
+                />
                 <field name="member_line_variant_company_ids" widget="many2many_tags" />
             </field>
         </field>
@@ -19,6 +23,11 @@
         <field name="arch" type="xml">
 
             <field name="active" position="after">
+                <field
+                    name="member_line_active_variant_company_ids"
+                    widget="many2many_tags"
+                    optional="hide"
+                />
                 <field
                     name="member_line_variant_company_ids"
                     widget="many2many_tags"
@@ -36,6 +45,7 @@
         <field name="arch" type="xml">
 
             <field name="user_id" position="after">
+                <field name="member_line_active_variant_company_ids" />
                 <field name="member_line_variant_company_ids" />
             </field>
 
