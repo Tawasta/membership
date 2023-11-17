@@ -12,4 +12,24 @@
             />
         </xpath>
     </template>
+
+    <template id="assets_frontend" inherit_id="web.assets_frontend" name="membership_disable_qty_in_cart assets">
+        <xpath expr="." position="inside">
+            <script type="text/javascript" src="/membership_disable_qty_in_cart/static/src/js/check_product_in_cart.js"></script>
+        </xpath>
+    </template>
+
+    <template
+        id="website_assets_frontend"
+        inherit_id="website.assets_frontend"
+        name="membership_disable_qty_in_cart Assets Frontend"
+    >
+        <xpath expr="link[last()]" position="after">
+            <link
+                rel="stylesheet"
+                type="text/scss"
+                href="/membership_disable_qty_in_cart/static/src/scss/main.scss"
+            />
+        </xpath>
+    </template>
 </odoo>
