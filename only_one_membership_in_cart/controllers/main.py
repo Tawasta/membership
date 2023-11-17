@@ -13,14 +13,22 @@ class ProductCartCheckController(http.Controller):
             product_id = int(product_id)
             product = request.env['product.product'].sudo().browse(product_id)
 
+            # Tarkista, onko tuote jäsenyystuote
             is_membership_product = product.membership
 
-            if is_membership_product:
-                membership_product_in_cart = any(
-                    line.product_id.membership for line in order.order_line
-                )
-                if membership_product_in_cart:
+            # Tarkista jokainen tuote korissa
+            for line in order.order_line:
+                # Jos tuote on jäsenyystuote ja korissa on muita jäsenyystuotteita
+                if is_membership_product and line.product_id.membership and line.product_id.product_tmpl_id.id != product.product_tmpl_id.id:
                     in_cart = True
+                    break
+                # Jos sama tuote-ID löytyy jo korista
+                elif line.product_id.id == product.id:
+                    in_cart = True
+                    break
+                # Jos kyseessä on sama tuoteperhe (template), mutta eri tuotevariantti
+                elif line.product_id.product_tmpl_id.id == product.product_tmpl_id.id and line.product_id.id != product_id:
+                    in_cart = False
+                    break
 
-        logging.info('Product is in cart: %s', in_cart)
         return {'in_cart': in_cart, 'is_membership_product': is_membership_product}

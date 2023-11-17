@@ -9,8 +9,12 @@ odoo.define('only_one_membership_in_cart.product_cart_check', function (require)
         checkProductAndBlockIfNeeded($button);
 
         $('.variant_attribute select').on('change', function () {
-            checkProductAndBlockIfNeeded($button);
+            // Asetetaan pieni viive varmistaaksemme, että arvo on ehtinyt vaihtua
+            setTimeout(function() {
+                checkProductAndBlockIfNeeded($button);
+            }, 100);
         });
+
 
         function checkProductAndBlockIfNeeded($button) {
             if ($button.length) {
@@ -20,7 +24,6 @@ odoo.define('only_one_membership_in_cart.product_cart_check', function (require)
                 checkProductAvailability(productId, function (availabilityResult) {
                     // Sitten tämän moduulin toiminnallisuus
                     checkIfProductInCart(productId, function (isInCart) {
-                        console.log(isInCart);
                         if (isInCart) {
                             $("#add_to_cart").addClass("blocked");
                             $("#buy_now").addClass("blocked");
