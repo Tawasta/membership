@@ -13,7 +13,7 @@ odoo.define('membership_disable_qty_in_cart.product_cart_check', function (requi
 
         function checkProductAndBlockIfNeeded($button) {
             if ($button.length) {
-                var productId = $button.closest('.oe_website_sale').find('.product_template_id').val();
+                var productId = $button.closest('.oe_website_sale').find('.product_id').val();
                 checkIfProductInCart(productId, function (isInCart) {
                     if (isInCart) {
                         $("#add_to_cart").addClass("blocked");
