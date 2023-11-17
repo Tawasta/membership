@@ -7,7 +7,9 @@ odoo.define('membership_disable_qty_in_cart.product_cart_check', function (requi
         var $button = $('#add_to_cart');
         if ($button.length) {
             var productId = $button.closest('.oe_website_sale').find('.product_id').val();
+            console.log(productId);
             checkIfProductInCart(productId, function (isInCart) {
+                console.log(isInCart);
                 if (isInCart) {
                     $("#add_to_cart").addClass("blocked");
                     $("#buy_now").addClass("blocked");
