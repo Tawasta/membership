@@ -27,6 +27,6 @@
     "license": "AGPL-3",
     "application": False,
     "installable": True,
-    "depends": ["website_sale_disable_qty_in_cart", "membership"],
+    "depends": ["website_sale_disable_qty_in_cart", "membership", "product_cant_order"],
     "data": ["views/website_sale_templates.xml"],
 }
