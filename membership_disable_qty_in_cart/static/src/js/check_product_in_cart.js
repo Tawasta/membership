@@ -29,12 +29,9 @@ odoo.define('membership_disable_qty_in_cart.product_cart_check', function (requi
         function checkIfProductInCart(productId, callback) {
             // AJAX-kutsu Odoo-palvelimelle
             ajax.jsonRpc('/check_product_in_cart', 'call', {'product_id': productId})
-                .done(function (response) {
+                .then(function (response) {
                     callback(response.in_cart);
                 })
-                .fail(function () {
-                    callback(false);
-                });
         }
     });
 });
