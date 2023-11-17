@@ -1,4 +1,4 @@
-odoo.define('membership_disable_qty_in_cart.product_cart_check', function (require) {
+odoo.define('only_one_membership_in_cart.product_cart_check', function (require) {
     'use strict';
 
     var ajax = require('web.ajax');

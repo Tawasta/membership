@@ -18,15 +18,15 @@
 #
 ##############################################################################
 {
-    "name": "Membership Disable Quantity in Cart",
+    "name": "Only one membership in cart",
     "version": "14.0.1.0.0",
     "category": "Membership",
-    "summary": "Disable changing membership product quantity in cart",
+    "summary": "Only one membership in cart",
     "website": "https://gitlab.com/tawasta/odoo/membership",
     "author": "Tawasta",
     "license": "AGPL-3",
     "application": False,
     "installable": True,
-    "depends": ["website_sale_disable_qty_in_cart", "membership"],
+    "depends": ["membership", "product_cant_order"],
     "data": ["views/website_sale_templates.xml"],
 }
