@@ -12,7 +12,7 @@ odoo.define('only_one_membership_in_cart.product_cart_check', function (require)
             // Asetetaan pieni viive varmistaaksemme, että arvo on ehtinyt vaihtua
             setTimeout(function() {
                 checkProductAndBlockIfNeeded($button);
-            }, 160);
+            }, 230);
         });
 
 
