@@ -16,6 +16,8 @@ class SaleOrder(models.Model):
         string="Contract", comodel_name="contract.contract", readonly=1, copy=False
     )
 
+    family_members = fields.Many2many(string="Family members", comodel_name="res.partner")
+
     def _prepare_invoice(self):
         invoice_vals = super()._prepare_invoice()
 
@@ -68,7 +70,6 @@ class SaleOrder(models.Model):
             ])
 
             # Kopioi liitteet ja päivitä niiden 'res_model' ja 'res_id' vastaamaan sopimusta
-            find_attachments = self.env["ir.attachment"].search([("res_model", "=", "sale.order"), ("res_id", "=", order.id)])
             if find_attachments:
                 new_attachments = find_attachments.copy({"res_model": "contract.contract", "res_id": contract.id})
 
@@ -99,7 +100,55 @@ class SaleOrder(models.Model):
 
 
     def create_family_contract(self, order):
-        pass  # Toteuta toiminnallisuus
+
+        contract = self.create_individual_contract(order)
+
+        if contract:
+            self.create_family_contracts(order)
+
+        return contract
+
+
+    def create_family_contracts(self, order):
+        for family_member in order.family_members:
+
+            family_contract_vals = {
+                "name": family_member.name,
+                "partner_id": family_member.id,
+                "partner_invoice_id": order.partner_invoice_id.parent_id.id,
+                "invoice_partner_id": order.partner_id.id,
+                "note": order.note,
+                "line_recurrence": True,
+                # Lisää muita tarvittavia kenttiä sopimukselle
+            }
+            contract = self.env['contract.contract'].create(family_contract_vals)
+
+            if contract:
+                self.create_family_contract_lines(contract, order)
+
+        return contract
+
+
+    def create_family_contract_lines(self, contract, order):
+        if not contract:
+            raise ValueError("Contract is required to create contract lines.")
+
+        next_year_date = fields.Date.today() + relativedelta(years=1)
+        first_day_of_next_year = next_year_date.replace(month=1, day=1)
+
+        for line in order.order_line.filtered(lambda l: l.product_id.membership):
+
+            contract_line_vals = {
+                "contract_id": contract.id,
+                "product_id": line.product_id.id,
+                "name": line.product_id.name,
+                "recurring_rule_type": "yearly",
+                "recurring_next_date": first_day_of_next_year,
+                "price_unit": "0",
+            }
+
+            contract_line = self.env["contract.line"].create(contract_line_vals)
+            line.contract_line_id = contract_line.id
 
 
     def action_cancel(self):
