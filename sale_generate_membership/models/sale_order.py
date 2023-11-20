@@ -69,8 +69,8 @@ class SaleOrder(models.Model):
 
             # Kopioi liitteet ja päivitä niiden 'res_model' ja 'res_id' vastaamaan sopimusta
             find_attachments = self.env["ir.attachment"].search([("res_model", "=", "sale.order"), ("res_id", "=", order.id)])
-                if find_attachments:
-                    new_attachments = find_attachments.copy({"res_model": "contract.contract", "res_id": contract.id})
+            if find_attachments:
+                new_attachments = find_attachments.copy({"res_model": "contract.contract", "res_id": contract.id})
 
         return contract
 
