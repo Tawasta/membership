@@ -9,6 +9,7 @@ odoo.define('website_sale_family_membership.CustomWebsiteSale', function (requir
     WebsiteSale.include({
         _submitForm: function () {
             var self = this;
+            var _super = this._super.bind(this);
             var selectedOption = $('.form-control.js_variant_change.always').find(':selected');
             var selectedAttributeValue = selectedOption.val();
             var dataValueName = selectedOption.data('value_name');
@@ -53,7 +54,7 @@ odoo.define('website_sale_family_membership.CustomWebsiteSale', function (requir
                             });
                         });
                 } else {
-                    this._super.apply(this, arguments);
+                    _super.apply(this, arguments);
                 }
             });
         },
