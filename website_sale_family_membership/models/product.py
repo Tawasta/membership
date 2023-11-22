@@ -1,4 +1,5 @@
-from odoo import _, fields, models
+from odoo import fields, models
+
 
 class ProductAttribute(models.Model):
     _inherit = "product.attribute"

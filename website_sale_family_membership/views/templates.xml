@@ -1,22 +1,48 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
-    <template id="assets_frontend" inherit_id="web.assets_frontend" name="website_sale_family_membership assets">
+    <template
+        id="assets_frontend"
+        inherit_id="web.assets_frontend"
+        name="website_sale_family_membership assets"
+    >
         <xpath expr="." position="inside">
-            <script type="text/javascript" src="/website_sale_family_membership/static/src/js/main.js"></script>
+            <script
+                type="text/javascript"
+                src="/website_sale_family_membership/static/src/js/main.js"
+            />
         </xpath>
     </template>
 
     <template id="product" inherit_id="website_sale.product">
         <xpath expr="//div[@id='product_details']" position="after">
             <!-- Bootstrap Modal -->
-            <div class="modal fade" id="familyMemberModal" tabindex="-1" role="dialog" aria-labelledby="familyMemberModalLabel" aria-hidden="true">
+            <div
+                class="modal fade"
+                id="familyMemberModal"
+                tabindex="-1"
+                role="dialog"
+                aria-labelledby="familyMemberModalLabel"
+                aria-hidden="true"
+            >
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <form id="create_family_members_form" class="form-horizontal">
-                            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()" />
+                            <input
+                                type="hidden"
+                                name="csrf_token"
+                                t-att-value="request.csrf_token()"
+                            />
                             <div class="modal-header bg-primary text-white">
-                                <h5 class="modal-title" id="addFamilyMembers">Add family members</h5>
-                                <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                                <h5
+                                    class="modal-title"
+                                    id="addFamilyMembers"
+                                >Add family members</h5>
+                                <button
+                                    type="button"
+                                    class="close text-white"
+                                    data-dismiss="modal"
+                                    aria-label="Close"
+                                >
                                     <span aria-label="Close">&amp;times;</span>
                                 </button>
                             </div>
@@ -24,8 +50,16 @@
                                 <!-- Sisältö täytetään dynaamisesti -->
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary" id="saveFamilyMemberButton">Save</button>
+                                <button
+                                    type="button"
+                                    class="btn btn-secondary"
+                                    data-dismiss="modal"
+                                >Close</button>
+                                <button
+                                    type="button"
+                                    class="btn btn-primary"
+                                    id="saveFamilyMemberButton"
+                                >Save</button>
                             </div>
                         </form>
                     </div>
@@ -37,21 +71,42 @@
 
     <template id="modal_template">
         <div class="modal-body">
-            <t t-set="counter" t-value="counter"/>
+            <t t-set="counter" t-value="counter" />
             <t t-foreach="range(counter)" t-as="c">
                 <div class="modal-section border-bottom py-2">
                     <div class="row mx-1">
                         <div class="form-group col-md-4">
                             <label for="firstname">Firstname:</label>
-                            <input type="text" class="form-control" id="firstname" required="1" placeholder="Firstname" t-attf-name="#{c}-firstname" />
+                            <input
+                                type="text"
+                                class="form-control"
+                                id="firstname"
+                                required="1"
+                                placeholder="Firstname"
+                                t-attf-name="#{c}-firstname"
+                            />
                         </div>
                         <div class="form-group col-md-4">
                             <label for="lastname">Lastname:</label>
-                            <input type="text" class="form-control" id="lastname" required="1" placeholder="lastname" t-attf-name="#{c}-lastname"/>
+                            <input
+                                type="text"
+                                class="form-control"
+                                id="lastname"
+                                required="1"
+                                placeholder="lastname"
+                                t-attf-name="#{c}-lastname"
+                            />
                         </div>
                         <div class="form-group col-md-4">
                             <label for="email">Email:</label>
-                            <input type="email" class="form-control" id="email" required="1" placeholder="Email" t-attf-name="#{c}-email"/>
+                            <input
+                                type="email"
+                                class="form-control"
+                                id="email"
+                                required="1"
+                                placeholder="Email"
+                                t-attf-name="#{c}-email"
+                            />
                         </div>
                     </div>
                 </div>

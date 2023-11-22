@@ -1,5 +1,4 @@
 import logging
-from datetime import datetime
 
 from dateutil.relativedelta import relativedelta
 
@@ -16,7 +15,9 @@ class SaleOrder(models.Model):
         string="Contract", comodel_name="contract.contract", readonly=1, copy=False
     )
 
-    family_members = fields.Many2many(string="Family members", comodel_name="res.partner")
+    family_members = fields.Many2many(
+        string="Family members", comodel_name="res.partner"
+    )
 
     def _prepare_invoice(self):
         invoice_vals = super()._prepare_invoice()
@@ -29,23 +30,29 @@ class SaleOrder(models.Model):
     def action_confirm(self):
         response = super(SaleOrder, self).action_confirm()
 
-        membership_line = next((line for line in self.order_line if line.product_id.membership and line.product_id.membership_type), None)
+        membership_line = next(
+            (
+                line
+                for line in self.order_line
+                if line.product_id.membership and line.product_id.membership_type
+            ),
+            None,
+        )
         if membership_line:
             self.create_contract(self, membership_line.product_id.membership_type)
 
         return response
 
-
-
     def create_contract(self, order, membership_type_value):
         if not order.partner_id.email:
-            raise UserError("The sale order customer does not have an email address.")
+            raise UserError(
+                _("The sale order customer does not have an email address.")
+            )
 
         if membership_type_value == "contact":
             return self.create_individual_contract(order)
         if membership_type_value == "family":
             return self.create_family_contract(order)
-
 
     def create_individual_contract(self, order):
         contract_vals = {
@@ -57,34 +64,38 @@ class SaleOrder(models.Model):
             "line_recurrence": True,
             # Lisää muita tarvittavia kenttiä sopimukselle
         }
-        contract = self.env['contract.contract'].create(contract_vals)
+        contract = self.env["contract.contract"].create(contract_vals)
 
         if contract:
             order.write({"contract_id": contract.id})
             self.create_individual_contract_lines(contract, order)
 
             # Etsi kaikki liitteet, jotka liittyvät tähän myyntitilaukseen
-            find_attachments = self.env["ir.attachment"].search([
-                ("res_model", "=", "sale.order"), 
-                ("res_id", "=", order.id)
-            ])
+            find_attachments = self.env["ir.attachment"].search(
+                [("res_model", "=", "sale.order"), ("res_id", "=", order.id)]
+            )
 
             # Kopioi liitteet ja päivitä niiden 'res_model' ja 'res_id' vastaamaan sopimusta
             if find_attachments:
-                new_attachments = find_attachments.copy({"res_model": "contract.contract", "res_id": contract.id})
+                new_attachments = find_attachments.copy(  # noqa: F841
+                    {"res_model": "contract.contract", "res_id": contract.id}
+                )
 
         return contract
 
-
     def create_individual_contract_lines(self, contract, order):
         if not contract:
-            raise ValueError("Contract is required to create contract lines.")
+            raise ValueError(_("Contract is required to create contract lines."))
 
         next_year_date = fields.Date.today() + relativedelta(years=1)
         first_day_of_next_year = next_year_date.replace(month=1, day=1)
 
         for line in order.order_line.filtered(lambda l: l.product_id.membership):
-            price_unit = line.product_id.fix_price if line.product_id.product_variant_count > 1 else line.product_id.lst_price
+            price_unit = (
+                line.product_id.fix_price
+                if line.product_id.product_variant_count > 1
+                else line.product_id.lst_price
+            )
 
             contract_line_vals = {
                 "contract_id": contract.id,
@@ -98,7 +109,6 @@ class SaleOrder(models.Model):
             contract_line = self.env["contract.line"].create(contract_line_vals)
             line.contract_line_id = contract_line.id
 
-
     def create_family_contract(self, order):
 
         contract = self.create_individual_contract(order)
@@ -107,7 +117,6 @@ class SaleOrder(models.Model):
             self.create_family_contracts(order)
 
         return contract
-
 
     def create_family_contracts(self, order):
         for family_member in order.family_members:
@@ -121,17 +130,16 @@ class SaleOrder(models.Model):
                 "line_recurrence": True,
                 # Lisää muita tarvittavia kenttiä sopimukselle
             }
-            contract = self.env['contract.contract'].create(family_contract_vals)
+            contract = self.env["contract.contract"].create(family_contract_vals)
 
             if contract:
                 self.create_family_contract_lines(contract, order)
 
         return contract
 
-
     def create_family_contract_lines(self, contract, order):
         if not contract:
-            raise ValueError("Contract is required to create contract lines.")
+            raise ValueError(_("Contract is required to create contract lines."))
 
         next_year_date = fields.Date.today() + relativedelta(years=1)
         first_day_of_next_year = next_year_date.replace(month=1, day=1)
@@ -150,7 +158,6 @@ class SaleOrder(models.Model):
             contract_line = self.env["contract.line"].create(contract_line_vals)
             line.contract_line_id = contract_line.id
 
-
     def action_cancel(self):
         for record in self:
             for line in record.order_line:
@@ -158,4 +165,3 @@ class SaleOrder(models.Model):
                     line.contract_line_id.cancel()
 
         return super().action_cancel()
-
