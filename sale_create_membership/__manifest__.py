@@ -32,6 +32,7 @@
         "membership_product",
         "sale",
         "membership",
+        "membership_group",
         "contract_invoice_address",
         "product_variant_company",
         "product_show_only_in_suggested_accessories",
@@ -39,7 +40,6 @@
     ],
     "data": [
         "views/contract.xml",
-        "views/product_pricelist_views.xml",
         "views/product_template_view.xml",
         "views/sale_order.xml",
     ],
