@@ -29,9 +29,13 @@ odoo.define("website_sale_family_membership.CustomWebsiteSale", function (requir
                         // Käsitellään modalin tallennus ja datan keräys
                         var $save_button = $("#saveFamilyMemberButton");
                         $save_button.off("click").on("click", function () {
-                            var formData = {};
-                            $("#familyMemberModal .modal-body .form-group").each(
-                                function () {
+                            // Oletetaan, että lomake sijaitsee modal-ikkunassa
+                            var $form = $("#familyMemberModal").find("form");
+
+                            // Vain lähetä, jos lomake on validi
+                            if ($form[0].reportValidity()) {
+                                var formData = {};
+                                $("#familyMemberModal .modal-body .form-group").each(function () {
                                     var input = $(this).find("input");
                                     var inputName = input.attr("name");
                                     var inputValue = input.val();
@@ -46,15 +50,19 @@ odoo.define("website_sale_family_membership.CustomWebsiteSale", function (requir
                                         formData[index] = formData[index] || {};
                                         formData[index][field] = inputValue;
                                     }
-                                }
-                            );
+                                });
 
-                            const params = self._prepareParams();
-                            // Serialisoi familyMembers-objekti JSON-muotoon
-                            params.familyMembers = JSON.stringify(formData);
-                            // Lähetä päivitetyt tiedot palvelimelle
-                            return wUtils.sendRequest("/shop/cart/update", params);
+                                const params = self._prepareParams();
+                                // Serialisoi familyMembers-objekti JSON-muotoon
+                                params.familyMembers = JSON.stringify(formData);
+                                // Lähetä päivitetyt tiedot palvelimelle
+                                return wUtils.sendRequest("/shop/cart/update", params);
+                            } else {
+                                // Lomake ei ole validi, joten ei lähetetä mitään
+                                return false;
+                            }
                         });
+
                     });
                 } else {
                     _super.apply(this, arguments);

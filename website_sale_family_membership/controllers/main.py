@@ -11,8 +11,7 @@ class ProductAttributeCheckController(http.Controller):
     @http.route("/check_attribute", type="json", auth="public", website=True)
     def check_attribute(self, selectedAttributeValue=None):
         is_family = False
-        order = request.website.sale_get_order()
-        if order and selectedAttributeValue:
+        if selectedAttributeValue:
             att_id = int(selectedAttributeValue)
             attribute = (
                 request.env["product.template.attribute.value"].sudo().browse(att_id)
