@@ -28,7 +28,12 @@
     "application": False,
     "installable": True,
     "external_dependencies": {"python": [], "bin": []},
-    "depends": ["membership", "queue_job", "sale_create_membership", "website_slides"],
-    "data": ["data/ir_cron.xml", "views/groups_view.xml", "views/slide_channel.xml"],
+    "depends": ["membership", "queue_job", "website_slides"],
+    "data": [
+        "data/ir_cron.xml",
+        "views/groups_view.xml",
+        "views/product_pricelist_views.xml",
+        "views/slide_channel.xml",
+    ],
     "demo": [],
 }

@@ -1,7 +1,7 @@
 ##############################################################################
 #
-#    Author: Oy Tawasta OS Technologies Ltd.
-#    Copyright 2021- Oy Tawasta OS Technologies Ltd. (https://tawasta.fi)
+#    Author: Tawasta
+#    Copyright 2020 Oy Tawasta OS Technologies Ltd. (https://tawasta.fi)
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -19,19 +19,19 @@
 ##############################################################################
 
 {
-    "name": "Membership Line View",
-    "summary": "Membership Line View",
-    "version": "14.0.1.0.5",
-    "category": "Sales",
+    "name": "Website sale create user membership",
+    "summary": "Website sale create user membership",
+    "version": "14.0.1.0.1",
+    "category": "Website",
     "website": "https://gitlab.com/tawasta/odoo/membership",
     "author": "Tawasta",
     "license": "AGPL-3",
     "application": False,
     "installable": True,
     "depends": [
-        "membership",
-        "product_variant_company",
-        "contract_membership_integration",
+        "website_sale_create_user",
+        "membership_group",
+        "membership_product",
     ],
-    "data": ["views/membership_line_view.xml"],
+    "data": ["views/attachment.xml"],
 }

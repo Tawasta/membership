@@ -1,7 +1,7 @@
 ##############################################################################
 #
-#    Author: Oy Tawasta OS Technologies Ltd.
-#    Copyright 2021- Oy Tawasta OS Technologies Ltd. (https://tawasta.fi)
+#    Author: Tawasta
+#    Copyright 2020 Oy Tawasta OS Technologies Ltd. (https://tawasta.fi)
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -17,21 +17,29 @@
 #    along with this program. If not, see http://www.gnu.org/licenses/agpl.html
 #
 ##############################################################################
-
 {
-    "name": "Membership Line View",
-    "summary": "Membership Line View",
-    "version": "14.0.1.0.5",
-    "category": "Sales",
+    "name": "Sale Create Membership",
+    "summary": "Sale Create Membership",
+    "version": "14.0.1.1.3",
+    "category": "Website",
     "website": "https://gitlab.com/tawasta/odoo/membership",
     "author": "Tawasta",
     "license": "AGPL-3",
     "application": False,
     "installable": True,
+    "external_dependencies": {"python": [], "bin": []},
     "depends": [
+        "membership_product",
+        "sale",
         "membership",
+        "contract_invoice_address",
         "product_variant_company",
-        "contract_membership_integration",
+        "product_variant_sale_price",
     ],
-    "data": ["views/membership_line_view.xml"],
+    "data": [
+        "views/contract.xml",
+        "views/product_template_view.xml",
+        "views/sale_order.xml",
+    ],
+    "demo": [],
 }
