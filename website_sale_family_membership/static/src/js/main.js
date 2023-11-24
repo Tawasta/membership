@@ -35,34 +35,34 @@ odoo.define("website_sale_family_membership.CustomWebsiteSale", function (requir
                             // Vain lähetä, jos lomake on validi
                             if ($form[0].reportValidity()) {
                                 var formData = {};
-                                $("#familyMemberModal .modal-body .form-group").each(function () {
-                                    var input = $(this).find("input");
-                                    var inputName = input.attr("name");
-                                    var inputValue = input.val();
+                                $("#familyMemberModal .modal-body .form-group").each(
+                                    function () {
+                                        var input = $(this).find("input");
+                                        var inputName = input.attr("name");
+                                        var inputValue = input.val();
 
-                                    // Erotetaan indeksi ja kentän tyyppi (esim. '0-firstname')
-                                    var matches = inputName.match(/(\d+)-(\w+)/);
-                                    if (matches) {
-                                        var index = matches[1];
-                                        var field = matches[2];
+                                        // Erotetaan indeksi ja kentän tyyppi (esim. '0-firstname')
+                                        var matches = inputName.match(/(\d+)-(\w+)/);
+                                        if (matches) {
+                                            var index = matches[1];
+                                            var field = matches[2];
 
-                                        // Luo uusi objekti jokaiselle perheenjäsenelle
-                                        formData[index] = formData[index] || {};
-                                        formData[index][field] = inputValue;
+                                            // Luo uusi objekti jokaiselle perheenjäsenelle
+                                            formData[index] = formData[index] || {};
+                                            formData[index][field] = inputValue;
+                                        }
                                     }
-                                });
+                                );
 
                                 const params = self._prepareParams();
                                 // Serialisoi familyMembers-objekti JSON-muotoon
                                 params.familyMembers = JSON.stringify(formData);
                                 // Lähetä päivitetyt tiedot palvelimelle
                                 return wUtils.sendRequest("/shop/cart/update", params);
-                            } else {
-                                // Lomake ei ole validi, joten ei lähetetä mitään
-                                return false;
                             }
+                            // Lomake ei ole validi, joten ei lähetetä mitään
+                            return false;
                         });
-
                     });
                 } else {
                     _super.apply(this, arguments);

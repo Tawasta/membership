@@ -1,11 +1,12 @@
-from odoo import http
 from odoo.http import request
+
 from odoo.addons.website_sale_create_user.controllers.main import WebsiteSale
+
 
 class WebsiteSaleMembership(WebsiteSale):
     def handle_new_user(self, order, new_user):
         super(WebsiteSaleMembership, self).handle_new_user(order, new_user)
-        
+
         membership_user = False
         for line in order.order_line:
             if line.product_id.membership:
@@ -19,9 +20,13 @@ class WebsiteSaleMembership(WebsiteSale):
 
     def assign_membership_group(self, new_user):
         # Etsi jäsenyysryhmä ja lisää uusi käyttäjä ryhmään
-        membership_group = request.env['res.groups'].sudo().search([('membership_group', '=', True)], limit=1)
+        membership_group = (
+            request.env["res.groups"]
+            .sudo()
+            .search([("membership_group", "=", True)], limit=1)
+        )
         if membership_group:
-            membership_group.sudo().write({'users': [(4, new_user.id)]})
+            membership_group.sudo().write({"users": [(4, new_user.id)]})
 
     def send_membership_email(self, new_user):
         # Lähetä jäsenyyteen liittyvä sähköpostiviesti, jos tarpeen
@@ -44,9 +49,7 @@ class WebsiteSaleMembership(WebsiteSale):
             if attachment_ids:
                 template_values.update(
                     {
-                        "attachment_ids": [
-                            (4, att.id) for att in attachment_ids
-                        ],
+                        "attachment_ids": [(4, att.id) for att in attachment_ids],
                     }
                 )
             template.sudo().write(template_values)

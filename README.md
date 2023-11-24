@@ -32,6 +32,7 @@ addon | version | maintainers | summary
 [res_partner_reference_membership_number](res_partner_reference_membership_number/) | 14.0.1.0.0 |  | Partner field ref as membership number
 [sale_create_membership](sale_create_membership/) | 14.0.1.1.3 |  | Sale Create Membership
 [sale_generate_membership](sale_generate_membership/) | 14.0.1.1.3 |  | Sale Create Membership
+[website_sale_create_user_membership](website_sale_create_user_membership/) | 14.0.1.0.1 |  | Website sale create user membership
 [website_sale_family_membership](website_sale_family_membership/) | 14.0.1.0.1 |  | website_sale_family_membership
 [website_sale_offer_memberships](website_sale_offer_memberships/) | 14.0.1.0.1 |  | Website sale offer memberships
 
