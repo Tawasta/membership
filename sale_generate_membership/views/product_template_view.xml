@@ -8,7 +8,7 @@
     <field name="arch" type="xml">
         <field name="membership_date_to" position="after">
             <field name="membership_type" />
-            <!-- <field name="free_products_ids" widget="many2many_tags" /> -->
+            <field name="extra_products_ids" widget="many2many_tags" />
         </field>
     </field>
 </record>

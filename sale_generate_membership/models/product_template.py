@@ -4,10 +4,10 @@ from odoo import fields, models
 class ProductTemplate(models.Model):
     _inherit = "product.template"
 
-    # free_products_ids = fields.Many2many(
-    #     "product.product",
-    #     string="Free products",
-    # )
+    extra_products_ids = fields.Many2many(
+        "product.product",
+        string="Extra products",
+    )
 
     membership_type = fields.Selection(
         [("family", "Family"), ("contact", "Contact")],

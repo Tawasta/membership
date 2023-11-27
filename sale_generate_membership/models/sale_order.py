@@ -146,17 +146,19 @@ class SaleOrder(models.Model):
 
         for line in order.order_line.filtered(lambda l: l.product_id.membership):
 
-            contract_line_vals = {
-                "contract_id": contract.id,
-                "product_id": line.product_id.id,
-                "name": line.product_id.name,
-                "recurring_rule_type": "yearly",
-                "recurring_next_date": first_day_of_next_year,
-                "price_unit": "0",
-            }
+            for product in line.product_id.extra_products_ids:
 
-            contract_line = self.env["contract.line"].create(contract_line_vals)
-            line.contract_line_id = contract_line.id
+                contract_line_vals = {
+                    "contract_id": contract.id,
+                    "product_id": product.id,
+                    "name": product.name,
+                    "recurring_rule_type": "yearly",
+                    "recurring_next_date": first_day_of_next_year,
+                    "price_unit": "0",
+                }
+
+                contract_line = self.env["contract.line"].create(contract_line_vals)
+                line.contract_line_id = contract_line.id
 
     def action_cancel(self):
         for record in self:

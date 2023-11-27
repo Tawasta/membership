@@ -8,6 +8,7 @@
         <field name="arch" type="xml">
             <field name="recurring_next_date" position="after">
                 <field name="note" />
+                <field name="parent_contract_id" />
             </field>
         </field>
     </record>
