@@ -37,10 +37,10 @@ class ConsentController(http.Controller):
         if not order:
             raise exceptions.Forbidden()
 
+        consent_record.write({'is_used': True})
+
         order_model = request.env[order._name].sudo()
         order_model.create_family_contracts(order)
-
-        consent_record.write({'is_used': True})
 
         return request.render('sale_generate_membership.contract_consent_success')
 
