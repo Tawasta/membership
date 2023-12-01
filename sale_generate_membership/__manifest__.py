@@ -37,9 +37,13 @@
         "product_variant_sale_price",
     ],
     "data": [
+        "security/ir.model.access.csv",
+        "data/template.xml",
         "views/contract.xml",
+        "views/family_member_consent.xml",
         "views/product_template_view.xml",
         "views/sale_order.xml",
+        "views/templates.xml",
     ],
     "demo": [],
 }

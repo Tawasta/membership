@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+        <record id="view_family_member_consent_tree" model="ir.ui.view">
+            <field name="name">family.member.consent.tree</field>
+            <field name="model">family.member.consent</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="family_member_id"/>
+                    <field name="user_id" />
+                    <field name="contract_id"/>
+                    <field name="order_id"/>
+                    <field name="code" />
+                    <field name="is_used" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_family_member_consent_form" model="ir.ui.view">
+            <field name="name">family.member.consent.form</field>
+            <field name="model">family.member.consent</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="family_member_id"/>
+                            <field name="user_id" />
+                            <field name="contract_id"/>
+                            <field name="order_id"/>
+                            <field name="code" />
+                            <field name="is_used" />
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_family_member_consent" model="ir.actions.act_window">
+            <field name="name">Family Member Consent</field>
+            <field name="res_model">family.member.consent</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="menu_family_member_consent"
+                  name="Family Member Consent"
+                  action="action_family_member_consent"
+                  parent="membership.menu_marketing_config_association" sequence="5"/>
+
+</odoo>

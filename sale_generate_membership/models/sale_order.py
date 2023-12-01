@@ -114,26 +114,61 @@ class SaleOrder(models.Model):
         contract = self.create_individual_contract(order)
 
         if contract:
-            self.create_family_contracts(order)
+            for family_member in order.family_members:
+                self.send_email_to_family_member(contract, order, family_member)
+
+
 
         return contract
+
+    def send_email_to_family_member(self, contract, order, family_member):
+
+        consent_record = self.env['family.member.consent'].create({
+            'family_member_id': family_member.id,
+            'user_id': family_member.user_ids and family_member.user_ids[0].id or False,
+            'contract_id': contract.id,
+            'order_id': order.id,
+        })
+
+        template = self.env.ref('sale_generate_membership.email_template_family_member')
+
+        template_values = {
+            "email_to": family_member.email,
+            "email_from": self.env.ref("base.partner_root").email,
+            "email_cc": False,
+            "auto_delete": True,
+            "partner_to": False,
+            "scheduled_date": False,
+        }
+
+        template.sudo().write(template_values)
+        template.sudo().send_mail(
+            consent_record.id, force_send=True, raise_exception=True
+        )
 
     def create_family_contracts(self, order):
         for family_member in order.family_members:
 
-            family_contract_vals = {
-                "name": family_member.name,
-                "partner_id": family_member.id,
-                "partner_invoice_id": order.partner_invoice_id.parent_id.id,
-                "invoice_partner_id": order.partner_id.id,
-                "note": order.note,
-                "line_recurrence": True,
-                # Lisää muita tarvittavia kenttiä sopimukselle
-            }
-            contract = self.env["contract.contract"].create(family_contract_vals)
+            consent_record = self.env["family.member.consent"].sudo().search([
+                ('family_member_id', '=', family_member.id),
+                ('is_used', '=', True),
+                ('order_id', '=', order.id)
+            ], limit=1)
 
-            if contract:
-                self.create_family_contract_lines(contract, order)
+            if consent_record:
+                family_contract_vals = {
+                    "name": family_member.name,
+                    "partner_id": family_member.id,
+                    "partner_invoice_id": order.partner_invoice_id.parent_id.id,
+                    "invoice_partner_id": order.partner_id.id,
+                    "note": order.note,
+                    "line_recurrence": True,
+                    # Lisää muita tarvittavia kenttiä sopimukselle
+                }
+                contract = self.env["contract.contract"].create(family_contract_vals)
+
+                if contract:
+                    self.create_family_contract_lines(contract, order)
 
         return contract
 
