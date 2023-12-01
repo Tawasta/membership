@@ -67,7 +67,7 @@ class WebsiteSaleFamilyMembers(WebsiteSaleMembership):
 
         # Tarkistetaan, onko tilauksessa family_member-arvoja
         if order.family_members:
-            for member in family_members:
+            for member in order.family_members:
                 self.send_portal_access_email(member)
 
     def send_portal_access_email(self, member):
