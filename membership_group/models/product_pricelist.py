@@ -6,6 +6,8 @@ class ProductPricelist(models.Model):
 
     membership_pricelist = fields.Boolean(string="Membership pricelist")
 
+    is_public = fields.Boolean(string="Public/Default pricelist")
+
 
 class ProductPricelistItem(models.Model):
     _inherit = "product.pricelist.item"

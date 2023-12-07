@@ -9,6 +9,7 @@
         <group name="pricelist_discounts" position="after">
             <group name="settings" string="Settings">
                 <field name="membership_pricelist" />
+                <field name="is_public" />
             </group>
         </group>
     </field>

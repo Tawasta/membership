@@ -36,7 +36,6 @@ class ResPartner(models.Model):
         - pricelist
         - slide channels
         """
-
         group_domain = [("membership_group", "=", True)]
         membership_groups = self.env["res.groups"].sudo().search(group_domain)
 
@@ -83,7 +82,9 @@ class ResPartner(models.Model):
 
             else:
                 # TODO: configurable default pricelist
-                public_pricelist = self.env.ref("product.list0")
+                public_pricelist = self.env["product.pricelist"].sudo().search([
+                    ('is_public', '=', True)
+                ])
                 # Remove user from membership groups
                 for group in membership_groups:
                     if user and user in group.users:
