@@ -20,7 +20,7 @@
 {
     "name": "Membership group for active members",
     "summary": "Add active members to a membership group",
-    "version": "14.0.1.1.0",
+    "version": "17.0.1.0",
     "category": "Website",
     "website": "https://gitlab.com/tawasta/odoo/membership",
     "author": "Tawasta",

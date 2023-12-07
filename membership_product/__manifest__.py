@@ -20,7 +20,7 @@
 {
     "name": "Membership Product",
     "summary": "Membership Product",
-    "version": "14.0.1.0.0",
+    "version": "17.0.1.0",
     "category": "Website",
     "website": "https://gitlab.com/tawasta/odoo/membership",
     "author": "Tawasta",

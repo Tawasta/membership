@@ -21,7 +21,7 @@
 {
     "name": "Website sale create user membership",
     "summary": "Website sale create user membership",
-    "version": "14.0.1.0.1",
+    "version": "17.0.1.0",
     "category": "Website",
     "website": "https://gitlab.com/tawasta/odoo/membership",
     "author": "Tawasta",
