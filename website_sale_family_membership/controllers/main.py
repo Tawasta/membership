@@ -5,8 +5,9 @@ from odoo import http
 from odoo.http import request
 
 from odoo.addons.website_sale.controllers.main import WebsiteSale
-from odoo.addons.website_sale_create_user_membership.controllers.main import WebsiteSaleMembership
-
+from odoo.addons.website_sale_create_user_membership.controllers.main import (
+    WebsiteSaleMembership,
+)
 
 
 class ProductAttributeCheckController(http.Controller):
@@ -61,6 +62,7 @@ class WebsiteSale(WebsiteSale):
             )
             order.sudo().write({"family_members": [(4, new_partner.id)]})
 
+
 class WebsiteSaleFamilyMembers(WebsiteSaleMembership):
     def handle_new_user(self, order, new_user):
         super(WebsiteSaleFamilyMembers, self).handle_new_user(order, new_user)
@@ -76,9 +78,7 @@ class WebsiteSaleFamilyMembers(WebsiteSaleMembership):
             "partner_id": member.id,
             "login": member.email,
         }
-        member_user = (
-            member.user_ids and member.user_ids[0] or False
-        )
+        member_user = member.user_ids and member.user_ids[0] or False
         res_users = request.env["res.users"].sudo()
 
         if not member_user:
@@ -95,4 +95,3 @@ class WebsiteSaleFamilyMembers(WebsiteSaleMembership):
                         }
                     )
                     new_user.with_context(create_user=True).action_reset_password()
-

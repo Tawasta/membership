@@ -1,23 +1,44 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
     <data noupdate="1">
         <record id="email_template_family_member" model="mail.template">
             <field name="name">Family Member Consent</field>
-            <field name="model_id" ref="sale_generate_membership.model_family_member_consent"/>
-            <field name="subject">invites you to participate in a consent process</field>
+            <field
+                name="model_id"
+                ref="sale_generate_membership.model_family_member_consent"
+            />
+            <field
+                name="subject"
+            >invites you to participate in a consent process</field>
             <field name="email_to">${object.family_member_id.email | safe}</field>
             <field name="body_html" type="xml">
-                <table style="padding-top: 16px; background-color: #F1F1F1; font-family:Verdana, Arial, sans-serif; color: #454748; width: 100%; border-collapse:separate;" cellspacing="0" cellpadding="0" border="0">
+                <table
+                    style="padding-top: 16px; background-color: #F1F1F1; font-family:Verdana, Arial, sans-serif; color: #454748; width: 100%; border-collapse:separate;"
+                    cellspacing="0"
+                    cellpadding="0"
+                    border="0"
+                >
                     <tbody>
                         <tr>
                             <td align="center">
-                                <table style="padding: 24px; background-color: white; color: #454748; border-collapse:separate;" width="590" cellspacing="0" cellpadding="0" border="0">
+                                <table
+                                    style="padding: 24px; background-color: white; color: #454748; border-collapse:separate;"
+                                    width="590"
+                                    cellspacing="0"
+                                    cellpadding="0"
+                                    border="0"
+                                >
                                     <tbody>
                                         <tr>
                                             <td align="center">
-                                                <p>You have been invited to provide your consent for a contract.</p>
-                                                <p>To provide your consent, please click the link below:</p>
-                                                <a href="/contract/invite/code/${object.code}" style="padding: 10px; background-color: #875A7B; color: #FFF; border-radius: 5px; text-decoration: none;">Provide Consent</a>
+                                                <p
+                                                >You have been invited to provide your consent for a contract.</p>
+                                                <p
+                                                >To provide your consent, please click the link below:</p>
+                                                <a
+                                                    href="/contract/invite/code/${object.code}"
+                                                    style="padding: 10px; background-color: #875A7B; color: #FFF; border-radius: 5px; text-decoration: none;"
+                                                >Provide Consent</a>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -27,7 +48,7 @@
                     </tbody>
                 </table>
             </field>
-            <field name="auto_delete" eval="True"/>
+            <field name="auto_delete" eval="True" />
         </record>
     </data>
 </odoo>

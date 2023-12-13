@@ -117,20 +117,22 @@ class SaleOrder(models.Model):
             for family_member in order.family_members:
                 self.send_email_to_family_member(contract, order, family_member)
 
-
-
         return contract
 
     def send_email_to_family_member(self, contract, order, family_member):
 
-        consent_record = self.env['family.member.consent'].create({
-            'family_member_id': family_member.id,
-            'user_id': family_member.user_ids and family_member.user_ids[0].id or False,
-            'contract_id': contract.id,
-            'order_id': order.id,
-        })
+        consent_record = self.env["family.member.consent"].create(
+            {
+                "family_member_id": family_member.id,
+                "user_id": family_member.user_ids
+                and family_member.user_ids[0].id
+                or False,
+                "contract_id": contract.id,
+                "order_id": order.id,
+            }
+        )
 
-        template = self.env.ref('sale_generate_membership.email_template_family_member')
+        template = self.env.ref("sale_generate_membership.email_template_family_member")
 
         template_values = {
             "email_to": family_member.email,
@@ -149,11 +151,18 @@ class SaleOrder(models.Model):
     def create_family_contracts(self, order):
         for family_member in order.family_members:
 
-            consent_record = self.env["family.member.consent"].sudo().search([
-                ('family_member_id', '=', family_member.id),
-                ('is_used', '=', True),
-                ('order_id', '=', order.id)
-            ], limit=1)
+            consent_record = (
+                self.env["family.member.consent"]
+                .sudo()
+                .search(
+                    [
+                        ("family_member_id", "=", family_member.id),
+                        ("is_used", "=", True),
+                        ("order_id", "=", order.id),
+                    ],
+                    limit=1,
+                )
+            )
 
             if consent_record:
                 family_contract_vals = {
