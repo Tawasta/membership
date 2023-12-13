@@ -6,6 +6,10 @@ class ContractContract(models.Model):
 
     note = fields.Html("Terms and conditions")
 
+    parent_contract_id = fields.Many2one(
+        string="Parent contract", comodel_name="contract.contract"
+    )
+
     @api.model
     def _set_start_contract_modification(self):
         contract = super()._set_start_contract_modification()
