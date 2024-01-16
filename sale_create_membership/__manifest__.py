@@ -34,7 +34,7 @@
         "membership",
         "membership_group",
         "contract_invoice_address",
-        "product_variant_company",
+        "product_variant_variant_company",
         "product_show_only_in_suggested_accessories",
         "product_variant_sale_price",
     ],

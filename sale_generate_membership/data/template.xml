@@ -9,44 +9,37 @@
             />
             <field
                 name="subject"
-            >invites you to participate in a consent process</field>
+            >${object.company_id.name} invites you to participate in a consent process</field>
             <field name="email_to">${object.family_member_id.email | safe}</field>
             <field name="body_html" type="xml">
-                <table
-                    style="padding-top: 16px; background-color: #F1F1F1; font-family:Verdana, Arial, sans-serif; color: #454748; width: 100%; border-collapse:separate;"
-                    cellspacing="0"
-                    cellpadding="0"
-                    border="0"
+                <div
+                    style="font-family: Arial, sans-serif; color: #333333; max-width: 600px; margin: auto; border: 1px solid #DDDDDD; border-radius: 8px; overflow: hidden;"
                 >
-                    <tbody>
-                        <tr>
-                            <td align="center">
-                                <table
-                                    style="padding: 24px; background-color: white; color: #454748; border-collapse:separate;"
-                                    width="590"
-                                    cellspacing="0"
-                                    cellpadding="0"
-                                    border="0"
-                                >
-                                    <tbody>
-                                        <tr>
-                                            <td align="center">
-                                                <p
-                                                >You have been invited to provide your consent for a contract.</p>
-                                                <p
-                                                >To provide your consent, please click the link below:</p>
-                                                <a
-                                                    href="/contract/invite/code/${object.code}"
-                                                    style="padding: 10px; background-color: #875A7B; color: #FFF; border-radius: 5px; text-decoration: none;"
-                                                >Provide Consent</a>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+                    <div
+                        style="background-color: #F8F8F8; padding: 20px; text-align: center; font-size: 18px; border-bottom: 1px solid #DDDDDD;"
+                    >
+                        <strong>Family Member Consent</strong>
+                    </div>
+                    <div style="padding: 20px;">
+                        <p>Hello,</p>
+                        <p
+                        >The other guardian or your spouse in your family has joined the ${object.company_id.name} as a member. This membership is family-based, allowing parents of special needs children living in the same household to join. According to the association's rules, each person joining must personally submit their information to the membership register.</p>
+                        <p
+                        >With the joining of your spouse or the other guardian, the family-based membership fee has already been covered, ensuring no additional charge for your membership.</p>
+                        <p
+                            style="text-align: center; padding-top: 15px; padding-bottom:5px;"
+                        >
+                            <a
+                                href="/contract/invite/code/${object.code}"
+                                style="display: inline-block; padding: 12px 24px; background-color: #875A7B; color: #FFFFFF; border-radius: 5px; text-decoration: none; font-weight: bold;"
+                            >CONFIRM MEMBERSHIP</a>
+                        </p>
+                        <p
+                        >If you have any questions about your membership or the activities of ${object.company_id.name}, feel free to contact <a
+                                href="mailto:${object.company_id.email}"
+                            >${object.company_id.email}</a>.</p>
+                    </div>
+                </div>
             </field>
             <field name="auto_delete" eval="True" />
         </record>

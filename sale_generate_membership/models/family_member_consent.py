@@ -30,3 +30,8 @@ class FamilyMemberConsent(models.Model):
         default=lambda self: uuid.uuid4().hex,
     )
     is_used = fields.Boolean(string="Is Used", default=False)
+
+    company_id = fields.Many2one(
+        comodel_name="res.company",
+        default=lambda self: self.env.company,
+    )
