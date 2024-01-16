@@ -28,6 +28,6 @@
     "license": "AGPL-3",
     "application": False,
     "installable": True,
-    "depends": ["membership_line_view", "product_variant_company", "queue_job"],
+    "depends": ["membership_line_view", "product_variant_variant_company", "queue_job"],
     "data": ["data/ir_cron.xml", "views/partner.xml"],
 }
