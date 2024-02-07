@@ -172,6 +172,7 @@ class SaleOrder(models.Model):
                     "invoice_partner_id": order.partner_id.id,
                     "note": order.note,
                     "line_recurrence": True,
+                    "parent_contract_id": contract_id.id,
                     # Lisää muita tarvittavia kenttiä sopimukselle
                 }
                 contract = self.env["contract.contract"].create(family_contract_vals)
