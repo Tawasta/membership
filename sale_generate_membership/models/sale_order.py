@@ -88,7 +88,6 @@ class SaleOrder(models.Model):
             raise ValueError(_("Contract is required to create contract lines."))
 
         next_year_date = fields.Date.today() + relativedelta(years=1)
-        first_day_of_next_year = next_year_date.replace(month=1, day=1)
 
         for line in order.order_line.filtered(lambda l: l.product_id.membership):
             price_unit = (
@@ -102,7 +101,7 @@ class SaleOrder(models.Model):
                 "product_id": line.product_id.id,
                 "name": line.product_id.name,
                 "recurring_rule_type": "yearly",
-                "recurring_next_date": first_day_of_next_year,
+                "recurring_next_date": next_year_date,
                 "price_unit": price_unit,
             }
 
@@ -187,7 +186,6 @@ class SaleOrder(models.Model):
             raise ValueError(_("Contract is required to create contract lines."))
 
         next_year_date = fields.Date.today() + relativedelta(years=1)
-        first_day_of_next_year = next_year_date.replace(month=1, day=1)
 
         for line in order.order_line.filtered(lambda l: l.product_id.membership):
 
@@ -198,7 +196,7 @@ class SaleOrder(models.Model):
                     "product_id": product.id,
                     "name": product.name,
                     "recurring_rule_type": "yearly",
-                    "recurring_next_date": first_day_of_next_year,
+                    "recurring_next_date": next_year_date,
                     "price_unit": "0",
                 }
 
