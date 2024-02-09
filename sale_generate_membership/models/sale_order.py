@@ -55,7 +55,9 @@ class SaleOrder(models.Model):
             return self.create_family_contract(order)
 
     def create_individual_contract(self, order):
-        find_contract_template = self.env["contract.template"].sudo().search([], limit=1)
+        find_contract_template = (
+            self.env["contract.template"].sudo().search([], limit=1)
+        )
         contract_vals = {
             "name": order.partner_id.name,
             "partner_id": order.partner_id.id,
@@ -168,7 +170,9 @@ class SaleOrder(models.Model):
             )
 
             if consent_record:
-                find_contract_template = self.env["contract.template"].sudo().search([], limit=1)
+                find_contract_template = (
+                    self.env["contract.template"].sudo().search([], limit=1)
+                )
                 family_contract_vals = {
                     "name": family_member.name,
                     "partner_id": family_member.id,
@@ -176,12 +180,14 @@ class SaleOrder(models.Model):
                     "invoice_partner_id": order.partner_id.id,
                     "note": order.note,
                     "line_recurrence": True,
-                    "parent_contract_id": contract_id.id,
+                    "parent_contract_id": consent_record.contract_id.id,
                     # Lisää muita tarvittavia kenttiä sopimukselle
                 }
                 contract = self.env["contract.contract"].create(family_contract_vals)
 
-                contract.sudo().write({"contract_template_id": find_contract_template.id})
+                contract.sudo().write(
+                    {"contract_template_id": find_contract_template.id}
+                )
                 contract._onchange_contract_template_id()
 
                 if contract:
