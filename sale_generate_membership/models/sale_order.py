@@ -55,6 +55,9 @@ class SaleOrder(models.Model):
             return self.create_family_contract(order)
 
     def create_individual_contract(self, order):
+        find_contract_template = (
+            self.env["contract.template"].sudo().search([], limit=1)
+        )
         contract_vals = {
             "name": order.partner_id.name,
             "partner_id": order.partner_id.id,
@@ -65,6 +68,9 @@ class SaleOrder(models.Model):
             # Lisää muita tarvittavia kenttiä sopimukselle
         }
         contract = self.env["contract.contract"].create(contract_vals)
+
+        contract.sudo().write({"contract_template_id": find_contract_template.id})
+        contract._onchange_contract_template_id()
 
         if contract:
             order.write({"contract_id": contract.id})
@@ -88,7 +94,6 @@ class SaleOrder(models.Model):
             raise ValueError(_("Contract is required to create contract lines."))
 
         next_year_date = fields.Date.today() + relativedelta(years=1)
-        first_day_of_next_year = next_year_date.replace(month=1, day=1)
 
         for line in order.order_line.filtered(lambda l: l.product_id.membership):
             price_unit = (
@@ -102,7 +107,7 @@ class SaleOrder(models.Model):
                 "product_id": line.product_id.id,
                 "name": line.product_id.name,
                 "recurring_rule_type": "yearly",
-                "recurring_next_date": first_day_of_next_year,
+                "recurring_next_date": next_year_date,
                 "price_unit": price_unit,
             }
 
@@ -165,6 +170,9 @@ class SaleOrder(models.Model):
             )
 
             if consent_record:
+                find_contract_template = (
+                    self.env["contract.template"].sudo().search([], limit=1)
+                )
                 family_contract_vals = {
                     "name": family_member.name,
                     "partner_id": family_member.id,
@@ -172,9 +180,15 @@ class SaleOrder(models.Model):
                     "invoice_partner_id": order.partner_id.id,
                     "note": order.note,
                     "line_recurrence": True,
+                    "parent_contract_id": consent_record.contract_id.id,
                     # Lisää muita tarvittavia kenttiä sopimukselle
                 }
                 contract = self.env["contract.contract"].create(family_contract_vals)
+
+                contract.sudo().write(
+                    {"contract_template_id": find_contract_template.id}
+                )
+                contract._onchange_contract_template_id()
 
                 if contract:
                     self.create_family_contract_lines(contract, order)
@@ -186,7 +200,6 @@ class SaleOrder(models.Model):
             raise ValueError(_("Contract is required to create contract lines."))
 
         next_year_date = fields.Date.today() + relativedelta(years=1)
-        first_day_of_next_year = next_year_date.replace(month=1, day=1)
 
         for line in order.order_line.filtered(lambda l: l.product_id.membership):
 
@@ -197,7 +210,7 @@ class SaleOrder(models.Model):
                     "product_id": product.id,
                     "name": product.name,
                     "recurring_rule_type": "yearly",
-                    "recurring_next_date": first_day_of_next_year,
+                    "recurring_next_date": next_year_date,
                     "price_unit": "0",
                 }
 
