@@ -67,7 +67,7 @@ class SaleOrder(models.Model):
         }
         contract = self.env["contract.contract"].create(contract_vals)
 
-        contract.sudo().write({"contract_template_id": contract_template_id})
+        contract.sudo().write({"contract_template_id": find_contract_template.id})
         contract._onchange_contract_template_id()
 
         if contract:
@@ -181,7 +181,7 @@ class SaleOrder(models.Model):
                 }
                 contract = self.env["contract.contract"].create(family_contract_vals)
 
-                contract.sudo().write({"contract_template_id": contract_template_id})
+                contract.sudo().write({"contract_template_id": find_contract_template.id})
                 contract._onchange_contract_template_id()
 
                 if contract:
