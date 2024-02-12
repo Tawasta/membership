@@ -33,7 +33,7 @@
         "sale",
         "membership",
         "contract_invoice_address",
-        "product_variant_company",
+        "product_variant_variant_company",
         "product_variant_sale_price",
     ],
     "data": [
