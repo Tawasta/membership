@@ -138,10 +138,11 @@ class SaleOrder(models.Model):
         )
 
         template = self.env.ref("sale_generate_membership.email_template_family_member")
+        def_company = self.env["res.company"]._get_main_company()
 
         template_values = {
             "email_to": family_member.email,
-            "email_from": self.env.ref("base.partner_root").email,
+            "email_from": def_company.email,
             "email_cc": False,
             "auto_delete": True,
             "partner_to": False,
