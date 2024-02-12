@@ -5,7 +5,9 @@ from odoo.addons.website_sale_create_user.controllers.main import WebsiteSale
 
 class WebsiteSaleMembership(WebsiteSale):
     def handle_new_user(self, order, new_user):
-        template_values = super(WebsiteSaleMembership, self).handle_new_user(order, new_user)
+        template_values = super(WebsiteSaleMembership, self).handle_new_user(
+            order, new_user
+        )
 
         membership_user = False
         for line in order.order_line:
@@ -39,4 +41,3 @@ class WebsiteSaleMembership(WebsiteSale):
         )
         if membership_group:
             membership_group.sudo().write({"users": [(4, new_user.id)]})
-

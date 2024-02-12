@@ -65,7 +65,9 @@ class WebsiteSale(WebsiteSale):
 
 class WebsiteSaleFamilyMembers(WebsiteSaleMembership):
     def handle_new_user(self, order, new_user):
-        template_values = super(WebsiteSaleFamilyMembers, self).handle_new_user(order, new_user)
+        template_values = super(WebsiteSaleFamilyMembers, self).handle_new_user(
+            order, new_user
+        )
 
         # Tarkistetaan, onko tilauksessa family_member-arvoja
         if order.family_members:
