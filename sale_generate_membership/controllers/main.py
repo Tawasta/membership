@@ -68,4 +68,10 @@ class ConsentController(http.Controller):
         order_model = request.env[order._name].sudo()
         order_model.create_family_contracts(order)
 
-        return request.render("sale_generate_membership.contract_consent_success")
+        values = {
+            "consent_record": consent_record,
+        }
+
+        return request.render(
+            "sale_generate_membership.contract_consent_success", values
+        )

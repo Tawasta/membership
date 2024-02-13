@@ -12,7 +12,7 @@ Sale Create Membership
 * The contract and invoice are automatically linked when the invoice is created from the sales order.
 * The membership price list is automatically added to the contract contact person.
 * If contract template has been created then all its values are taken for the new contract .
-
+* Enables setting custom product-specific UI messages to be shown in the portal views where the family member who accepts their membership 
 
 Configuration
 =============
@@ -33,6 +33,7 @@ Contributors
 ------------
 
 * Valtteri Lattu <valtteri.lattu@tawasta.fi>
+* Timo Talvitie <timo.talvitie@tawasta.fi>
 
 Maintainer
 ----------
