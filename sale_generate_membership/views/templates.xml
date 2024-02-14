@@ -8,10 +8,26 @@
                         <div class="col-md-6">
                             <div class="card text-center">
                                 <div class="card-header">
-                                    <h2>Accept Contract</h2>
+                                    <h2>Acceptance of the Contract</h2>
                                 </div>
                                 <div class="card-body">
-                                    <p>You have been invited to accept a contract.</p>
+
+                                    <!-- Pull the custom message from contract line's
+                                    product, if one exists, and there is only one contract line. Fall back to default text otherwise -->
+                                    <t
+                                        t-if="consent_record.contract_id
+                                        and len(consent_record.contract_id.contract_line_ids) == 1
+                                        and consent_record.contract_id.contract_line_ids[0].product_id
+                                        and consent_record.contract_id.contract_line_ids[0].product_id.custom_consent_text_initial_msg"
+                                    >
+                                        <t
+                                            t-raw="consent_record.contract_id.contract_line_ids[0].product_id.custom_consent_text_initial_msg"
+                                        />
+                                    </t>
+                                    <t t-else="">
+                                        <p
+                                        >You have been invited to accept a contract.</p>
+                                    </t>
                                     <!-- Button to Open the Modal -->
                                     <button
                                         type="button"
@@ -19,7 +35,7 @@
                                         data-toggle="modal"
                                         data-target="#consentModal"
                                     >
-                                        Accept
+                                        Continue to Accept
                                     </button>
                                 </div>
                             </div>
@@ -52,7 +68,23 @@
                                 </button>
                             </div>
                             <div class="modal-body">
-                                You are about to give your consent. Are you sure?
+
+                                <!-- Pull the custom message from contract line's
+                                product, if one exists, and there is only one contract line. Fall back to default text otherwise -->
+                                <t
+                                    t-if="consent_record.contract_id
+                                    and len(consent_record.contract_id.contract_line_ids) == 1
+                                    and consent_record.contract_id.contract_line_ids[0].product_id
+                                    and consent_record.contract_id.contract_line_ids[0].product_id.custom_consent_text_popup_msg"
+                                >
+                                    <t
+                                        t-raw="consent_record.contract_id.contract_line_ids[0].product_id.custom_consent_text_popup_msg"
+                                    />
+                                </t>
+                                <t t-else="">
+                                    You are about to give your consent. Are you sure?
+                                </t>
+
                             </div>
                             <div class="modal-footer">
                                 <form
@@ -90,11 +122,26 @@
                         <div class="col-md-6">
                             <div class="card text-center">
                                 <div class="card-header">
-                                    <h2>Thank You for Your Consent!</h2>
+                                    <h2>Thank You for Confirming!</h2>
                                 </div>
                                 <div class="card-body">
-                                    <p
-                                    >Your consent for the contract creation has been successfully registered.</p>
+                                    <!-- Pull the custom message from contract line's
+                                    product, if one exists, and there is only one contract line. Fall back to default text otherwise -->
+                                    <t
+                                        t-if="consent_record.contract_id
+                                        and len(consent_record.contract_id.contract_line_ids) == 1
+                                        and consent_record.contract_id.contract_line_ids[0].product_id
+                                        and consent_record.contract_id.contract_line_ids[0].product_id.custom_consent_text_confirmation_msg"
+                                    >
+                                        <t
+                                            t-raw="consent_record.contract_id.contract_line_ids[0].product_id.custom_consent_text_confirmation_msg"
+                                        />
+                                    </t>
+                                    <t t-else="">
+                                        <p
+                                        >Your consent for the contract creation has been successfully registered.</p>
+                                    </t>
+
                                     <a
                                         href="/"
                                         class="btn btn-success mt-4"

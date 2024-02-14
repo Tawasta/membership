@@ -10,6 +10,21 @@
             <field name="membership_type" />
             <field name="extra_products_ids" widget="many2many_tags" />
         </field>
+
+        <!-- Add fields for customizing the family members' consent descriptions in portal -->
+        <xpath expr="//group[@name='membership_product']" position="after">
+            <group string="Custom Consent Text: Initial Message">
+                <field nolabel="1" name="custom_consent_text_initial_msg" />
+            </group>
+
+            <group string="Custom Consent Text: Popup Dialog Message">
+                <field nolabel="1" name="custom_consent_text_popup_msg" />
+            </group>
+
+            <group string="Custom Consent Text: Post-confirmation Message">
+                <field nolabel="1" name="custom_consent_text_confirmation_msg" />
+            </group>
+        </xpath>
     </field>
 </record>
 
