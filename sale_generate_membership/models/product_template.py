@@ -10,7 +10,7 @@ class ProductTemplate(models.Model):
     )
 
     membership_type = fields.Selection(
-        [("family", "Family"), ("contact", "Contact")],
+        [("family", "Family"), ("contact", "Contact"), ("company", "Company")],
         string="Membership Type",
         default="contact",
         required=True,
