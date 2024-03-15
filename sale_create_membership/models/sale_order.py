@@ -222,10 +222,13 @@ class SaleOrder(models.Model):
                         variant_company_id = line.product_id.variant_company_id
                         for free_p in line.product_id.free_products_ids:
                             for free_l in order.order_line:
+                                logging.info(free_l);
                                 if (
                                     free_p == free_l.product_id
                                     and free_p.variant_company_id == variant_company_id
                                 ):
+                                    logging.info("====ILMAINEN JOKA ON OSTOSKORISSA=====");
+                                    logging.info(free_p);
                                     contract_line_vals = {
                                         "contract_id": contract.id,
                                         "product_id": free_p.id,
@@ -257,6 +260,8 @@ class SaleOrder(models.Model):
                                 ]
                             )
                         )
+                        logging.info("===SAME VARIANT====");
+                        logging.info(variant_product_same_company);
                         if variant_product_same_company:
                             contract_line_vals = {
                                 "contract_id": contract.id,
