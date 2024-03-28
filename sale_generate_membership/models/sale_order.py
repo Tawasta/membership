@@ -186,6 +186,8 @@ class SaleOrder(models.Model):
                 }
                 contract = self.env["contract.contract"].create(family_contract_vals)
 
+                consent_record.contract_id.sudo().write({"parent_contract_id": contract.id})
+
                 contract.sudo().write(
                     {"contract_template_id": find_contract_template.id}
                 )
