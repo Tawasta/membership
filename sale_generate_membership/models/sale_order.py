@@ -73,6 +73,7 @@ class SaleOrder(models.Model):
         contract._onchange_contract_template_id()
 
         if contract:
+            order.partner_id.sudo().write({"contract_type": "sale"})
             order.write({"contract_id": contract.id})
             self.create_individual_contract_lines(contract, order)
 
@@ -194,6 +195,7 @@ class SaleOrder(models.Model):
                 contract._onchange_contract_template_id()
 
                 if contract:
+                    family_member.sudo().write({"contract_type": "sale"})
                     self.create_family_contract_lines(contract, order)
 
         return contract
