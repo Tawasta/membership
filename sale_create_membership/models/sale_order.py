@@ -215,23 +215,28 @@ class SaleOrder(models.Model):
     ):
         if free_products_only:
             currentTimeDate = datetime.now().date() + relativedelta(years=1)
-            first_day_of_next_year = currentTimeDate.replace(month=1, day=1)
+            # first_day_of_next_year = currentTimeDate.replace(month=1, day=1)
             for line in order.order_line:
                 if line.product_id.membership:
                     if line.product_id.free_products_ids:
                         variant_company_id = line.product_id.variant_company_id
                         for free_p in line.product_id.free_products_ids:
                             for free_l in order.order_line:
+                                logging.info(free_l)
                                 if (
                                     free_p == free_l.product_id
                                     and free_p.variant_company_id == variant_company_id
                                 ):
+                                    logging.info(
+                                        "====ILMAINEN JOKA ON OSTOSKORISSA====="
+                                    )
+                                    logging.info(free_p)
                                     contract_line_vals = {
                                         "contract_id": contract.id,
                                         "product_id": free_p.id,
                                         "name": free_p.name,
                                         "recurring_rule_type": "yearly",
-                                        "recurring_next_date": first_day_of_next_year,
+                                        "recurring_next_date": currentTimeDate,
                                     }
                                     if free_p.product_variant_count > 1:
                                         contract_line_vals.update(
@@ -257,13 +262,15 @@ class SaleOrder(models.Model):
                                 ]
                             )
                         )
+                        logging.info("===SAME VARIANT====")
+                        logging.info(variant_product_same_company)
                         if variant_product_same_company:
                             contract_line_vals = {
                                 "contract_id": contract.id,
                                 "product_id": variant_product_same_company.id,
                                 "name": variant_product_same_company.name,
                                 "recurring_rule_type": "yearly",
-                                "recurring_next_date": first_day_of_next_year,
+                                "recurring_next_date": currentTimeDate,
                             }
                             if variant_product_same_company.product_variant_count > 1:
                                 contract_line_vals.update(
@@ -290,7 +297,7 @@ class SaleOrder(models.Model):
                             "product_id": line.product_id.id,
                             "name": line.product_id.name,
                             "recurring_rule_type": "yearly",
-                            "recurring_next_date": first_day_of_next_year,
+                            "recurring_next_date": currentTimeDate,
                         }
                         if line.product_id.product_variant_count > 1:
                             contract_line_vals.update(
@@ -309,7 +316,7 @@ class SaleOrder(models.Model):
             # ending_day_of_current_year = datetime.now().date().replace(month=12, day=31)
             # first_day_of_next_year = datetime.now().date().replace(year= +1, month=1, day=1)
             currentTimeDate = datetime.now().date() + relativedelta(years=1)
-            first_day_of_next_year = currentTimeDate.replace(month=1, day=1)
+            # first_day_of_next_year = currentTimeDate.replace(month=1, day=1)
             is_company_contract = False
             for li in order.order_line:
                 if li.product_id.membership_type == "company":
@@ -326,7 +333,7 @@ class SaleOrder(models.Model):
                             "product_id": line.product_id.id,
                             "name": line.product_id.name,
                             "recurring_rule_type": "yearly",
-                            "recurring_next_date": first_day_of_next_year,
+                            "recurring_next_date": currentTimeDate,
                         }
                         if already_contract:
                             # all_ended = False
@@ -389,7 +396,7 @@ class SaleOrder(models.Model):
                             "product_id": line.product_id.id,
                             "name": line.product_id.name,
                             "recurring_rule_type": "yearly",
-                            "recurring_next_date": first_day_of_next_year,
+                            "recurring_next_date": currentTimeDate,
                         }
                         if already_contract:
                             # all_ended = False
