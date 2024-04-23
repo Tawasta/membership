@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_res_partner_member_filter" model="ir.ui.view">
+        <field name="name">res.partner.select.member_of</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="membership.view_res_partner_member_filter" />
+        <field name="arch" type="xml">
+
+            <field name="name" position="after">
+                <field name="customer_of" string="Member of" />
+            </field>
+
+        </field>
+    </record>
+</odoo>
