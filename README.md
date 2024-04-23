@@ -22,6 +22,7 @@ addon | version | maintainers | summary
 [membership_line_partner_ref](membership_line_partner_ref/) | 14.0.1.0.0 |  | Membership Line Partner Ref
 [membership_line_view](membership_line_view/) | 14.0.1.0.5 |  | Membership Line View
 [membership_line_view_hide_tags](membership_line_view_hide_tags/) | 14.0.1.0.0 |  | Membership line View hide Tags
+[membership_multicompany_relation](membership_multicompany_relation/) | 14.0.1.0.0 |  | Allows tagging a partner to multiple companies as customer or supplier
 [membership_no_free_default](membership_no_free_default/) | 14.0.1.0.0 |  | Membership is not free as default when creating new members
 [membership_pricelist_public_user](membership_pricelist_public_user/) | 14.0.1.0.0 |  | Membership pricelist public user
 [membership_product](membership_product/) | 14.0.1.0.0 |  | Membership Product
