@@ -44,6 +44,8 @@ class ResPartner(models.Model):
         membership_pricelist = (
             self.env["product.pricelist"].sudo().search(pricelist_domain, limit=1)
         )
+        logging.info("======MEMBERSHIP PRICELIST======");
+        logging.info(membership_pricelist);
 
         channels_domain = [
             ("visibility", "=", "members"),
@@ -65,9 +67,11 @@ class ResPartner(models.Model):
                         group.sudo().write({"users": [(4, user.id)]})
                 # Add membership pricelist for partner and commercial partner
                 if partner.property_product_pricelist != membership_pricelist:
+                    logging.info("===LISATAAN MEMEBERSHIP====");
                     partner.sudo().write(
                         {"property_product_pricelist": membership_pricelist.id}
                     )
+                    logging.info(partner.property_product_pricelist);
 
                 if (
                     partner.commercial_partner_id.property_product_pricelist
