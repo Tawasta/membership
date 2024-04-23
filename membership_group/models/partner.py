@@ -54,7 +54,8 @@ class ResPartner(models.Model):
         membership_channels = self.env["slide.channel"].sudo().search(channels_domain)
 
         for partner in self:
-            is_member = partner.membership_state in ["paid", "invoiced", "free"]
+            #is_member = partner.membership_state in ["paid", "invoiced", "free"]
+            is_member = any(line.state in ["paid", "invoiced", "free"] for line in partner.member_lines)
             user = partner.user_ids and partner.user_ids[0]
 
             if is_member:
