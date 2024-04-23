@@ -44,8 +44,6 @@ class ResPartner(models.Model):
         membership_pricelist = (
             self.env["product.pricelist"].sudo().search(pricelist_domain, limit=1)
         )
-        logging.info("======MEMBERSHIP PRICELIST======")
-        logging.info(membership_pricelist)
 
         channels_domain = [
             ("visibility", "=", "members"),
@@ -54,10 +52,8 @@ class ResPartner(models.Model):
         membership_channels = self.env["slide.channel"].sudo().search(channels_domain)
 
         for partner in self:
-            # is_member = partner.membership_state in ["paid", "invoiced", "free"]
             is_member = any(
-                line.state in ["paid", "invoiced", "free"]
-                for line in partner.member_lines
+                line.state == "in-progress" for line in partner.contract_lines
             )
             user = partner.user_ids and partner.user_ids[0]
 
@@ -71,11 +67,9 @@ class ResPartner(models.Model):
                         group.sudo().write({"users": [(4, user.id)]})
                 # Add membership pricelist for partner and commercial partner
                 if partner.property_product_pricelist != membership_pricelist:
-                    logging.info("===LISATAAN MEMEBERSHIP====")
                     partner.sudo().write(
                         {"property_product_pricelist": membership_pricelist.id}
                     )
-                    logging.info(partner.property_product_pricelist)
 
                 if (
                     partner.commercial_partner_id.property_product_pricelist
