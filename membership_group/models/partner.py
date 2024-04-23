@@ -52,7 +52,9 @@ class ResPartner(models.Model):
         membership_channels = self.env["slide.channel"].sudo().search(channels_domain)
 
         for partner in self:
-            is_member = any(line.state == "in-progress" for line in partner.contract_lines)
+            is_member = any(
+                line.state == "in-progress" for line in partner.contract_lines
+            )
             user = partner.user_ids and partner.user_ids[0]
 
             if is_member:
