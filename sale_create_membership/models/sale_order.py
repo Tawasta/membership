@@ -120,7 +120,7 @@ class SaleOrder(models.Model):
                         self._create_contract_lines(
                             create_contract, order, free_products_only=True
                         )
-                        create_contract.recurring_create_invoice()
+                        #create_contract.recurring_create_invoice()
 
                         related_contract = (
                             self.env["contract.contract"]
