@@ -1,20 +1,25 @@
-from odoo.http import request
 from odoo import http
+from odoo.http import request
 
 from odoo.addons.website_sale_create_user.controllers.main import WebsiteSale
 
 
 class WebsiteSaleMembership(WebsiteSale):
-
     @http.route()
     def payment_confirmation(self, **post):
-        create_user_always = request.env['ir.config_parameter'].sudo().get_param('website_sale_create_user.always_create_user', default='False')
+        create_user_always = (
+            request.env["ir.config_parameter"]
+            .sudo()
+            .get_param("website_sale_create_user.always_create_user", default="False")
+        )
         sale_order_id = request.session.get("sale_last_order_id")
         if sale_order_id:
             order = request.env["sale.order"].sudo().browse(sale_order_id)
-            membership_product_exists = any(line.product_id.membership for line in order.order_line)
+            membership_product_exists = any(
+                line.product_id.membership for line in order.order_line
+            )
 
-            if create_user_always == 'True' or membership_product_exists:
+            if create_user_always == "True" or membership_product_exists:
                 self.create_user_from_order(order)
 
         return super(WebsiteSaleMembership, self).payment_confirmation(**post)
