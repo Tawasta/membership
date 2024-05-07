@@ -238,7 +238,7 @@ class SaleOrder(models.Model):
                                         "recurring_rule_type": "yearly",
                                         "recurring_next_date": currentTimeDate,
                                     }
-                                    logging.info(contract_line_vals);
+                                    logging.info(contract_line_vals)
                                     if free_p.product_variant_count > 1:
                                         contract_line_vals.update(
                                             {"price_unit": free_p.fix_price}
@@ -273,7 +273,7 @@ class SaleOrder(models.Model):
                                 "recurring_rule_type": "yearly",
                                 "recurring_next_date": currentTimeDate,
                             }
-                            logging.info(contract_line_vals);
+                            logging.info(contract_line_vals)
                             if variant_product_same_company.product_variant_count > 1:
                                 contract_line_vals.update(
                                     {
@@ -301,7 +301,7 @@ class SaleOrder(models.Model):
                             "recurring_rule_type": "yearly",
                             "recurring_next_date": currentTimeDate,
                         }
-                        logging.info(contract_line_vals);
+                        logging.info(contract_line_vals)
                         if line.product_id.product_variant_count > 1:
                             contract_line_vals.update(
                                 {"price_unit": line.product_id.fix_price}
@@ -338,7 +338,7 @@ class SaleOrder(models.Model):
                             "recurring_rule_type": "yearly",
                             "recurring_next_date": currentTimeDate,
                         }
-                        logging.info(contract_line_vals);
+                        logging.info(contract_line_vals)
                         if already_contract:
                             # all_ended = False
                             ended_lines = []
@@ -402,7 +402,7 @@ class SaleOrder(models.Model):
                             "recurring_rule_type": "yearly",
                             "recurring_next_date": currentTimeDate,
                         }
-                        logging.info(contract_line_vals);
+                        logging.info(contract_line_vals)
                         if already_contract:
                             # all_ended = False
                             ended_lines = []
