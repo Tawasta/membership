@@ -50,6 +50,13 @@ class SaleOrder(models.Model):
 
         return super().action_cancel()
 
+    def _calculate_last_date_invoiced(self):
+        """
+        Formulate a date that will be written into the last_date_invoiced field.
+        recurring_next_date will be computed to be +1 days from this.
+        """
+        return datetime.now().date() + relativedelta(years=1) - relativedelta(days=1)
+
     def _create_memberships(self, company=False):
         membership_pricelist_id = (
             self.env["product.pricelist"]
@@ -213,6 +220,9 @@ class SaleOrder(models.Model):
         free_products_only=False,
         already_contract=False,
     ):
+
+        last_date_invoiced = self._calculate_last_date_invoiced()
+
         if free_products_only:
             currentTimeDate = datetime.now().date() + relativedelta(years=1)
             # first_day_of_next_year = currentTimeDate.replace(month=1, day=1)
@@ -236,7 +246,7 @@ class SaleOrder(models.Model):
                                         "product_id": free_p.id,
                                         "name": free_p.name,
                                         "recurring_rule_type": "yearly",
-                                        "recurring_next_date": currentTimeDate,
+                                        "last_date_invoiced": last_date_invoiced,
                                     }
                                     if free_p.product_variant_count > 1:
                                         contract_line_vals.update(
@@ -270,7 +280,7 @@ class SaleOrder(models.Model):
                                 "product_id": variant_product_same_company.id,
                                 "name": variant_product_same_company.name,
                                 "recurring_rule_type": "yearly",
-                                "recurring_next_date": currentTimeDate,
+                                "last_date_invoiced": last_date_invoiced,
                             }
                             if variant_product_same_company.product_variant_count > 1:
                                 contract_line_vals.update(
@@ -297,7 +307,7 @@ class SaleOrder(models.Model):
                             "product_id": line.product_id.id,
                             "name": line.product_id.name,
                             "recurring_rule_type": "yearly",
-                            "recurring_next_date": currentTimeDate,
+                            "last_date_invoiced": last_date_invoiced,
                         }
                         if line.product_id.product_variant_count > 1:
                             contract_line_vals.update(
@@ -333,7 +343,7 @@ class SaleOrder(models.Model):
                             "product_id": line.product_id.id,
                             "name": line.product_id.name,
                             "recurring_rule_type": "yearly",
-                            "recurring_next_date": currentTimeDate,
+                            "last_date_invoiced": last_date_invoiced,
                         }
                         if already_contract:
                             # all_ended = False
@@ -396,7 +406,7 @@ class SaleOrder(models.Model):
                             "product_id": line.product_id.id,
                             "name": line.product_id.name,
                             "recurring_rule_type": "yearly",
-                            "recurring_next_date": currentTimeDate,
+                            "last_date_invoiced": last_date_invoiced,
                         }
                         if already_contract:
                             # all_ended = False
