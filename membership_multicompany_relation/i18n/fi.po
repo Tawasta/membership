@@ -20,4 +20,4 @@ msgstr ""
 #. module: membership_multicompany_relation
 #: model_terms:ir.ui.view,arch_db:membership_multicompany_relation.view_res_partner_member_filter
 msgid "Member of"
-msgstr "Jäsenenenä"
+msgstr "Jäsenyydet"
