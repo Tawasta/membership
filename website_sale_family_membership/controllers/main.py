@@ -58,4 +58,3 @@ class WebsiteSale(WebsiteSale):
                 }
             )
             order.sudo().write({"family_members": [(4, new_partner.id)]})
-

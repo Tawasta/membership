@@ -10,4 +10,3 @@ class SaleOrder(models.Model):
             for member in self.family_members:
                 self._create_user_from_order(member)
         return res
-
