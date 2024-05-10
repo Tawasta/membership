@@ -5,9 +5,9 @@ from odoo import http
 from odoo.http import request
 
 from odoo.addons.website_sale.controllers.main import WebsiteSale
-from odoo.addons.website_sale_create_user_membership.controllers.main import (
-    WebsiteSaleMembership,
-)
+# from odoo.addons.website_sale_create_user_membership.controllers.main import (
+#     WebsiteSaleMembership,
+# )
 
 
 class ProductAttributeCheckController(http.Controller):
@@ -63,38 +63,38 @@ class WebsiteSale(WebsiteSale):
             order.sudo().write({"family_members": [(4, new_partner.id)]})
 
 
-class WebsiteSaleFamilyMembers(WebsiteSaleMembership):
-    def handle_new_user(self, order, new_user):
-        template_values = super(WebsiteSaleFamilyMembers, self).handle_new_user(
-            order, new_user
-        )
+# class WebsiteSaleFamilyMembers(WebsiteSaleMembership):
+#     def handle_new_user(self, order, new_user):
+#         template_values = super(WebsiteSaleFamilyMembers, self).handle_new_user(
+#             order, new_user
+#         )
 
-        # Tarkistetaan, onko tilauksessa family_member-arvoja
-        if order.family_members:
-            for member in order.family_members:
-                self.send_portal_access_email(member)
-        return template_values
+#         # Tarkistetaan, onko tilauksessa family_member-arvoja
+#         if order.family_members:
+#             for member in order.family_members:
+#                 self.send_portal_access_email(member)
+#         return template_values
 
-    def send_portal_access_email(self, member):
-        values = {
-            "name": member.name,
-            "partner_id": member.id,
-            "login": member.email,
-        }
-        member_user = member.user_ids and member.user_ids[0] or False
-        res_users = request.env["res.users"].sudo()
+#     def send_portal_access_email(self, member):
+#         values = {
+#             "name": member.name,
+#             "partner_id": member.id,
+#             "login": member.email,
+#         }
+#         member_user = member.user_ids and member.user_ids[0] or False
+#         res_users = request.env["res.users"].sudo()
 
-        if not member_user:
-            member_user = res_users.search([("login", "=", values.get("login"))])
+#         if not member_user:
+#             member_user = res_users.search([("login", "=", values.get("login"))])
 
-            if not member_user:
-                new_user = request.env["res.users"].sudo()._signup_create_user(values)
-                if new_user:
-                    website = request.env["website"].get_current_website()
-                    new_user.sudo().write(
-                        {
-                            "company_id": website.company_id.id,
-                            "company_ids": [(6, 0, website.company_id.ids)],
-                        }
-                    )
-                    new_user.with_context(create_user=True).action_reset_password()
+#             if not member_user:
+#                 new_user = request.env["res.users"].sudo()._signup_create_user(values)
+#                 if new_user:
+#                     website = request.env["website"].get_current_website()
+#                     new_user.sudo().write(
+#                         {
+#                             "company_id": website.company_id.id,
+#                             "company_ids": [(6, 0, website.company_id.ids)],
+#                         }
+#                     )
+#                     new_user.with_context(create_user=True).action_reset_password()
