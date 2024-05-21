@@ -6,7 +6,7 @@
 Mass Mailing List membership line
 =================================
 
-Create mass mailing list from membership.membership_line view.
+Create mailing lists from membership line view
 
 Configuration
 =============

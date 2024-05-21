@@ -5,7 +5,8 @@
 ===========================
 Membership Line Partner Ref
 ===========================
-* Partner ref to membership line view
+
+Add partner ref to membership line view
 
 Configuration
 =============
