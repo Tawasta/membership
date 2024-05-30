@@ -20,7 +20,7 @@
 {
     "name": "Sale Create Membership",
     "summary": "Sale Create Membership",
-    "version": "14.0.1.2.0",
+    "version": "14.0.1.2.1",
     "category": "Website",
     "website": "https://gitlab.com/tawasta/odoo/membership",
     "author": "Tawasta",

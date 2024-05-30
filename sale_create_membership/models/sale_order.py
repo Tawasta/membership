@@ -28,12 +28,12 @@ class SaleOrder(models.Model):
         response = super(SaleOrder, self).action_confirm()
         need_contract = False
         needs_double_contract = False
+
         for li in self.order_line:
             if li.product_id.membership:
                 need_contract = True
                 if li.product_id.membership_type == "company":
                     needs_double_contract = True
-
         if need_contract is True:
             if needs_double_contract:
                 self._create_memberships(company=True)
@@ -93,10 +93,10 @@ class SaleOrder(models.Model):
                             "date_start": fields.Date.today(),
                         }
                     )
-                    create_contract = (
-                        self.env["contract.contract"]
-                        .sudo()
-                        .create(company_contract_vals)
+
+                    contract_model = self.env["contract.contract"]
+                    create_contract = contract_model.sudo().create(
+                        company_contract_vals
                     )
                     company_contract = create_contract
 
@@ -120,9 +120,10 @@ class SaleOrder(models.Model):
                             "line_recurrence": True,
                         }
                     )
-                    create_contract = (
-                        self.env["contract.contract"].sudo().create(contract_vals)
-                    )
+
+                    contract_model = self.env["contract.contract"]
+
+                    create_contract = contract_model.sudo().create(contract_vals)
                     if create_contract:
                         self._create_contract_lines(
                             create_contract, order, free_products_only=True
@@ -177,10 +178,15 @@ class SaleOrder(models.Model):
                                     "line_recurrence": True,
                                 }
                             )
-                            create_contract = (
-                                self.env["contract.contract"]
-                                .sudo()
-                                .create(contract_vals)
+
+                            contract_model = self.env["contract.contract"]
+                            if hasattr(contract_model, "partner_shipping_id"):
+                                contract_vals[
+                                    "partner_shipping_id"
+                                ] = order.partner_shipping_id.id
+
+                            create_contract = contract_model.sudo().create(
+                                contract_vals
                             )
                         if create_contract:
                             self._create_contract_lines(create_contract, order)
