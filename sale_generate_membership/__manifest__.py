@@ -29,10 +29,12 @@
     "installable": True,
     "external_dependencies": {"python": [], "bin": []},
     "depends": [
+        "contract_note_html",
         "membership_product",
         "sale",
         "membership",
         "contract_invoice_address",
+        "product_membership_type",
         "product_variant_variant_company",
         "product_variant_sale_price",
     ],

@@ -7,7 +7,6 @@
     <field name="inherit_id" ref="membership_product.product_template_only_form_view" />
     <field name="arch" type="xml">
         <field name="membership_date_to" position="after">
-            <field name="membership_type" />
             <field name="extra_products_ids" widget="many2many_tags" />
         </field>
 

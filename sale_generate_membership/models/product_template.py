@@ -9,13 +9,6 @@ class ProductTemplate(models.Model):
         string="Extra products",
     )
 
-    membership_type = fields.Selection(
-        [("family", "Family"), ("contact", "Contact"), ("company", "Company")],
-        string="Membership Type",
-        default="contact",
-        required=True,
-    )
-
     # Enable setting custom consent texts
     custom_consent_text_initial_msg = fields.Html(
         string="Custom Consent Text: Initial Message",

@@ -1,10 +1,8 @@
-from odoo import api, fields, models
+from odoo import api, models
 
 
 class ContractContract(models.Model):
     _inherit = "contract.contract"
-
-    note = fields.Html("Terms and conditions")
 
     @api.model
     def _set_start_contract_modification(self):

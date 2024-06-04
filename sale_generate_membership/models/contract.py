@@ -4,8 +4,6 @@ from odoo import api, fields, models
 class ContractContract(models.Model):
     _inherit = "contract.contract"
 
-    note = fields.Html("Terms and conditions")
-
     parent_contract_id = fields.Many2one(
         string="Parent contract", comodel_name="contract.contract"
     )

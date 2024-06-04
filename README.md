@@ -30,6 +30,7 @@ addon | version | maintainers | summary
 [membership_website_header_boxed_button](membership_website_header_boxed_button/) | 14.0.1.0.0 |  | Website Membership Header Boxed Button
 [only_one_membership_in_cart](only_one_membership_in_cart/) | 14.0.1.0.0 |  | Only one membership in cart
 [partner_membership_variant_company](partner_membership_variant_company/) | 14.0.1.3.0 |  | Add a list of membership variant companies for partner
+[product_membership_type](product_membership_type/) | 14.0.1.0.0 |  | Add a membership type selection for products
 [res_partner_reference_membership_number](res_partner_reference_membership_number/) | 14.0.1.0.0 |  | Partner field ref as membership number
 [sale_create_membership](sale_create_membership/) | 14.0.1.1.5 |  | Create membership contract when confirming a sale
 [sale_create_membership_prorate](sale_create_membership_prorate/) | 14.0.1.0.0 |  | Prorate membership price to allow synchronous contract dates
