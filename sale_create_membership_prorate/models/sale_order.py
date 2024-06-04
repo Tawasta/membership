@@ -12,7 +12,7 @@ class SaleOrder(models.Model):
     def _cart_update(self, *args, **kwargs):
         res = super()._cart_update(*args, **kwargs)
 
-        sale_order_line = self.env['sale.order.line'].sudo()
+        sale_order_line = self.env["sale.order.line"].sudo()
         sol_id = res.get("line_id")
         qty = res.get("quantity", 0)
         if sol_id and qty:
