@@ -8,10 +8,3 @@ class ProductTemplate(models.Model):
         "product.product",
         string="Free products",
     )
-
-    membership_type = fields.Selection(
-        [("company", "Company"), ("contact", "Contact")],
-        string="Membership Type",
-        default="contact",
-        required=True,
-    )

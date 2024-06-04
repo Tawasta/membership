@@ -32,6 +32,7 @@
         "contract_note_html",
         "membership_product",
         "sale",
+        "sale_order_contract_relation",
         "membership",
         "contract_invoice_address",
         "product_membership_type",

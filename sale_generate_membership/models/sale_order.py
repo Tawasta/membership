@@ -11,10 +11,6 @@ _logger = logging.getLogger(__name__)
 class SaleOrder(models.Model):
     _inherit = "sale.order"
 
-    contract_id = fields.Many2one(
-        string="Contract", comodel_name="contract.contract", readonly=1, copy=False
-    )
-
     family_members = fields.Many2many(
         string="Family members", comodel_name="res.partner"
     )

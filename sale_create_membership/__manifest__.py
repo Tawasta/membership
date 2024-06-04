@@ -32,6 +32,7 @@
         "contract_note_html",
         "membership_product",
         "sale",
+        "sale_order_contract_relation",
         "membership",
         "membership_group",
         "contract_invoice_address",
@@ -42,7 +43,6 @@
     ],
     "data": [
         "views/product_template_view.xml",
-        "views/sale_order.xml",
     ],
     "demo": [],
 }

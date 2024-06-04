@@ -1,12 +1,8 @@
-from odoo import api, fields, models
+from odoo import api, models
 
 
 class ContractContract(models.Model):
     _inherit = "contract.contract"
-
-    parent_contract_id = fields.Many2one(
-        string="Parent contract", comodel_name="contract.contract"
-    )
 
     @api.model
     def _set_start_contract_modification(self):
