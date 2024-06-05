@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+<record model="ir.ui.view" id="product_template_only_form_view">
+    <field name="name">show_firstname2 field to product template</field>
+    <field name="model">product.template</field>
+    <field name="inherit_id" ref="membership_product.product_template_only_form_view" />
+    <field name="arch" type="xml">
+        <field name="membership_date_to" position="after">
+            <field name="show_firstname2" />
+        </field>
+    </field>
+</record>
+
+</odoo>
