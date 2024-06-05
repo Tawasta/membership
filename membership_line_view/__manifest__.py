@@ -20,7 +20,7 @@
 
 {
     "name": "Membership Line View",
-    "summary": "Membership Line View",
+    "summary": "Add fields and customizability to membership line view",
     "version": "14.0.1.0.5",
     "category": "Sales",
     "website": "https://gitlab.com/tawasta/odoo/membership",

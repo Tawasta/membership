@@ -1,7 +1,7 @@
 ##############################################################################
 #
-#    Author: Oy Tawasta OS Technologies Ltd.
-#    Copyright 2022- Oy Tawasta OS Technologies Ltd. (https://tawasta.fi)
+#    Author: Tawasta
+#    Copyright 2024 Oy Tawasta OS Technologies Ltd. (https://tawasta.fi)
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -17,17 +17,22 @@
 #    along with this program. If not, see http://www.gnu.org/licenses/agpl.html
 #
 ##############################################################################
-
 {
-    "name": "Membership Line Partner Ref",
-    "summary": "Add partner ref to membership line view",
+    "name": "Sale Create Membership: Prorated price",
+    "summary": "Prorate membership price to allow synchronous contract dates",
     "version": "14.0.1.0.0",
-    "category": "Sales",
+    "category": "Website",
     "website": "https://gitlab.com/tawasta/odoo/membership",
     "author": "Tawasta",
     "license": "AGPL-3",
     "application": False,
     "installable": True,
-    "depends": ["membership_line_view"],
-    "data": ["views/membership_line_view.xml"],
+    "external_dependencies": {"python": [], "bin": []},
+    "depends": [
+        "sale_create_membership",
+    ],
+    "data": [
+        "views/product_template_view.xml",
+    ],
+    "demo": [],
 }

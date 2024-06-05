@@ -65,9 +65,15 @@ class SaleOrder(models.Model):
             "invoice_partner_id": order.partner_id.id,
             "note": order.note,
             "line_recurrence": True,
+            "contract_type": "sale",
             # Lisää muita tarvittavia kenttiä sopimukselle
         }
-        contract = self.env["contract.contract"].create(contract_vals)
+
+        contract_model = self.env["contract.contract"]
+        if hasattr(contract_model, "partner_shipping_id"):
+            contract_vals["partner_shipping_id"] = order.partner_shipping_id.id
+
+        contract = contract_model.create(contract_vals)
 
         contract.sudo().write({"contract_template_id": find_contract_template.id})
         contract._onchange_contract_template_id()
@@ -182,6 +188,7 @@ class SaleOrder(models.Model):
                     "note": order.note,
                     "line_recurrence": True,
                     "parent_contract_id": consent_record.contract_id.id,
+                    "contract_type": "sale",
                     # Lisää muita tarvittavia kenttiä sopimukselle
                 }
                 contract = self.env["contract.contract"].create(family_contract_vals)

@@ -1,7 +1,7 @@
 ##############################################################################
 #
 #    Author: Oy Tawasta OS Technologies Ltd.
-#    Copyright 2022- Oy Tawasta OS Technologies Ltd. (https://tawasta.fi)
+#    Copyright 2024 Oy Tawasta OS Technologies Ltd.
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -14,20 +14,19 @@
 #    GNU Affero General Public License for more details.
 #
 #    You should have received a copy of the GNU Affero General Public License
-#    along with this program. If not, see http://www.gnu.org/licenses/agpl.html
+#    along with this program. If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-
 {
-    "name": "Membership Line Partner Ref",
-    "summary": "Add partner ref to membership line view",
+    "name": "Membership Multi-company tags",
+    "summary": "Allows tagging a partner to multiple companies as customer or supplier",
     "version": "14.0.1.0.0",
-    "category": "Sales",
+    "category": "CRM",
     "website": "https://gitlab.com/tawasta/odoo/membership",
     "author": "Tawasta",
     "license": "AGPL-3",
     "application": False,
     "installable": True,
-    "depends": ["membership_line_view"],
-    "data": ["views/membership_line_view.xml"],
+    "depends": ["membership", "res_partner_multicompany"],
+    "data": ["views/res_partner_tree.xml", "views/res_partner_search.xml"],
 }

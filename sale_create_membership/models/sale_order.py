@@ -28,12 +28,12 @@ class SaleOrder(models.Model):
         response = super(SaleOrder, self).action_confirm()
         need_contract = False
         needs_double_contract = False
+
         for li in self.order_line:
             if li.product_id.membership:
                 need_contract = True
                 if li.product_id.membership_type == "company":
                     needs_double_contract = True
-
         if need_contract is True:
             if needs_double_contract:
                 self._create_memberships(company=True)
@@ -49,6 +49,13 @@ class SaleOrder(models.Model):
                     line.contract_line_id.cancel()
 
         return super().action_cancel()
+
+    def _calculate_last_date_invoiced(self):
+        """
+        Formulate a date that will be written into the last_date_invoiced field.
+        recurring_next_date will be computed to be +1 days from this.
+        """
+        return datetime.now().date() + relativedelta(years=1) - relativedelta(days=1)
 
     def _create_memberships(self, company=False):
         membership_pricelist_id = (
@@ -86,10 +93,10 @@ class SaleOrder(models.Model):
                             "date_start": fields.Date.today(),
                         }
                     )
-                    create_contract = (
-                        self.env["contract.contract"]
-                        .sudo()
-                        .create(company_contract_vals)
+
+                    contract_model = self.env["contract.contract"]
+                    create_contract = contract_model.sudo().create(
+                        company_contract_vals
                     )
                     company_contract = create_contract
 
@@ -113,14 +120,15 @@ class SaleOrder(models.Model):
                             "line_recurrence": True,
                         }
                     )
-                    create_contract = (
-                        self.env["contract.contract"].sudo().create(contract_vals)
-                    )
+
+                    contract_model = self.env["contract.contract"]
+
+                    create_contract = contract_model.sudo().create(contract_vals)
                     if create_contract:
                         self._create_contract_lines(
                             create_contract, order, free_products_only=True
                         )
-                        create_contract.recurring_create_invoice()
+                        # create_contract.recurring_create_invoice()
 
                         related_contract = (
                             self.env["contract.contract"]
@@ -170,10 +178,15 @@ class SaleOrder(models.Model):
                                     "line_recurrence": True,
                                 }
                             )
-                            create_contract = (
-                                self.env["contract.contract"]
-                                .sudo()
-                                .create(contract_vals)
+
+                            contract_model = self.env["contract.contract"]
+                            if hasattr(contract_model, "partner_shipping_id"):
+                                contract_vals[
+                                    "partner_shipping_id"
+                                ] = order.partner_shipping_id.id
+
+                            create_contract = contract_model.sudo().create(
+                                contract_vals
                             )
                         if create_contract:
                             self._create_contract_lines(create_contract, order)
@@ -213,6 +226,9 @@ class SaleOrder(models.Model):
         free_products_only=False,
         already_contract=False,
     ):
+
+        last_date_invoiced = self._calculate_last_date_invoiced()
+
         if free_products_only:
             currentTimeDate = datetime.now().date() + relativedelta(years=1)
             # first_day_of_next_year = currentTimeDate.replace(month=1, day=1)
@@ -236,7 +252,7 @@ class SaleOrder(models.Model):
                                         "product_id": free_p.id,
                                         "name": free_p.name,
                                         "recurring_rule_type": "yearly",
-                                        "recurring_next_date": currentTimeDate,
+                                        "last_date_invoiced": last_date_invoiced,
                                     }
                                     if free_p.product_variant_count > 1:
                                         contract_line_vals.update(
@@ -270,7 +286,7 @@ class SaleOrder(models.Model):
                                 "product_id": variant_product_same_company.id,
                                 "name": variant_product_same_company.name,
                                 "recurring_rule_type": "yearly",
-                                "recurring_next_date": currentTimeDate,
+                                "last_date_invoiced": last_date_invoiced,
                             }
                             if variant_product_same_company.product_variant_count > 1:
                                 contract_line_vals.update(
@@ -297,7 +313,7 @@ class SaleOrder(models.Model):
                             "product_id": line.product_id.id,
                             "name": line.product_id.name,
                             "recurring_rule_type": "yearly",
-                            "recurring_next_date": currentTimeDate,
+                            "last_date_invoiced": last_date_invoiced,
                         }
                         if line.product_id.product_variant_count > 1:
                             contract_line_vals.update(
@@ -333,7 +349,7 @@ class SaleOrder(models.Model):
                             "product_id": line.product_id.id,
                             "name": line.product_id.name,
                             "recurring_rule_type": "yearly",
-                            "recurring_next_date": currentTimeDate,
+                            "last_date_invoiced": last_date_invoiced,
                         }
                         if already_contract:
                             # all_ended = False
@@ -396,7 +412,7 @@ class SaleOrder(models.Model):
                             "product_id": line.product_id.id,
                             "name": line.product_id.name,
                             "recurring_rule_type": "yearly",
-                            "recurring_next_date": currentTimeDate,
+                            "last_date_invoiced": last_date_invoiced,
                         }
                         if already_contract:
                             # all_ended = False
