@@ -34,6 +34,7 @@ addon | version | maintainers | summary
 [sale_generate_membership](sale_generate_membership/) | 14.0.1.2.0 |  | Sale Create Membership
 [website_sale_create_user_membership](website_sale_create_user_membership/) | 14.0.1.0.1 |  | Website sale create user membership
 [website_sale_family_membership](website_sale_family_membership/) | 14.0.1.0.1 |  | website_sale_family_membership
+[website_sale_membership_firstname2](website_sale_membership_firstname2/) | 14.0.1.0.0 |  | website_sale_membership_firstname2
 [website_sale_offer_memberships](website_sale_offer_memberships/) | 14.0.1.0.1 |  | Website sale offer memberships
 
 [//]: # (end addons)

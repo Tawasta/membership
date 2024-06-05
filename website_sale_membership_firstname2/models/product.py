@@ -37,7 +37,9 @@ class ProductTemplate(models.Model):
     _inherit = "product.template"
 
     # 2. Fields declaration
-    show_firstname2 = fields.Boolean(string="Show firstname2 on website sale form", default=False)
+    show_firstname2 = fields.Boolean(
+        string="Show firstname2 on website sale form", default=False
+    )
     # 3. Default methods
 
     # 4. Compute and search fields, in the same order that fields declaration

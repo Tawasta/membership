@@ -28,5 +28,5 @@
     "application": False,
     "installable": True,
     "depends": ["membership", "website_sale_firstname2"],
-    "data": ["views/product.xml","views/website_sale_templates.xml"],
+    "data": ["views/product.xml", "views/website_sale_templates.xml"],
 }

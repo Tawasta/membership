@@ -13,10 +13,15 @@
         </xpath>
     </template>
 
-    <template id="hide_firstname2" inherit_id="website_sale_firstname2.address_firstname2">
+    <template
+        id="hide_firstname2"
+        inherit_id="website_sale_firstname2.address_firstname2"
+    >
         <!-- Päivittää firstname2 kentän piilotetuksi oletusarvoisesti -->
         <xpath expr="//div[contains(@class, 'div_firstname2')]" position="attributes">
-            <attribute name="class">form-group col-lg-6 div_firstname2 d-none</attribute>
+            <attribute
+                name="class"
+            >form-group col-lg-6 div_firstname2 d-none</attribute>
         </xpath>
     </template>
 
