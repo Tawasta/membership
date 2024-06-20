@@ -7,4 +7,11 @@ Membership management
 Membership Management Addons
 
 [//]: # (addons)
+
+Available addons
+----------------
+addon | version | maintainers | summary
+--- | --- | --- | ---
+[res_partner_reference_membership_number](res_partner_reference_membership_number/) | 17.0.1.0.0 |  | Partner field ref as membership number
+
 [//]: # (end addons)
