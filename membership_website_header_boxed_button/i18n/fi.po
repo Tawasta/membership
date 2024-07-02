@@ -1,0 +1,28 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* membership_website_header_boxed_button
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 17.0-20240126\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-07-02 06:07+0000\n"
+"PO-Revision-Date: 2024-07-02 09:07+0300\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: fi\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"X-Generator: Poedit 3.0.1\n"
+
+#. module: membership_website_header_boxed_button
+#: model_terms:ir.ui.view,arch_db:membership_website_header_boxed_button.template_header_boxed_oe_structure_header_boxed_button
+msgid "Become a member"
+msgstr "Liity jäseneksi"
+
+#. module: membership_website_header_boxed_button
+#: model_terms:ir.ui.view,arch_db:membership_website_header_boxed_button.template_header_boxed_oe_structure_header_boxed_button
+msgid "Buy additional membership"
+msgstr "Osta lisäjäsenyys"
