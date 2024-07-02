@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template
+        id="template_header_boxed_oe_structure_header_boxed_button"
+        inherit_id="website.header_call_to_action"
+    >
+
+        <xpath
+            expr="//section[@class='oe_unremovable oe_unmovable s_text_block']//div[@class='container']"
+            position="attributes"
+        >
+            <attribute name="t-if">1 == 0</attribute>
+        </xpath>
+
+        <xpath
+            expr="//section[@class='oe_unremovable oe_unmovable s_text_block']//div[@class='container']"
+            position="after"
+        >
+            <t
+                t-if="request.env.user.partner_id.membership_state in ['invoiced', 'paid', 'free']"
+            >
+                <a
+                    href="/shop/category/5"
+                    class="btn btn-primary ml-lg-4"
+                >Buy additional membership</a>
+            </t>
+            <t t-else="">
+                <a
+                    href="/jasenyys#liity-jaseneksi"
+                    class="btn btn-primary ml-lg-4"
+                >Become a member</a>
+            </t>
+        </xpath>
+
+    </template>
+</odoo>
