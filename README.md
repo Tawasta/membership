@@ -12,6 +12,7 @@ Available addons
 ----------------
 addon | version | maintainers | summary
 --- | --- | --- | ---
+[membership_product](membership_product/) | 17.0.1.0.0 |  | Membership Product
 [membership_website_header_boxed_button](membership_website_header_boxed_button/) | 17.0.1.0.0 |  | Replaces 'Contact Us' menu from website with Membership links
 [res_partner_reference_membership_number](res_partner_reference_membership_number/) | 17.0.1.0.0 |  | Partner field ref as membership number
 
