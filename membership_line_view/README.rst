@@ -5,7 +5,7 @@
 ====================
 Membership line view
 ====================
-* Membership Line View
+Add fields and customizability to membership line view
 
 Configuration
 =============

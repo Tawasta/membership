@@ -68,7 +68,12 @@ class SaleOrder(models.Model):
             "contract_type": "sale",
             # Lisää muita tarvittavia kenttiä sopimukselle
         }
-        contract = self.env["contract.contract"].create(contract_vals)
+
+        contract_model = self.env["contract.contract"]
+        if hasattr(contract_model, "partner_shipping_id"):
+            contract_vals["partner_shipping_id"] = order.partner_shipping_id.id
+
+        contract = contract_model.create(contract_vals)
 
         contract.sudo().write({"contract_template_id": find_contract_template.id})
         contract._onchange_contract_template_id()

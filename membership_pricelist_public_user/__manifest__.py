@@ -20,7 +20,7 @@
 
 {
     "name": "Membership pricelist public user",
-    "summary": "Membership pricelist public user",
+    "summary": "Membership pricelist for guest, if purchasing a membership",
     "version": "14.0.1.0.0",
     "category": "Website",
     "website": "https://gitlab.com/tawasta/odoo/membership",

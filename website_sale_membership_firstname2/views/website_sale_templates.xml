@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template
+        id="assets_frontend"
+        inherit_id="web.assets_frontend"
+        name="show firstname2 assets"
+    >
+        <xpath expr="." position="inside">
+            <script
+                type="text/javascript"
+                src="/website_sale_membership_firstname2/static/src/js/main.js"
+            />
+        </xpath>
+    </template>
+
+    <template
+        id="hide_firstname2"
+        inherit_id="website_sale_firstname2.address_firstname2"
+    >
+        <!-- Päivittää firstname2 kentän piilotetuksi oletusarvoisesti -->
+        <xpath expr="//div[contains(@class, 'div_firstname2')]" position="attributes">
+            <attribute
+                name="class"
+            >form-group col-lg-6 div_firstname2 d-none</attribute>
+        </xpath>
+    </template>
+
+
+</odoo>

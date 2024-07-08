@@ -19,8 +19,8 @@
 ##############################################################################
 {
     "name": "Sale Create Membership",
-    "summary": "Sale Create Membership",
-    "version": "14.0.1.1.4",
+    "summary": "Create membership contract when confirming a sale",
+    "version": "14.0.1.1.5",
     "category": "Website",
     "website": "https://gitlab.com/tawasta/odoo/membership",
     "author": "Tawasta",
