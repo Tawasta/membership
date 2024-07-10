@@ -21,7 +21,7 @@
     "name": "Only one membership in cart",
     "version": "17.0.1.0.0",
     "category": "Membership",
-    "summary": "Only one membership in cart",
+    "summary": "Allow to have only one membership in cart",
     "website": "https://gitlab.com/tawasta/odoo/membership",
     "author": "Tawasta",
     "license": "AGPL-3",
@@ -31,10 +31,7 @@
     "data": [],
     "assets": {
         "web.assets_frontend": [
-            "only_one_membership_in_cart/static/src/js/check_product_in_cart.js",
+            "only_one_membership_in_cart/static/src/js/check_product_in_cart.esm.js",
         ],
-        "website.assets_frontend": [
-            "only_one_membership_in_cart/static/src/scss/main.scss",
-        ]
     },
 }

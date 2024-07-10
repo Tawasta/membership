@@ -5,7 +5,8 @@
 ===========================
 Only one membership in cart
 ===========================
-Only one membership in cart
+
+Allow to have only one membership in cart
 
 Configuration
 =============
