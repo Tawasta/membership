@@ -1,0 +1,23 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* membership_contract_menu
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 17.0-20240126\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-07-30 07:49+0000\n"
+"PO-Revision-Date: 2024-07-30 10:49+0300\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: fi\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"X-Generator: Poedit 3.0.1\n"
+
+#. module: membership_contract_menu
+#: model:ir.ui.menu,name:membership_contract_menu.menu_contract
+msgid "Contract"
+msgstr "Sopimukset"

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <!-- Contract menu item -->
+    <menuitem
+        name="Contract"
+        id="menu_contract"
+        sequence="0"
+        parent="membership.menu_association"
+        action="contract.action_customer_contract"
+    />
+</odoo>
