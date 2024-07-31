@@ -30,8 +30,8 @@
     "installable": True,
     "depends": ["website_sale", "membership_group"],
     "data": [
-        "views/res_config_settings_views.xml",
         "views/templates.xml",
         "views/product_views.xml",
+        "views/website_views.xml",
     ],
 }

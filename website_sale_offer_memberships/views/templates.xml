@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <template id="payment" inherit_id="website_sale.payment">
-        <xpath expr="//div[@id='payment_method']" position="before">
+        <xpath expr="//div[@id='oe_structure_website_sale_payment_1']" position="after">
             <t t-if="show_membership_info">
                 <div class="alert alert-success alert-dismissible fade show">
                     <h4 class="alert-heading">
@@ -10,16 +10,21 @@
                     </h4>
                     <hr />
                     <t t-if="categ_href">
-                        <div class="row col-12">
-                            <p class="mb-0 mr-3">Become a member </p>
-                            <a
-                                role="button"
-                                class="btn btn-secondary d-xl-inline-block"
-                                t-att-href="categ_href"
-                                target="_blank"
-                            >
-                                <span>here</span>
-                            </a>
+                        <div class="row col-8">
+                            <div class="row col-7">
+                                <p class="mb-0 mr-3">Become a member </p>
+                            </div>
+
+                            <div class="row col-3">
+                                <a
+                                    role="button"
+                                    class="btn btn-secondary d-xl-inline-block"
+                                    t-att-href="categ_href"
+                                    target="_blank"
+                                >
+                                    <span>here</span>
+                                </a>
+                            </div>
                         </div>
                     </t>
                 </div>
