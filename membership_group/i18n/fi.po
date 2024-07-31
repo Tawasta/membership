@@ -1,0 +1,97 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* membership_group
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 17.0-20240126\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-07-31 06:12+0000\n"
+"PO-Revision-Date: 2024-07-31 09:14+0300\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: fi\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"X-Generator: Poedit 3.0.1\n"
+
+#. module: membership_group
+#: model:ir.model,name:membership_group.model_res_groups
+msgid "Access Groups"
+msgstr "Käyttöoikeusryhmät"
+
+#. module: membership_group
+#: model:ir.model.fields,field_description:membership_group.field_slide_channel__add_memberships
+msgid "Add members to this channel"
+msgstr "Lisää osallistujia tälle kanavalle"
+
+#. module: membership_group
+#: model:ir.model.fields,field_description:membership_group.field_product_pricelist_item__additional_membership_price
+msgid "Additional membership price"
+msgstr "Ylimääräinen jäsenyyshinta"
+
+#. module: membership_group
+#. odoo-python
+#: code:addons/membership_group/models/account_move.py:0
+#: code:addons/membership_group/models/partner.py:0
+#, python-format
+msgid "Compute membership permissions for {}"
+msgstr "Lasketaan jäsenyyden oikeudet: {}"
+
+#. module: membership_group
+#: model:ir.model,name:membership_group.model_res_partner
+msgid "Contact"
+msgstr "Kontakti"
+
+#. module: membership_group
+#: model:ir.model,name:membership_group.model_slide_channel
+msgid "Course"
+msgstr "Kurssi"
+
+#. module: membership_group
+#: model:ir.model.fields,field_description:membership_group.field_res_groups__membership_group
+#: model:ir.model.fields,field_description:membership_group.field_res_users_role__membership_group
+msgid "Is a membership group"
+msgstr "On jäsenyysryhmä"
+
+#. module: membership_group
+#: model:ir.model,name:membership_group.model_account_move
+msgid "Journal Entry"
+msgstr "Päiväkirjan kirjaus"
+
+#. module: membership_group
+#: model:ir.model.fields,field_description:membership_group.field_product_pricelist__membership_pricelist
+msgid "Membership pricelist"
+msgstr "Jäsenyyshinnasto"
+
+#. module: membership_group
+#: model:ir.actions.server,name:membership_group.ir_cron_membership_group_update_ir_actions_server
+msgid "Membership: Update membership permissions"
+msgstr "Jäsenyys: päivitä jäsenyysryhmät"
+
+#. module: membership_group
+#: model:ir.model,name:membership_group.model_product_pricelist
+msgid "Pricelist"
+msgstr "Hinnasto"
+
+#. module: membership_group
+#: model:ir.model,name:membership_group.model_product_pricelist_item
+msgid "Pricelist Rule"
+msgstr "Hinnastosääntö"
+
+#. module: membership_group
+#: model_terms:ir.ui.view,arch_db:membership_group.product_pricelist_view
+msgid "Settings"
+msgstr "Asetukset"
+
+#. module: membership_group
+#. odoo-python
+#: code:addons/membership_group/models/groups.py:0
+#, python-format
+msgid ""
+"You cannot define that group as a membership because another group already "
+"has permission."
+msgstr ""
+"Et voi merkitä ryhmää jäsenryhmäksi, koska toinen ryhmä on jo merkitty"
