@@ -21,6 +21,7 @@ class WebsiteSale(WebsiteSale):
                 .sudo()
                 .search([("is_membership_offer", "=", True)])
             )
+
             if membership_categ_id:
                 categ_href = "/shop/category/%s" % membership_categ_id[0].id
             else:
