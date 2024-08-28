@@ -47,12 +47,10 @@ class WebsiteSale(WebsiteSale):
 
                 # Jos käytetään jäsenyyshinnastoa
                 if use_membership_pricelist:
-                    membership_pricelist = request.env["product.pricelist"].sudo().search(
-                        [("membership_pricelist", "=", True)]
-                    )
+                    membership_pricelist = current_line.product_id.pricelist_id
 
                     # Jos nykyinen hinnasto ei ole jäsenyyshinnasto, vaihdetaan hinnasto
-                    if not order.pricelist_id.membership_pricelist:
+                    if order.pricelist_id != membership_pricelist:
                         request.session['website_sale_current_pl'] = membership_pricelist.id
                         order._cart_update_pricelist(pricelist_id=membership_pricelist.id)
 
