@@ -5,12 +5,13 @@ import logging
 class SaleOrderLine(models.Model):
     _inherit = "sale.order.line"
 
-    @api.depends('product_id', 'product_uom', 'product_uom_qty')
+    @api.depends("product_id", "product_uom", "product_uom_qty")
     def _compute_price_unit(self):
         for line in self:
-
             # Tarkistetaan, onko tilauksessa tilauspohjaisia (subscription) tuotteita
-            subscription_lines = line.order_id.order_line.filtered(lambda l: l.product_id.subscribable)
+            subscription_lines = line.order_id.order_line.filtered(
+                lambda li: li.product_id.subscribable
+            )
 
             if subscription_lines:
                 # Jos tilauksessa on useampi tilauspohjainen tuote
@@ -20,7 +21,9 @@ class SaleOrderLine(models.Model):
                     if line.id == first_subscription_line.id:
                         continue
                 # Jos tilauksessa on vain yksi subscription-tuote, ei muuteta sen hintaa
-                elif len(subscription_lines) == 1 and subscription_lines[0].id == line.id:
+                elif (
+                    len(subscription_lines) == 1 and subscription_lines[0].id == line.id
+                ):
                     continue
 
             # Jos subscription-tuotteita ei ole tai enemmän kuin yksi, käsitellään muut rivit normaalisti

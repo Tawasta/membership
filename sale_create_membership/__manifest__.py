@@ -17,10 +17,9 @@
 #    along with this program. If not, see http://www.gnu.org/licenses/agpl.html
 #
 ##############################################################################
-
 {
-    "name": "Membership pricelist public user",
-    "summary": "Membership pricelist for guest, if purchasing a membership",
+    "name": "Sale Create Membership",
+    "summary": "Create membership contract when confirming a sale",
     "version": "17.0.1.0.0",
     "category": "Website",
     "website": "https://gitlab.com/tawasta/odoo/membership",
@@ -28,6 +27,13 @@
     "license": "AGPL-3",
     "application": False,
     "installable": True,
-    "depends": ["website_sale", "membership_group"],
-    "data": [],
+    "external_dependencies": {"python": [], "bin": []},
+    "depends": [
+        "subscription_oca",
+        "subscription_line_partner",
+    ],
+    "data": [
+        "views/product_template_view.xml",
+    ],
+    "demo": [],
 }
