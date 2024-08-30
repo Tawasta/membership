@@ -28,11 +28,14 @@
     "application": False,
     "installable": True,
     "external_dependencies": {"python": [], "bin": []},
-    "depends": ["subscription_oca", "website_slides", ],
+    "depends": [
+        "subscription_oca",
+        "website_slides",
+    ],
     "data": [
-        #"data/ir_cron.xml",
+        # "data/ir_cron.xml",
         "views/groups_view.xml",
-        #"views/product_pricelist_views.xml",
+        # "views/product_pricelist_views.xml",
         "views/product_template_view.xml",
         "views/slide_channel.xml",
     ],

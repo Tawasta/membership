@@ -29,6 +29,5 @@
     "application": False,
     "installable": True,
     "depends": ["website_sale", "membership_group"],
-    "data": [
-    ],
+    "data": [],
 }

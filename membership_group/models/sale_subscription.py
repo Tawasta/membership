@@ -1,6 +1,7 @@
 from odoo import api, fields, models, _
 from datetime import date
 
+
 class SaleSubscription(models.Model):
     _inherit = "sale.subscription"
 
