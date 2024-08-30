@@ -35,11 +35,11 @@ class SaleOrder(models.Model):
 
         # Tarkistetaan, onko ilmaisia tuotteita ja sama varianttiyhtiö
         correct_product = False
-        if line.product_id.free_product_id:
+        if line.product_id.product_tmpl_id.free_product_id:
             free_product = next(
                 (
                     free_p
-                    for free_p in line.product_id.free_products_id.product_variant_ids
+                    for free_p in line.product_id.product_tmpl_id.free_products_id.product_variant_ids
                     if free_p.variant_company_id == line.product_id.variant_company_id
                 ),
                 None,
