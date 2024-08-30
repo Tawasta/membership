@@ -29,7 +29,8 @@
     "installable": True,
     "external_dependencies": {"python": [], "bin": []},
     "depends": [
-        "subscription_oca"
+        "subscription_oca",
+        "subscription_line_partner",
     ],
     "data": [
         "views/product_template_view.xml",
