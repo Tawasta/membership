@@ -7,6 +7,7 @@ class ProductTemplate(models.Model):
     free_product_id = fields.Many2one(
         comodel_name="product.template",
         string="Free products",
+        relation="related_free_product_rel",
     )
 
     membership_type = fields.Selection(
