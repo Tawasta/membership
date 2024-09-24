@@ -8,14 +8,14 @@ class WebsiteSale(WebsiteSale):
         render_values = super(WebsiteSale, self)._get_shop_payment_values(
             order, **kwargs
         )
-        is_membership = False
+        is_subscribable = False
         for line in order.order_line:
-            if line.product_id.membership:
-                is_membership = True
-        if order.partner_id.property_product_pricelist.membership_pricelist:
-            is_membership = True
+            if line.product_id.subscribable:
+                is_subscribable = True
+        if order.partner_id.subscription_ids.filtered(lambda s: s.in_progress):
+            is_subscribable = True
 
-        if is_membership is False:
+        if is_subscribable is False:
             membership_categ_id = (
                 request.env["product.public.category"]
                 .sudo()
