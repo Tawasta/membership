@@ -29,6 +29,7 @@
     "installable": True,
     "external_dependencies": {"python": [], "bin": []},
     "depends": [
+        "product_pricelist",
         "subscription_oca",
         "website_slides",
     ],
@@ -36,7 +37,6 @@
         # "data/ir_cron.xml",
         "views/groups_view.xml",
         # "views/product_pricelist_views.xml",
-        "views/product_template_view.xml",
         "views/slide_channel.xml",
     ],
     "demo": [],
