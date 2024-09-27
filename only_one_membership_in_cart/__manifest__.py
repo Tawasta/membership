@@ -19,7 +19,7 @@
 ##############################################################################
 {
     "name": "Only one membership in cart",
-    "version": "17.0.1.0.0",
+    "version": "17.0.1.1.0",
     "category": "Membership",
     "summary": "Allow to have only one membership in cart",
     "website": "https://gitlab.com/tawasta/odoo/membership",
