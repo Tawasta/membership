@@ -19,7 +19,7 @@ addon | version | maintainers | summary
 [membership_product](membership_product/) | 17.0.1.0.0 |  | Membership Product
 [membership_state_compute_queue](membership_state_compute_queue/) | 17.0.1.0.0 |  | Make queue jobs for all membership state calculations
 [membership_website_header_boxed_button](membership_website_header_boxed_button/) | 17.0.1.0.0 |  | Replaces 'Contact Us' menu from website with Membership links
-[only_one_membership_in_cart](only_one_membership_in_cart/) | 17.0.1.0.0 |  | Allow to have only one membership in cart
+[only_one_membership_in_cart](only_one_membership_in_cart/) | 17.0.1.1.0 |  | Allow to have only one membership in cart
 [res_partner_reference_membership_number](res_partner_reference_membership_number/) | 17.0.1.0.0 |  | Partner field ref as membership number
 [website_sale_offer_memberships](website_sale_offer_memberships/) | 17.0.1.0.0 |  | Website sale offer memberships
 

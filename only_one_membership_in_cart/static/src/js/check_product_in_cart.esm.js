@@ -1,41 +1,27 @@
 /** @odoo-module **/
 
-import publicWidget from "@web/legacy/js/public/public_widget";
+import {WebsiteSale} from "@website_sale/js/website_sale";
 
-publicWidget.registry.only_one_membership_in_cart = publicWidget.Widget.extend({
-    selector: "#product_details",
+WebsiteSale.include({
+    _onChangeCombination: function (ev, $parent) {
+        console.log("on change in membership REACHED");
 
-    events: {
-        "change input.product_id": "_checkProductAndBlockIfNeeded",
-    },
+        const res = this._super.apply(this, arguments);
 
-    init: function () {
-        this.rpc = this.bindService("rpc");
-        this._checkProductAndBlockIfNeeded();
-    },
+        const productId = $parent.find(".product_id").val();
+        const route = `/check_product_in_cart`;
 
-    _checkProductAndBlockIfNeeded: async function () {
-        var $button = $("#add_to_cart");
-        if ($button.length) {
-            // Haetaan productId .product_id kentästä
-            const productId = $("#product_details .js_main_product .product_id").val();
-
-            var isInCart = this._checkIfProductInCart(productId);
-
-            const inCartResult = await Promise.resolve(isInCart);
-            const inCart = inCartResult.in_cart;
-
-            if (inCart) {
-                $("#add_to_cart").addClass("disabled");
-                $(".o_we_buy_now").addClass("disabled");
-            }
-        }
-    },
-
-    _checkIfProductInCart: function (productId) {
-        var result = this.rpc("/check_product_in_cart", {
+        this.rpc(route, {
             product_id: productId,
+        }).then(function (response) {
+            if (response.in_cart) {
+                $parent.find("#add_to_cart").addClass("disabled");
+                $parent.find(".o_we_buy_now").addClass("disabled");
+            }
+
+            return res;
         });
-        return result;
     },
 });
+
+export default WebsiteSale;
