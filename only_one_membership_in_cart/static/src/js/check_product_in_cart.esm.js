@@ -4,8 +4,6 @@ import {WebsiteSale} from "@website_sale/js/website_sale";
 
 WebsiteSale.include({
     _onChangeCombination: function (ev, $parent) {
-        console.log("on change in membership REACHED");
-
         const res = this._super.apply(this, arguments);
 
         const productId = $parent.find(".product_id").val();
