@@ -14,14 +14,14 @@ class ProductCartCheckController(http.Controller):
             product = request.env["product.product"].sudo().browse(product_id)
 
             # Tarkista, onko tuote jäsenyystuote
-            is_membership_product = product.membership
+            is_membership_product = product.subscribable
 
             # Tarkista jokainen tuote korissa
             for line in order.order_line:
                 # Jos tuote on jäsenyystuote ja korissa on muita jäsenyystuotteita
                 if (
                     is_membership_product
-                    and line.product_id.membership
+                    and line.product_id.subscribable
                     and line.product_id.product_tmpl_id.id != product.product_tmpl_id.id
                 ):
                     in_cart = True

@@ -8,7 +8,7 @@
             <attribute
                 name="t-value"
                 separator=" or "
-                add="line.product_id.membership"
+                add="line.product_id.subscribable"
             />
         </xpath>
     </template>
